@@ -143,7 +143,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 
 /* partie */
 .game{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
-.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--surface);border-radius:var(--r-lg);padding:22px 16px;box-shadow:0 0 0 3px #e8b21f,var(--shadow);min-width:0}
+.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--surface);border-radius:var(--r-lg);padding:22px 16px;box-shadow:0 0 0 3px #0b0f0d,var(--shadow);min-width:0}
 .ring{position:relative;width:min(300px,74vw);aspect-ratio:1;max-width:100%}
 .ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .ring .track{fill:none;stroke:var(--line);stroke-width:5}
@@ -308,11 +308,16 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 }
 @media (max-width:520px){ .modes{grid-template-columns:1fr} .mode .ic{width:40px;height:40px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.install-sheet{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#1b4535;color:#eef4ec;border-radius:20px;padding:16px 18px;z-index:25;box-shadow:0 0 0 3px #e8b21f,0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:10px}
+.install-sheet{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#1b4535;color:#eef4ec;border-radius:20px;padding:16px 18px;z-index:25;box-shadow:0 0 0 3px #0b0f0d,0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:10px}
 .install-sheet b{font-family:var(--f-display);font-size:22px;text-transform:uppercase}
 .install-sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
 .install-sheet .row{justify-content:flex-end}
 .iconbtn.hot{background:var(--yellow);color:var(--ink);font-weight:700}
+/* contours noirs partout */
+.panel,.panel.flat,.two>.panel:nth-child(2),.side .panel:first-child,.side .panel:last-child{--pc:#0b0f0d}
+.mode{--mc:#0b0f0d!important}
+.rules li,.rules li:nth-child(n){--rc:#0b0f0d}
+.badge:not(.locked){--bc:#0b0f0d!important}
 </style>
 </head>
 <body>
@@ -376,7 +381,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9.1</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
