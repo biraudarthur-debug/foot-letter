@@ -1,6 +1,6 @@
 {
-  "name": "FOOT LETTER",
-  "short_name": "Foot Letter",
+  "name": "FOOT LETTERS",
+  "short_name": "Foot Letters",
   "description": "Le jeu de culture foot : une lettre, un chrono, citez un maximum de footballeurs.",
   "id": "/",
   "start_url": "/?app=1",

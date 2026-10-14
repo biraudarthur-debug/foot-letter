@@ -1,4 +1,4 @@
-# FOOT LETTER
+# FOOT LETTERS
 
 Jeu web de culture foot : une lettre, un chrono, citez un maximum de footballeurs par leur nom de famille.
 

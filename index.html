@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FOOT LETTER · Le jeu de culture foot : cite des footballeurs par lettre</title>
+<title>FOOT LETTERS · Le jeu de culture foot : cite des footballeurs par lettre</title>
 <meta name="description" content="Jeu de culture foot gratuit : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. Lettre du jour, défis, tour de l'alphabet et parties en ligne entre amis.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="FOOT LETTER">
+<meta property="og:site_name" content="FOOT LETTERS">
 <meta property="og:image" content="/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FOOT LETTER · le jeu de culture foot">
+<meta name="twitter:title" content="FOOT LETTERS · le jeu de culture foot">
 <meta name="twitter:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
 <meta name="twitter:image" content="/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTER","alternateName":"Foot Letter","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
-<meta property="og:title" content="FOOT LETTER · le jeu de culture foot">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","alternateName":"Foot Letters","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<meta property="og:title" content="FOOT LETTERS · le jeu de culture foot">
 <meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
 <meta name="theme-color" content="#0f4a2b">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -24,7 +24,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Foot Letter">
+<meta name="apple-mobile-web-app-title" content="Foot Letters">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230f3a2a'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23f1f6ef' stroke-width='4'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='27' text-anchor='middle' fill='%23f7c948'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -273,6 +273,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 @keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
 .wnext{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:.04em;margin:0}
 .seo-links{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+#seoLetters{display:flex;flex-wrap:wrap;gap:6px;min-width:0;max-width:100%}
 .seo-links a{color:var(--chalk-2);text-decoration:none;padding:2px 7px;border-radius:8px;background:rgba(0,0,0,.18)}
 .seo-links a:hover{color:var(--chalk)}
 /* compte & profil */
@@ -338,10 +339,10 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 </style>
 </head>
 <body>
-<noscript><p style="padding:16px">FOOT LETTER est un jeu de culture foot : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. <a href="/joueurs/">Voir les footballeurs par lettre</a>.</p></noscript>
+<noscript><p style="padding:16px">FOOT LETTERS est un jeu de culture foot : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. <a href="/joueurs/">Voir les footballeurs par lettre</a>.</p></noscript>
 <div class="wrap">
   <header class="topbar">
-    <button class="brand" id="brand" type="button" data-i18n-aria="home"><i>F</i>Foot Letter</button>
+    <button class="brand" id="brand" type="button" data-i18n-aria="home"><i>F</i>Foot Letters</button>
     <div class="tools">
       <span class="chip" id="netChip" hidden></span>
       <div class="seg" id="langSeg" role="group" aria-label="Langue / Language / Sprache">
@@ -400,7 +401,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v10</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.1</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -4626,7 +4627,7 @@ Merih Demiral
 const I18N={
 fr:{
  share_img:'Image', img_saved:'Image enregistrée : publie-la en story !', beat:'Tu fais mieux que {p} % des joueurs du jour', seo_by_letter:'Footballeurs par lettre :',
- inst_btn:'Installer l\'appli', inst_title:'Installer FOOT LETTER', inst_ios1:'Touche le bouton Partager (le carré avec une flèche vers le haut) en bas de Safari.', inst_ios2:'Choisis « Sur l\'écran d\'accueil ».', inst_ios3:'Touche « Ajouter » : l\'icône FOOT LETTER apparaît avec tes applis.', inst_ok:'Compris', inst_done:'FOOT LETTER est installé !',
+ inst_btn:'Installer l\'appli', inst_title:'Installer FOOT LETTERS', inst_ios1:'Touche le bouton Partager (le carré avec une flèche vers le haut) en bas de Safari.', inst_ios2:'Choisis « Sur l\'écran d\'accueil ».', inst_ios3:'Touche « Ajouter » : l\'icône FOOT LETTERS apparaît avec tes applis.', inst_ok:'Compris', inst_done:'FOOT LETTERS est installé !',
  ad_title:'Tableau de bord', ad_claim_note:'Espace réservé au créateur du jeu. Entre ton code administrateur une seule fois : il reste associé à ton compte.', ad_code:'Code administrateur', ad_unlock:'Débloquer', ad_bad:'Code incorrect.', ad_forbidden:'Accès réservé à l\'administrateur.', ad_total:'Comptes créés', ad_today:'Actifs aujourd\'hui', ad_week:'Actifs cette semaine', ad_new:'Nouveaux cette semaine', ad_daily:'Ont joué la lettre du jour', ad_list:'Joueurs ({n})', ad_search:'Rechercher un pseudo…', ad_seen:'Vu', ad_joined:'Inscrit', ad_now:'à l\'instant', ad_min:'il y a {n} min', ad_h:'il y a {n} h', ad_d:'il y a {n} j',
  acct_btn:'Connexion', acct_in:'Connecté : {x}', acct_out:'Crée un compte pour garder tes stats, débloquer des badges et entrer aux classements.', my_profile:'Mon profil',
  ac_login:'Se connecter', ac_register:'Créer un compte', ac_name:'Pseudo', ac_pass:'Mot de passe', ac_title_login:'Content de te revoir', ac_title_register:'Rejoins le vestiaire', ac_note:'Pas d\'e-mail demandé. Garde bien ton mot de passe : il ne peut pas être récupéré.', ac_why:'Avec un compte', ac_p1:'Tes statistiques sur tous les modes', ac_p2:'15 badges à débloquer', ac_p3:'Ta série de jours à la lettre du jour', ac_p4:'Des classements vérifiés par le serveur', ac_logout:'Se déconnecter', ac_err_taken:'Ce pseudo est déjà pris.', ac_err_bad_login:'Pseudo ou mot de passe incorrect.', ac_err_bad_name:'Pseudo : 2 à 18 caractères (lettres, chiffres, espace, - _ .).', ac_err_bad_pass:'Mot de passe : 4 caractères minimum.', ac_err_net:'Serveur injoignable. Réessaie dans un instant.', ac_welcome:'Bienvenue {x} !',
@@ -4654,7 +4655,7 @@ fr:{
  tries_note:'Au bout de {n} mauvaises réponses dans un même passage : carton rouge.', tries_note_1:'Une mauvaise réponse dans un passage : carton rouge.', tries_note0:'Mauvaises réponses sans limite : seul le chrono élimine.', letter_note:'Manches suivantes : lettre au hasard.', rounds_note:'Chaque manche : 1er +3 pts, 2e +2, 3e +1.',
  copy_link:'Copier le lien d\'invitation', copy_code:'Copier le code', help_host:'Envoie le lien à tes amis : ils choisissent un pseudo et arrivent dans ton salon. Garde cette page ouverte pendant tout le match.', help_guest:'Tu es dans le salon. L\'hôte lance le match quand tout le monde est prêt.',
  set_host:'Réglages (toi seul peux les changer)', set_guest:'Réglages choisis par l\'hôte', players_n:'Joueurs ({n})', host_tag:'Hôte', you_tag:'Toi', leave:'Quitter', wait_kick:'En attente du coup d\'envoi…', wait_host:'Connexion à l\'hôte…', solo_hint:'Tu peux aussi lancer seul pour t\'entraîner.',
- code_copied:'Code copié', link_copied:'Lien copié, envoie-le à tes amis', link_file:'Le lien ne marche que si le site est en ligne. Donne plutôt le code.', share_invite:'Rejoins ma partie de FOOT LETTER !',
+ code_copied:'Code copié', link_copied:'Lien copié, envoie-le à tes amis', link_file:'Le lien ne marche que si le site est en ligne. Donne plutôt le code.', share_invite:'Rejoins ma partie de FOOT LETTERS !',
  letter:'Lettre', room:'Salon', round_chip:'Manche {r}/{m}', your_turn:'À toi de jouer', turn_of:'Au tour de', draw:'Tirage de la lettre', chosen_letter:'Lettre choisie par l\'hôte', starts:'{x} commence', pass_device:'Passe-lui l\'appareil', say_surname:'Un nom de famille en {L}', ph_mine:'Nom de famille en {L}…', ph_wait:'En attente de {x}…', validate:'Valider', give_up:'Je sèche', typing:'{x} écrit…',
  fairplay:'Fair-play : quitter la page ou la fenêtre = carton jaune automatique, deux = rouge.', fairplay_solo:'Fair-play : quitter la page = carton jaune, deux = disqualifié.',
  players:'Joueurs', sheet:'Feuille de match', none_yet:'Aucun joueur cité pour le moment.', ok_line:'✓ {x} : +1 pour {p}', checking:'Recherche de « {x} » parmi les joueurs pros…', unknown_q:'« {x} » n\'est pas reconnu.', unknown_off:'« {x} » : recherche en ligne indisponible.', host_q:'Tu valides, en tant qu\'hôte ?', local_q:'Vous validez ?', host_dec:'L\'hôte décide…', accept:'Valider le joueur', reject:'Refuser', several:'plusieurs joueurs portent ce nom', born:'né en {y}', ex:'ex-', you:'toi', host:'hôte',
@@ -4678,7 +4679,7 @@ fr:{
 },
 en:{
  share_img:'Image', img_saved:'Image saved: post it as a story!', beat:'You beat {p}% of today\'s players', seo_by_letter:'Footballers by letter:',
- inst_btn:'Install app', inst_title:'Install FOOT LETTER', inst_ios1:'Tap the Share button (the square with an up arrow) at the bottom of Safari.', inst_ios2:'Choose “Add to Home Screen”.', inst_ios3:'Tap “Add”: the FOOT LETTER icon appears with your apps.', inst_ok:'Got it', inst_done:'FOOT LETTER is installed!',
+ inst_btn:'Install app', inst_title:'Install FOOT LETTERS', inst_ios1:'Tap the Share button (the square with an up arrow) at the bottom of Safari.', inst_ios2:'Choose “Add to Home Screen”.', inst_ios3:'Tap “Add”: the FOOT LETTERS icon appears with your apps.', inst_ok:'Got it', inst_done:'FOOT LETTERS is installed!',
  ad_title:'Dashboard', ad_claim_note:'For the game\'s creator only. Enter your admin code once: it stays linked to your account.', ad_code:'Admin code', ad_unlock:'Unlock', ad_bad:'Wrong code.', ad_forbidden:'Admin only.', ad_total:'Accounts', ad_today:'Active today', ad_week:'Active this week', ad_new:'New this week', ad_daily:'Played the daily letter', ad_list:'Players ({n})', ad_search:'Search a nickname…', ad_seen:'Seen', ad_joined:'Joined', ad_now:'just now', ad_min:'{n} min ago', ad_h:'{n} h ago', ad_d:'{n} d ago',
  acct_btn:'Log in', acct_in:'Logged in: {x}', acct_out:'Create an account to keep your stats, unlock badges and enter the leaderboards.', my_profile:'My profile',
  ac_login:'Log in', ac_register:'Create account', ac_name:'Nickname', ac_pass:'Password', ac_title_login:'Welcome back', ac_title_register:'Join the squad', ac_note:'No e-mail needed. Keep your password safe: it can\'t be recovered.', ac_why:'With an account', ac_p1:'Your stats across every mode', ac_p2:'15 badges to unlock', ac_p3:'Your daily-letter streak', ac_p4:'Server-checked leaderboards', ac_logout:'Log out', ac_err_taken:'That nickname is taken.', ac_err_bad_login:'Wrong nickname or password.', ac_err_bad_name:'Nickname: 2 to 18 characters (letters, digits, space, - _ .).', ac_err_bad_pass:'Password: at least 4 characters.', ac_err_net:'Server unreachable. Try again in a moment.', ac_welcome:'Welcome {x}!',
@@ -4706,7 +4707,7 @@ en:{
  tries_note:'After {n} wrong answers in one turn: red card.', tries_note_1:'One wrong answer in a turn: red card.', tries_note0:'Unlimited wrong answers: only the clock eliminates.', letter_note:'Next rounds: random letter.', rounds_note:'Each round: 1st +3 pts, 2nd +2, 3rd +1.',
  copy_link:'Copy invite link', copy_code:'Copy code', help_host:'Send the link to your friends: they pick a nickname and land in your room. Keep this page open for the whole match.', help_guest:'You\'re in the room. The host starts the match when everyone\'s ready.',
  set_host:'Settings (only you can change them)', set_guest:'Settings chosen by the host', players_n:'Players ({n})', host_tag:'Host', you_tag:'You', leave:'Leave', wait_kick:'Waiting for kick-off…', wait_host:'Connecting to the host…', solo_hint:'You can also start alone to practise.',
- code_copied:'Code copied', link_copied:'Link copied, send it to your friends', link_file:'The link only works once the site is online. Share the code instead.', share_invite:'Join my FOOT LETTER game!',
+ code_copied:'Code copied', link_copied:'Link copied, send it to your friends', link_file:'The link only works once the site is online. Share the code instead.', share_invite:'Join my FOOT LETTERS game!',
  letter:'Letter', room:'Room', round_chip:'Round {r}/{m}', your_turn:'Your turn', turn_of:'Now playing', draw:'Drawing the letter', chosen_letter:'Letter picked by the host', starts:'{x} starts', pass_device:'Hand them the device', say_surname:'A surname starting with {L}', ph_mine:'Surname starting with {L}…', ph_wait:'Waiting for {x}…', validate:'Submit', give_up:'I\'m stuck', typing:'{x} is typing…',
  fairplay:'Fair play: leaving the page or window = automatic yellow card, two = red.', fairplay_solo:'Fair play: leaving the page = yellow card, two = disqualified.',
  players:'Players', sheet:'Match sheet', none_yet:'No player named yet.', ok_line:'✓ {x}: +1 for {p}', checking:'Looking up “{x}” among pro players…', unknown_q:'“{x}” isn\'t recognised.', unknown_off:'“{x}”: online search unavailable.', host_q:'As the host, do you accept it?', local_q:'Do you accept it?', host_dec:'The host decides…', accept:'Accept player', reject:'Reject', several:'several players share this name', born:'born {y}', ex:'ex-', you:'you', host:'host',
@@ -4730,7 +4731,7 @@ en:{
 },
 de:{
  share_img:'Bild', img_saved:'Bild gespeichert: Teile es als Story!', beat:'Du bist besser als {p} % der heutigen Spieler', seo_by_letter:'Fußballer nach Buchstabe:',
- inst_btn:'App installieren', inst_title:'FOOT LETTER installieren', inst_ios1:'Tippe unten in Safari auf Teilen (das Quadrat mit dem Pfeil nach oben).', inst_ios2:'Wähle „Zum Home-Bildschirm“.', inst_ios3:'Tippe auf „Hinzufügen“: Das FOOT-LETTER-Symbol erscheint bei deinen Apps.', inst_ok:'Verstanden', inst_done:'FOOT LETTER ist installiert!',
+ inst_btn:'App installieren', inst_title:'FOOT LETTERS installieren', inst_ios1:'Tippe unten in Safari auf Teilen (das Quadrat mit dem Pfeil nach oben).', inst_ios2:'Wähle „Zum Home-Bildschirm“.', inst_ios3:'Tippe auf „Hinzufügen“: Das FOOT-LETTER-Symbol erscheint bei deinen Apps.', inst_ok:'Verstanden', inst_done:'FOOT LETTERS ist installiert!',
  ad_title:'Dashboard', ad_claim_note:'Nur für den Ersteller des Spiels. Gib deinen Admin-Code einmal ein: Er bleibt mit deinem Konto verknüpft.', ad_code:'Admin-Code', ad_unlock:'Freischalten', ad_bad:'Falscher Code.', ad_forbidden:'Nur für den Admin.', ad_total:'Konten', ad_today:'Heute aktiv', ad_week:'Diese Woche aktiv', ad_new:'Neu diese Woche', ad_daily:'Tagesbuchstabe gespielt', ad_list:'Spieler ({n})', ad_search:'Spielernamen suchen…', ad_seen:'Gesehen', ad_joined:'Dabei seit', ad_now:'gerade eben', ad_min:'vor {n} Min.', ad_h:'vor {n} Std.', ad_d:'vor {n} T.',
  acct_btn:'Anmelden', acct_in:'Angemeldet: {x}', acct_out:'Erstelle ein Konto, um Statistiken zu behalten, Abzeichen freizuschalten und in die Ranglisten zu kommen.', my_profile:'Mein Profil',
  ac_login:'Anmelden', ac_register:'Konto erstellen', ac_name:'Spielername', ac_pass:'Passwort', ac_title_login:'Schön, dass du da bist', ac_title_register:'Willkommen im Team', ac_note:'Keine E-Mail nötig. Merk dir dein Passwort gut: Es kann nicht wiederhergestellt werden.', ac_why:'Mit einem Konto', ac_p1:'Deine Statistiken in allen Modi', ac_p2:'15 Abzeichen zum Freischalten', ac_p3:'Deine Serie beim Buchstaben des Tages', ac_p4:'Vom Server geprüfte Ranglisten', ac_logout:'Abmelden', ac_err_taken:'Dieser Name ist schon vergeben.', ac_err_bad_login:'Name oder Passwort falsch.', ac_err_bad_name:'Name: 2 bis 18 Zeichen (Buchstaben, Ziffern, Leerzeichen, - _ .).', ac_err_bad_pass:'Passwort: mindestens 4 Zeichen.', ac_err_net:'Server nicht erreichbar. Versuch es gleich nochmal.', ac_welcome:'Willkommen {x}!',
@@ -4758,7 +4759,7 @@ de:{
  tries_note:'Nach {n} falschen Antworten in einem Zug: Rote Karte.', tries_note_1:'Eine falsche Antwort in einem Zug: Rote Karte.', tries_note0:'Falsche Antworten unbegrenzt: Nur die Uhr scheidet aus.', letter_note:'Weitere Runden: zufälliger Buchstabe.', rounds_note:'Jede Runde: 1. +3 Pkt., 2. +2, 3. +1.',
  copy_link:'Einladungslink kopieren', copy_code:'Code kopieren', help_host:'Schick den Link an deine Freunde: Sie wählen einen Namen und landen in deinem Raum. Lass diese Seite das ganze Spiel über offen.', help_guest:'Du bist im Raum. Der Gastgeber startet, wenn alle bereit sind.',
  set_host:'Einstellungen (nur du kannst sie ändern)', set_guest:'Vom Gastgeber gewählte Einstellungen', players_n:'Spieler ({n})', host_tag:'Gastgeber', you_tag:'Du', leave:'Verlassen', wait_kick:'Warten auf den Anstoß…', wait_host:'Verbinde mit dem Gastgeber…', solo_hint:'Du kannst auch allein üben.',
- code_copied:'Code kopiert', link_copied:'Link kopiert, schick ihn deinen Freunden', link_file:'Der Link funktioniert erst, wenn die Seite online ist. Gib lieber den Code weiter.', share_invite:'Spiel mit mir FOOT LETTER!',
+ code_copied:'Code kopiert', link_copied:'Link kopiert, schick ihn deinen Freunden', link_file:'Der Link funktioniert erst, wenn die Seite online ist. Gib lieber den Code weiter.', share_invite:'Spiel mit mir FOOT LETTERS!',
  letter:'Buchstabe', room:'Raum', round_chip:'Runde {r}/{m}', your_turn:'Du bist dran', turn_of:'Am Zug', draw:'Buchstabe wird gezogen', chosen_letter:'Vom Gastgeber gewählt', starts:'{x} beginnt', pass_device:'Gib das Gerät weiter', say_surname:'Ein Nachname mit {L}', ph_mine:'Nachname mit {L}…', ph_wait:'Warten auf {x}…', validate:'Senden', give_up:'Ich passe', typing:'{x} tippt…',
  fairplay:'Fairplay: Seite oder Fenster verlassen = automatisch Gelb, zweimal = Rot.', fairplay_solo:'Fairplay: Seite verlassen = Gelbe Karte, zweimal = disqualifiziert.',
  players:'Spieler', sheet:'Spielbericht', none_yet:'Noch kein Spieler genannt.', ok_line:'✓ {x}: +1 für {p}', checking:'Suche „{x}“ unter Profispielern…', unknown_q:'„{x}“ wurde nicht erkannt.', unknown_off:'„{x}“: Online-Suche nicht verfügbar.', host_q:'Als Gastgeber: Gilt das?', local_q:'Gilt das?', host_dec:'Der Gastgeber entscheidet…', accept:'Spieler anerkennen', reject:'Ablehnen', several:'mehrere Spieler heißen so', born:'geb. {y}', ex:'Ex-', you:'du', host:'Gastgeber',
@@ -5646,7 +5647,7 @@ async function shareCard(run){
   const rr=(X,Y,w,h,r)=>{ x.beginPath(); x.moveTo(X+r,Y); x.arcTo(X+w,Y,X+w,Y+h,r); x.arcTo(X+w,Y+h,X,Y+h,r); x.arcTo(X,Y+h,X,Y,r); x.arcTo(X,Y,X+w,Y,r); x.closePath(); };
   rr(60,60,W-120,H-120,56); x.fillStyle='#1b4535'; x.fill(); x.lineWidth=10; x.strokeStyle=gold; x.stroke();
   x.textAlign='center'; x.fillStyle='#f1f6ef';
-  x.font='900 76px '+D; x.fillText('FOOT LETTER',W/2,190);
+  x.font='900 76px '+D; x.fillText('FOOT LETTERS',W/2,190);
   x.fillStyle=gold; x.font='800 44px '+D;
   const head=run.mode==='daily'?(t('m_daily')+' #'+dailyNum(run.date)).toUpperCase():run.mode==='defi'?t('m_defi').toUpperCase():t('m_abc').toUpperCase();
   x.fillText(head,W/2,258);
@@ -5664,7 +5665,7 @@ async function shareCard(run){
   if(run.pct!=null) lines.push(t('beat',{p:run.pct}));
   const streak=API.me&&API.me.daily&&API.me.daily.streak; if(run.mode==='daily'&&streak) lines.push('🔥 '+t('streak_days',{n:streak}));
   x.font='600 40px '+B; x.fillStyle='rgba(241,246,239,.85)'; lines.forEach((l,i)=>x.fillText(l,W/2,1080+i*56));
-  x.font='800 40px '+D; x.fillStyle=gold; x.fillText((location.host||'FOOT LETTER').toUpperCase(),W/2,H-110);
+  x.font='800 40px '+D; x.fillStyle=gold; x.fillText((location.host||'FOOT LETTERS').toUpperCase(),W/2,H-110);
   return await new Promise(res=>c.toBlob(res,'image/png'));
 }
 /* confettis légers (canvas, ~1,6 s) */
@@ -5859,7 +5860,7 @@ function inviteURL(){ return location.href.split('#')[0]+'#'+(S.code||'').toUppe
 function copy(text,okMsg){ try{ navigator.clipboard.writeText(text).then(()=>toast(okMsg),()=>toast(text)); }catch(_){ toast(text); } }
 function shareOrCopy(title,text,url,okMsg){ if(navigator.share){ navigator.share({title,text,url}).catch(()=>{}); } else copy(text+(url?' '+url:''),okMsg); }
 $('copyCode').addEventListener('click',()=>copy((S.code||'').toUpperCase(),t('code_copied')));
-$('copyLink').addEventListener('click',()=>{ if(location.protocol==='file:'){ toast(t('link_file')); return; } shareOrCopy('FOOT LETTER',t('share_invite'),inviteURL(),t('link_copied')); });
+$('copyLink').addEventListener('click',()=>{ if(location.protocol==='file:'){ toast(t('link_file')); return; } shareOrCopy('FOOT LETTERS',t('share_invite'),inviteURL(),t('link_copied')); });
 $('leaveLobby').addEventListener('click',goHome);
 function goHome(){
   if(S.mode==='local'&&S.engine){ S.engine.stop(); S.mode=null; S.engine=null; S.g=null; }
@@ -6158,10 +6159,10 @@ const Solo=(function(){
     const n=R.found.length, url=location.protocol==='file:'?'':location.origin+'/';
     if(R.mode==='daily'){
       const streak=API.me&&API.me.daily&&API.me.daily.streak;
-      return ['FOOT LETTER #'+dailyNum(R.date)+' ⚽', t('m_daily')+' : '+R.letter, dailySlices(R.found).map(sliceEmoji).join('')+' '+t('res_daily',{n}), streak?'🔥 '+t('streak_days',{n:streak}):'', url].filter(Boolean).join('\n');
+      return ['FOOT LETTERS #'+dailyNum(R.date)+' ⚽', t('m_daily')+' : '+R.letter, dailySlices(R.found).map(sliceEmoji).join('')+' '+t('res_daily',{n}), streak?'🔥 '+t('streak_days',{n:streak}):'', url].filter(Boolean).join('\n');
     }
-    if(R.mode==='defi') return ['FOOT LETTER · '+t('m_defi')+' '+R.letter+' 🎯', n+' / '+R.bet+(R.ok?' ✅':' ❌'), url].join('\n');
-    return ['FOOT LETTER · '+t('m_abc')+' 🔤', R.ok?fmtDur(R.total+R.pen)+' ⏱️':t('res_abc_ko'), url].join('\n');
+    if(R.mode==='defi') return ['FOOT LETTERS · '+t('m_defi')+' '+R.letter+' 🎯', n+' / '+R.bet+(R.ok?' ✅':' ❌'), url].join('\n');
+    return ['FOOT LETTERS · '+t('m_abc')+' 🔤', R.ok?fmtDur(R.total+R.pen)+' ⏱️':t('res_abc_ko'), url].join('\n');
   }
   $('eShare').addEventListener('click',()=>{ if(!R) return; track('partage',{type:'texte',mode:R.mode}); const txt=shareText(); if(navigator.share) navigator.share({text:txt}).catch(()=>{}); else copy(txt,t('copied')); });
   $('eShareImg').addEventListener('click',async()=>{

@@ -1,4 +1,4 @@
-// API FOOT LETTER : comptes, parties vérifiées, classements, profils, badges.
+// API FOOT LETTERS : comptes, parties vérifiées, classements, profils, badges.
 // Tourne en fonction Netlify ; les données sont gardées dans Netlify Blobs.
 // Principe anti-perte : chaque donnée qui peut être écrite en même temps par plusieurs
 // requêtes vit dans son propre fichier (session, partie, essai du jour, ligne de classement),
