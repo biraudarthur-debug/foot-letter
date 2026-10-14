@@ -9,6 +9,7 @@
 <meta property="og:description" content="Le jeu de culture foot : une lettre, un chrono, le dernier debout gagne.">
 <meta name="theme-color" content="#0f4a2b">
 <link rel="manifest" href="/manifest.webmanifest">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="5be1bb81-ef5d-42ba-a5bc-366e25d7735c"></script>
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -375,7 +376,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v8</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v8.1</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -5649,6 +5650,7 @@ function castVote(target,c){
   else sendSub({vote:{t:target,c}});
   buzz(15);
 }
+function track(name,data){ try{ if(window.umami&&typeof window.umami.track==='function') window.umami.track(name,data); }catch(_){ } }
 function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(_){ } }
 function sendSub(extra){ S.subN=Math.max(S.subN+1,Date.now()%1e9); S.nr&&S.nr.presence({sub:Object.assign({n:S.subN},extra)}); }
 $('answerForm').addEventListener('submit',ev=>{
@@ -5706,6 +5708,7 @@ function startLocal(){
   leaveOnline(); S.mode='local'; S.isHost=true; resetView();
   S.engine=makeEngine(g=>{ S.g=JSON.parse(JSON.stringify(g)); renderGame(S.g); });
   S.engine.setCfg(S.cfg);
+  track('match_meme_ecran',{joueurs:S.localPlayers.length,manches:S.cfg.rounds});
   S.engine.start(S.localPlayers.map((n,i)=>({id:'l'+i,nick:cleanNick(n||t('player_n',{n:i+1}))})));
 }
 $('startLocal').addEventListener('click',startLocal);
@@ -5810,7 +5813,7 @@ function renderLobby(){
   $('lobbyHelp').textContent=S.isHost?t('help_host'):t('help_guest');
   $('lobbyWait').textContent=S.isHost?(pl.length<2?t('solo_hint'):''):(S.hostPeer?t('wait_kick'):t('wait_host'));
 }
-$('startOnline').addEventListener('click',()=>{ if(!S.isHost) return; const pl=lobbyPlayers().slice(0,MAX_PLAYERS).map(p=>({id:p.id,nick:p.nick})); if(!pl.length) return; resetView(); S.lastPhase='lobby'; S.engine.setCfg(S.cfg); S.engine.start(pl); });
+$('startOnline').addEventListener('click',()=>{ if(!S.isHost) return; const pl=lobbyPlayers().slice(0,MAX_PLAYERS).map(p=>({id:p.id,nick:p.nick})); if(!pl.length) return; resetView(); S.lastPhase='lobby'; S.engine.setCfg(S.cfg); track('match_en_ligne',{joueurs:pl.length,manches:S.cfg.rounds}); S.engine.start(pl); });
 function leaveOnline(){
   if(S.engine&&S.mode==='online') S.engine.stop();
   if(S.nr){ try{ S.nr.leave(); }catch(_){ } S.nr=null; }
@@ -5940,7 +5943,7 @@ const Solo=(function(){
   $('sJoker').addEventListener('click',()=>{ if(active()&&R.mode==='abc'&&R.jokers>0&&!R.pend) useJoker(); });
 
   function start(){
-    R.started=true; R.nick=myNick();
+    R.started=true; R.nick=myNick(); track('partie_solo',{mode:R.mode,compte:API.me?'oui':'non'});
     if(R.mode==='defi') lsSet('fl_bet',R.bet);
     if(R.mode==='daily') lsSet('fl_d5_'+R.date,{s:'start'});
     $('soloIntro').hidden=true; $('soloPlay').hidden=false; $('soloEnd').hidden=true;
@@ -6200,7 +6203,7 @@ const Account=(function(){
     ev.preventDefault();
     const name=$('acName').value.trim(), pass=$('acPass').value;
     $('acSubmit').disabled=true; $('acErr').textContent='';
-    try{ const d=await API.call(mode,{name,pass}); API.setSession(d.token,d.profile); $('acPass').value=''; toast(t('ac_welcome',{x:d.profile.name})); confetti(); goHome(); }
+    try{ const d=await API.call(mode,{name,pass}); API.setSession(d.token,d.profile); track(mode==='register'?'compte_cree':'connexion'); $('acPass').value=''; toast(t('ac_welcome',{x:d.profile.name})); confetti(); goHome(); }
     catch(e){ $('acErr').textContent=t('ac_err_'+(['taken','bad_login','bad_name','bad_pass'].includes(e.code)?e.code:'net')); }
     finally{ $('acSubmit').disabled=false; }
   });
@@ -6281,7 +6284,7 @@ const Install=(function(){
     b.textContent='📲 '+t('inst_btn'); b.classList.add('hot');
   }
   window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferred=e; render(); });
-  window.addEventListener('appinstalled',()=>{ deferred=null; render(); toast(t('inst_done')); confetti(); });
+  window.addEventListener('appinstalled',()=>{ track('appli_installee'); deferred=null; render(); toast(t('inst_done')); confetti(); });
   $('installBtn').addEventListener('click',async()=>{
     if(deferred){ deferred.prompt(); try{ await deferred.userChoice; }catch(_){ } deferred=null; render(); return; }
     const ol=$('isSteps'); ol.replaceChildren(); ['inst_ios1','inst_ios2','inst_ios3'].forEach(k=>ol.append(el('li',null,t(k))));
