@@ -363,7 +363,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v7</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v7.1</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -623,12 +623,29 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
         <div class="streakbox" id="prStreak"></div>
         <div class="tiles" id="prTiles"></div>
         <p class="note" id="prFav"></p>
-        <div class="row"><button class="btn ghost small" id="prLogout" type="button" data-i18n="ac_logout"></button></div>
+        <div class="row"><button class="btn small" id="prAdmin" type="button" data-i18n="ad_title" hidden></button><button class="btn ghost small" id="prLogout" type="button" data-i18n="ac_logout"></button></div>
       </div>
       <div class="panel">
         <div class="row" style="justify-content:space-between;align-items:center"><div class="label" data-i18n="pr_badges"></div><span class="chip"><b id="prBadgeCount"></b></span></div>
         <div class="badges" id="prBadges"></div>
       </div>
+    </section>
+  </main>
+
+  <!-- ADMINISTRATION -->
+  <main id="admin" hidden>
+    <div class="solo-top">
+      <h2 class="h2" data-i18n="ad_title"></h2>
+      <div class="tools"><button class="btn small" id="adRefresh" type="button" data-i18n="refresh"></button><button class="btn ghost small" id="adBack" type="button" data-i18n="home"></button></div>
+    </div>
+    <section class="panel" id="adClaim" hidden style="margin-top:14px">
+      <p class="note" data-i18n="ad_claim_note"></p>
+      <form class="row" id="adForm"><div class="field"><label class="label" for="adCode" data-i18n="ad_code"></label><input class="input" id="adCode" autocomplete="off"></div><button class="btn primary" type="submit" data-i18n="ad_unlock"></button></form>
+      <p class="note warn" id="adErr"></p>
+    </section>
+    <section id="adBody" hidden style="margin-top:14px;display:flex;flex-direction:column;gap:20px">
+      <div class="panel"><div class="tiles" id="adTiles"></div></div>
+      <div class="panel"><div class="label" id="adListLabel"></div><input class="input" id="adSearch" data-i18n-ph="ad_search"><div class="tblwrap"><table class="tbl" id="adTable"></table></div></div>
     </section>
   </main>
 
@@ -663,6 +680,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ ad_title:'Tableau de bord', ad_claim_note:'Espace réservé au créateur du jeu. Entre ton code administrateur une seule fois : il reste associé à ton compte.', ad_code:'Code administrateur', ad_unlock:'Débloquer', ad_bad:'Code incorrect.', ad_forbidden:'Accès réservé à l\'administrateur.', ad_total:'Comptes créés', ad_today:'Actifs aujourd\'hui', ad_week:'Actifs cette semaine', ad_new:'Nouveaux cette semaine', ad_daily:'Ont joué la lettre du jour', ad_list:'Joueurs ({n})', ad_search:'Rechercher un pseudo…', ad_seen:'Vu', ad_joined:'Inscrit', ad_now:'à l\'instant', ad_min:'il y a {n} min', ad_h:'il y a {n} h', ad_d:'il y a {n} j',
  acct_btn:'Connexion', acct_in:'Connecté : {x}', acct_out:'Crée un compte pour garder tes stats, débloquer des badges et entrer aux classements.', my_profile:'Mon profil',
  ac_login:'Se connecter', ac_register:'Créer un compte', ac_name:'Pseudo', ac_pass:'Mot de passe', ac_title_login:'Content de te revoir', ac_title_register:'Rejoins le vestiaire', ac_note:'Pas d\'e-mail demandé. Garde bien ton mot de passe : il ne peut pas être récupéré.', ac_why:'Avec un compte', ac_p1:'Tes statistiques sur tous les modes', ac_p2:'15 badges à débloquer', ac_p3:'Ta série de jours à la lettre du jour', ac_p4:'Des classements vérifiés par le serveur', ac_logout:'Se déconnecter', ac_err_taken:'Ce pseudo est déjà pris.', ac_err_bad_login:'Pseudo ou mot de passe incorrect.', ac_err_bad_name:'Pseudo : 2 à 18 caractères (lettres, chiffres, espace, - _ .).', ac_err_bad_pass:'Mot de passe : 4 caractères minimum.', ac_err_net:'Serveur injoignable. Réessaie dans un instant.', ac_welcome:'Bienvenue {x} !',
  pr_title:'Profil', pr_since:'Membre depuis le {d}', pr_badges:'Badges', streak_days:'{n} jours de suite', streak_days_1:'{n} jour de suite', streak_best:'Record : {n}', streak_none:'Joue la lettre du jour pour lancer ta série',
@@ -712,6 +730,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ ad_title:'Dashboard', ad_claim_note:'For the game\'s creator only. Enter your admin code once: it stays linked to your account.', ad_code:'Admin code', ad_unlock:'Unlock', ad_bad:'Wrong code.', ad_forbidden:'Admin only.', ad_total:'Accounts', ad_today:'Active today', ad_week:'Active this week', ad_new:'New this week', ad_daily:'Played the daily letter', ad_list:'Players ({n})', ad_search:'Search a nickname…', ad_seen:'Seen', ad_joined:'Joined', ad_now:'just now', ad_min:'{n} min ago', ad_h:'{n} h ago', ad_d:'{n} d ago',
  acct_btn:'Log in', acct_in:'Logged in: {x}', acct_out:'Create an account to keep your stats, unlock badges and enter the leaderboards.', my_profile:'My profile',
  ac_login:'Log in', ac_register:'Create account', ac_name:'Nickname', ac_pass:'Password', ac_title_login:'Welcome back', ac_title_register:'Join the squad', ac_note:'No e-mail needed. Keep your password safe: it can\'t be recovered.', ac_why:'With an account', ac_p1:'Your stats across every mode', ac_p2:'15 badges to unlock', ac_p3:'Your daily-letter streak', ac_p4:'Server-checked leaderboards', ac_logout:'Log out', ac_err_taken:'That nickname is taken.', ac_err_bad_login:'Wrong nickname or password.', ac_err_bad_name:'Nickname: 2 to 18 characters (letters, digits, space, - _ .).', ac_err_bad_pass:'Password: at least 4 characters.', ac_err_net:'Server unreachable. Try again in a moment.', ac_welcome:'Welcome {x}!',
  pr_title:'Profile', pr_since:'Member since {d}', pr_badges:'Badges', streak_days:'{n} days in a row', streak_days_1:'{n} day in a row', streak_best:'Best: {n}', streak_none:'Play the daily letter to start your streak',
@@ -761,6 +780,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ ad_title:'Dashboard', ad_claim_note:'Nur für den Ersteller des Spiels. Gib deinen Admin-Code einmal ein: Er bleibt mit deinem Konto verknüpft.', ad_code:'Admin-Code', ad_unlock:'Freischalten', ad_bad:'Falscher Code.', ad_forbidden:'Nur für den Admin.', ad_total:'Konten', ad_today:'Heute aktiv', ad_week:'Diese Woche aktiv', ad_new:'Neu diese Woche', ad_daily:'Tagesbuchstabe gespielt', ad_list:'Spieler ({n})', ad_search:'Spielernamen suchen…', ad_seen:'Gesehen', ad_joined:'Dabei seit', ad_now:'gerade eben', ad_min:'vor {n} Min.', ad_h:'vor {n} Std.', ad_d:'vor {n} T.',
  acct_btn:'Anmelden', acct_in:'Angemeldet: {x}', acct_out:'Erstelle ein Konto, um Statistiken zu behalten, Abzeichen freizuschalten und in die Ranglisten zu kommen.', my_profile:'Mein Profil',
  ac_login:'Anmelden', ac_register:'Konto erstellen', ac_name:'Spielername', ac_pass:'Passwort', ac_title_login:'Schön, dass du da bist', ac_title_register:'Willkommen im Team', ac_note:'Keine E-Mail nötig. Merk dir dein Passwort gut: Es kann nicht wiederhergestellt werden.', ac_why:'Mit einem Konto', ac_p1:'Deine Statistiken in allen Modi', ac_p2:'15 Abzeichen zum Freischalten', ac_p3:'Deine Serie beim Buchstaben des Tages', ac_p4:'Vom Server geprüfte Ranglisten', ac_logout:'Abmelden', ac_err_taken:'Dieser Name ist schon vergeben.', ac_err_bad_login:'Name oder Passwort falsch.', ac_err_bad_name:'Name: 2 bis 18 Zeichen (Buchstaben, Ziffern, Leerzeichen, - _ .).', ac_err_bad_pass:'Passwort: mindestens 4 Zeichen.', ac_err_net:'Server nicht erreichbar. Versuch es gleich nochmal.', ac_welcome:'Willkommen {x}!',
  pr_title:'Profil', pr_since:'Mitglied seit {d}', pr_badges:'Abzeichen', streak_days:'{n} Tage in Folge', streak_days_1:'{n} Tag in Folge', streak_best:'Rekord: {n}', streak_none:'Spiel den Buchstaben des Tages, um deine Serie zu starten',
@@ -1224,8 +1244,8 @@ const API=(function(){
     finally{ clearTimeout(tm); }
   };
   A.setSession=(tok,profile)=>{ A.tok=tok; A.me=profile; A.today=null; lsSet('fl_tok',tok); A.refresh(); };
-  A.logout=()=>{ A.tok=null; A.me=null; A.today=null; try{ localStorage.removeItem('fl_tok'); }catch(_){ } onAccount(); };
-  A.refresh=async()=>{ if(!A.tok){ onAccount(); return; } try{ const d=await A.call('me'); A.me=d.profile; A.today=d.today; A.date=d.date; }catch(e){ if(e.status===401){ A.logout(); return; } } onAccount(); };
+  A.logout=()=>{ A.tok=null; A.me=null; A.today=null; A.admin=false; try{ localStorage.removeItem('fl_tok'); }catch(_){ } onAccount(); };
+  A.refresh=async()=>{ if(!A.tok){ onAccount(); return; } try{ const d=await A.call('me'); A.me=d.profile; A.today=d.today; A.date=d.date; A.admin=!!d.admin; }catch(e){ if(e.status===401){ A.logout(); return; } } onAccount(); };
   return A;
 })();
 const LB={
@@ -1365,7 +1385,7 @@ function makeEngine(publish){
 
 /* ================= INTERFACE COMMUNE ================= */
 const $=id=>document.getElementById(id);
-const screens=['home','setup','lobby','game','round','over','solo','boards','account','profile'];
+const screens=['home','setup','lobby','game','round','over','solo','boards','account','profile','admin'];
 let SCREEN='home';
 function show(s){ const was=$(s).hidden; screens.forEach(x=>{ const h=x!==s; if($(x).hidden!==h) $(x).hidden=h; }); SCREEN=s; if(was) window.scrollTo({top:0}); }
 function toast(msg,kind){ const tt=$('toast'); tt.textContent=msg; tt.className='toast'+(kind?' '+kind:''); tt.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>tt.hidden=true,2800); }
@@ -1399,6 +1419,7 @@ function refreshScreen(){
   else if(SCREEN==='boards') Boards.render();
   else if(SCREEN==='account') Account.render();
   else if(SCREEN==='profile') Profile.render();
+  else if(SCREEN==='admin') Admin.render();
   onAccount();
 }
 $('langSeg').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-lang]'); if(!b) return; LANG=b.dataset.lang; lsSet('fl_lang',LANG); refreshScreen(); });
@@ -1788,7 +1809,7 @@ function renderNet(){
 Hub.onChange(renderNet);
 (function fromLink(){
   const m=(location.hash||'').replace('#','').toLowerCase();
-  if(/^[a-z]{4}$/.test(m)){ $('joinForm').hidden=false; $('joinCode').value=m.toUpperCase(); setTimeout(()=>{ (!$('nick').value?$('nick'):$('joinBtn')).focus(); },100); }
+  if(/^[a-z]{4}$/.test(m)&&m!=='admi'){ $('joinForm').hidden=false; $('joinCode').value=m.toUpperCase(); setTimeout(()=>{ (!$('nick').value?$('nick'):$('joinBtn')).focus(); },100); }
 })();
 function netErr(e){ return e&&e.type==='no-host'?t('err_nohost'):t('err_net'); }
 function randCode(){ const a='abcdefghjkmnpqrstuvwxyz'; let s=''; for(let i=0;i<4;i++) s+=a[Math.floor(Math.random()*a.length)]; return s; }
@@ -2292,18 +2313,50 @@ const Profile=(function(){
     const bx=$('prBadges'); bx.replaceChildren(); let got=0;
     BADGES.forEach(([id,e,c])=>{ const has=!!(p.badges&&p.badges[id]); if(has) got++; const x=el('div','badge'+(has?'':' locked')); x.style.setProperty('--bc',c); x.append(el('span','e',has?e:'🔒'),el('b',null,t('b_'+id)),el('span',null,t('bd_'+id))); bx.append(x); });
     $('prBadgeCount').textContent=got+' / '+BADGES.length;
-    $('prLogout').hidden=!mine;
+    $('prLogout').hidden=!mine; $('prAdmin').hidden=!(mine&&API.admin);
   }
   $('prLogout').addEventListener('click',()=>{ API.logout(); goHome(); });
+  $('prAdmin').addEventListener('click',()=>Admin.open());
   $('prBack').addEventListener('click',goHome);
   return {open,render};
 })();
+
+const Admin=(function(){
+  let data=null;
+  function since(ms){ const m=Math.floor((Date.now()-ms)/60000); if(m<2) return t('ad_now'); if(m<60) return t('ad_min',{n:m}); const h=Math.floor(m/60); if(h<24) return t('ad_h',{n:h}); return t('ad_d',{n:Math.floor(h/24)}); }
+  async function open(){
+    Solo.stop(); show('admin'); $('adErr').textContent='';
+    if(!API.me){ Account.open('login'); return; }
+    if(!API.admin){ $('adClaim').hidden=false; $('adBody').hidden=true; return; }
+    $('adClaim').hidden=true; $('adBody').hidden=false; load();
+  }
+  async function load(){
+    $('adTiles').replaceChildren(el('div','empty','…'));
+    try{ data=await API.call('admin/stats'); render(); }catch(e){ $('adTiles').replaceChildren(el('div','empty',e.status===403?t('ad_forbidden'):t('board_off'))); }
+  }
+  function render(){
+    if(!data) return;
+    const tl=$('adTiles'); tl.replaceChildren();
+    [[data.total,'ad_total'],[data.today,'ad_today'],[data.week,'ad_week'],[data.newWeek,'ad_new'],[data.dailyToday,'ad_daily'],[data.games,'st_games'],[data.names,'st_names']].forEach(([v,k])=>{ const x=el('div','tile'); x.append(el('b',null,String(v)),el('span',null,t(k))); tl.append(x); });
+    const q=norm($('adSearch').value||''), rows=data.rows.filter(r=>!q||norm(r.name).includes(q));
+    $('adListLabel').textContent=t('ad_list',{n:rows.length});
+    statTable($('adTable'),['#',t('c_player'),t('ad_seen'),t('ad_joined'),t('st_games'),t('st_names'),'🔥','🏅'],
+      rows.map((r,i)=>[{v:i+1},{v:r.name+(r.admin?' ★':''),cls:'nm'},{v:since(r.seen)},{v:new Date(r.created).toLocaleDateString(LANG)},{v:r.games},{v:r.names},{v:r.streak||0},{v:r.badges}]));
+    $('adTable').querySelectorAll('tbody tr').forEach((tr,i)=>{ tr.style.cursor='pointer'; tr.addEventListener('click',()=>Profile.open(rows[i].name)); });
+  }
+  $('adForm').addEventListener('submit',async ev=>{ ev.preventDefault(); $('adErr').textContent=''; try{ await API.call('admin/claim',{code:$('adCode').value}); API.admin=true; $('adCode').value=''; open(); }catch(e){ $('adErr').textContent=e.code==='bad_code'?t('ad_bad'):t('ac_err_net'); } });
+  $('adSearch').addEventListener('input',render);
+  $('adRefresh').addEventListener('click',load);
+  $('adBack').addEventListener('click',goHome);
+  return {open,render};
+})();
+window.addEventListener('hashchange',()=>{ if(location.hash.toLowerCase()==='#admin') Admin.open(); });
 
 /* ================= DÉMARRAGE ================= */
 Hub.start();
 applyI18n();
 onAccount();
-API.refresh();
+API.refresh().then(()=>{ if(location.hash.toLowerCase()==='#admin') Admin.open(); });
 setInterval(()=>{ if(SCREEN==='home') renderDailyBadge(); },60000);
 </script>
 </body>

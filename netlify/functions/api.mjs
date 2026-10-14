@@ -6,6 +6,8 @@ import { norm, titleCase, checkLocal, resolveRemote, DRAW_LETTERS, ALL_LETTERS, 
 
 export const config = { path: "/api/*" };
 
+// Seule l'empreinte du code administrateur est ici ; le code lui-même n'est jamais publié.
+const ADMIN_HASH = "c76e68b02e609ff7a876ca4494004f82c95ce464f96248aa15aac152315ebdd5";
 const PER = 30000, DAILY_MS = 180000, ABC_PEN = 15000;
 const store = () => getStore({ name: "footletter", consistency: "strong" });
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -132,6 +134,7 @@ async function route(req, path, st) {
     const key = userKey(name);
     if (await getJSON(st, "user/" + key)) return fail("taken", 409);
     const u = newUser(name); u.salt = crypto.randomBytes(16).toString("hex"); u.hash = hashPass(pass, u.salt);
+    u.seen = Date.now();
     await saveUser(st, u);
     return json({ token: await sign(st, { t: "s", u: key, i: Date.now() }), profile: publicProfile(u) });
   }
@@ -158,7 +161,33 @@ async function route(req, path, st) {
   if (!u) return fail("auth", 401);
   const today = parisDate();
 
-  if (path === "me") return json({ profile: publicProfile(u), today: u.done[today] || null, date: today });
+  if (path === "me") {
+    const now = Date.now();
+    if (!u.seen || now - u.seen > 3600000) { u.seen = now; await saveUser(st, u); }
+    return json({ profile: publicProfile(u), today: u.done[today] || null, date: today, admin: !!u.admin });
+  }
+
+  if (path === "admin/claim") {
+    const h = crypto.createHash("sha256").update(String(body.code || "").trim().toUpperCase()).digest("hex");
+    if (h !== ADMIN_HASH) return fail("bad_code", 403);
+    u.admin = true; await saveUser(st, u);
+    return json({ admin: true });
+  }
+  if (path === "admin/stats") {
+    if (!u.admin) return fail("forbidden", 403);
+    const { blobs } = await st.list({ prefix: "user/" });
+    const users = (await Promise.all(blobs.slice(0, 1000).map((b) => getJSON(st, b.key)))).filter(Boolean);
+    const now = Date.now(), DAY = 86400000;
+    const rows = users.map((x) => {
+      const g = x.stats.games;
+      return { name: x.name, created: x.created, seen: x.seen || x.created, games: Object.values(g).reduce((a, b) => a + b, 0), byMode: g,
+        wins: x.stats.wins, names: x.stats.names, streak: x.daily.streak, bestStreak: x.daily.best, badges: Object.keys(x.badges || {}).length, admin: !!x.admin };
+    }).sort((a, b) => b.seen - a.seen);
+    const sum = (f) => rows.reduce((a, r) => a + f(r), 0);
+    return json({ total: rows.length, today: rows.filter((r) => now - r.seen < DAY).length, week: rows.filter((r) => now - r.seen < 7 * DAY).length,
+      newWeek: rows.filter((r) => now - r.created < 7 * DAY).length, games: sum((r) => r.games), names: sum((r) => r.names),
+      dailyToday: users.filter((x) => x.done && x.done[today]).length, rows });
+  }
 
   if (path === "run/start") {
     const mode = body.mode, now = Date.now(), id = crypto.randomBytes(6).toString("hex");
