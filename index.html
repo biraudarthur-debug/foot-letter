@@ -376,7 +376,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v8.1</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -5161,9 +5161,10 @@ const API=(function(){
     }catch(e){ if(e&&e.status!==undefined) throw e; throw {status:0,code:'net'}; }
     finally{ clearTimeout(tm); }
   };
+  A.save=async(path,body)=>{ let last; for(let i=0;i<4;i++){ try{ return await A.call(path,body); }catch(e){ last=e; if(e.status&&e.status<500) throw e; await new Promise(r=>setTimeout(r,[800,2000,4000][i]||4000)); } } throw last; };
   A.setSession=(tok,profile)=>{ A.tok=tok; A.me=profile; A.today=null; lsSet('fl_tok',tok); A.refresh(); };
   A.logout=()=>{ A.tok=null; A.me=null; A.today=null; A.admin=false; try{ localStorage.removeItem('fl_tok'); }catch(_){ } onAccount(); };
-  A.refresh=async()=>{ if(!A.tok){ onAccount(); return; } try{ const d=await A.call('me'); A.me=d.profile; A.today=d.today; A.date=d.date; A.admin=!!d.admin; }catch(e){ if(e.status===401){ A.logout(); return; } } onAccount(); };
+  A.refresh=async()=>{ if(!A.tok){ onAccount(); return; } try{ const d=await A.call('me'); A.me=d.profile; A.today=d.today; A.date=d.date; A.admin=!!d.admin; if(d.renew){ A.tok=d.renew; lsSet('fl_tok',d.renew); } if(d.newBadges&&d.newBadges.length) showBadges(d.newBadges); }catch(e){ if(e.status===401){ A.logout(); return; } } onAccount(); };
   return A;
 })();
 const LB={
@@ -5624,7 +5625,7 @@ function reportMatch(g){
   const myId=S.mode==='online'?S.me:g.order.find(id=>norm(g.nk[id])===norm(API.me.name)); if(!myId) return;
   const oi=g.order.indexOf(myId), names=g.all.filter(x=>x[0]===oi).map(x=>x[1]);
   const won=g.order.length>1&&!g.tie&&g.win===myId;
-  API.call('match',{won,names,letters:g.letters||[]}).then(d=>{ API.me=d.profile; showBadges(d.newBadges); onAccount(); }).catch(()=>{});
+  API.save('match',{mid:g.mid,won,names,letters:g.letters||[]}).then(d=>{ API.me=d.profile; showBadges(d.newBadges); onAccount(); }).catch(()=>{});
 }
 
 /* confettis légers (canvas, ~1,6 s) */
@@ -6069,7 +6070,7 @@ const Solo=(function(){
       else if(run.mode==='abc') answers=run.letters.map((L,i)=>{ if(run.marks[i]==='skip') return {L,joker:1}; const f=run.found.find(x=>x.L===L); return f?{v:f.name,L,ms:f.ms}:null; }).filter(Boolean);
       else answers=run.found.map(f=>({v:f.name,ms:f.ms}));
       try{
-        const d=await API.call('run/finish',{run:run.run,answers});
+        const d=await API.save('run/finish',{run:run.run,answers});
         API.me=d.profile; if(run.mode==='daily'){ API.today={s:d.score}; API.date=parisDate(); }
         run.server=d; res={list:d.list||null};
         if(!d.list) res=await LB.read(run.mode,key);
