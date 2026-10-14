@@ -15,7 +15,7 @@ h1{font-family:"Big Shoulders Display",Impact,sans-serif;font-size:clamp(34px,7v
 const head = (title, desc, path) => `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="https://footletters.com${path}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="https://footletters.com/og.png">
-<link rel="icon" href="/icons/favicon-32.png"><style>${css}</style></head><body><main><a class="top" href="/">⚽ FOOT LETTERS</a>`;
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><style>${css}</style></head><body><main><a class="top" href="/">⚽ FOOT LETTERS</a>`;
 const nav = cur => `<nav class="letters">${ALL_LETTERS.map(l => `<a href="/joueurs/${l}.html"${l === cur ? ' class="on"' : ''}>${l.toUpperCase()}</a>`).join('')}</nav>`;
 const foot = `</main></body></html>\n`;
 ALL_LETTERS.forEach(l => {
