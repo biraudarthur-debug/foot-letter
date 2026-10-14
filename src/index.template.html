@@ -254,6 +254,29 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .pending{font-size:13px;color:var(--chalk-2);min-height:18px;text-align:center}
 .result-big{font-family:var(--f-display);font-weight:900;overflow-wrap:anywhere;font-size:clamp(44px,7vw,76px);line-height:.88;margin:0;text-transform:uppercase;text-wrap:balance}
 
+/* compte & profil */
+.perks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.perks li{display:flex;gap:10px;align-items:center;background:var(--sunk);border-radius:var(--r-sm);padding:10px 12px;font-weight:500}
+.perks li span{font-size:22px}
+.pr-head{display:flex;align-items:center;gap:14px;min-width:0}
+.pr-av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:var(--ink);font-family:var(--f-display);font-weight:900;font-size:26px;flex:none}
+.pr-name{font-family:var(--f-display);font-weight:900;font-size:34px;text-transform:uppercase;line-height:1;overflow-wrap:anywhere}
+.streakbox{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#ffe0bf,#fff4d9);border-radius:var(--r);padding:12px 16px;color:#5a3300}
+.streakbox .f{font-size:36px;line-height:1}
+.streakbox b{display:block;font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1}
+.streakbox span{font-size:12.5px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.tile{background:var(--sunk);border-radius:var(--r-sm);padding:12px}
+.tile b{display:block;font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--chalk-2)}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.badge{background:#fff;border-radius:16px;padding:12px 10px;text-align:center;box-shadow:inset 0 0 0 2px var(--bc,#e8b21f);display:flex;flex-direction:column;gap:3px;align-items:center}
+.badge .e{font-size:30px;line-height:1.1}
+.badge b{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:16px;line-height:1.05}
+.badge span{font-size:11.5px;color:var(--chalk-2);line-height:1.3}
+.badge.locked{opacity:.5;filter:grayscale(1);box-shadow:inset 0 0 0 2px var(--line)}
+.acct{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lb li.click{cursor:pointer} .lb li.click:hover{box-shadow:inset 0 0 0 2px var(--chalk-3)}
 /* classements */
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .lb{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
@@ -289,6 +312,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <div class="seg" id="langSeg" role="group" aria-label="Langue / Language / Sprache">
         <button type="button" data-lang="fr">FR</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="de">DE</button>
       </div>
+      <button class="iconbtn" id="acctBtn" type="button"></button>
       <button class="iconbtn" id="soundBtn" type="button" aria-pressed="false"></button>
     </div>
   </header>
@@ -310,6 +334,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
           <input class="input" id="nick" maxlength="18" data-i18n-ph="nick_ph" autocomplete="nickname">
         </div>
       </div>
+      <div class="acct" id="acctLine"></div>
       <div class="modes">
         <button class="mode" id="mFriends" type="button" style="--mc:#e8b21f"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.4-.2 4.1 1.3 4.6 4"/></svg></span><strong data-i18n="m_friends"></strong><span class="d" data-i18n="m_friends_d"></span></button>
         <button class="mode" id="mJoin" type="button" style="--mc:#4ea3e8"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg></span><strong data-i18n="m_join"></strong><span class="d" data-i18n="m_join_d"></span></button>
@@ -338,7 +363,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v6.3</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v7</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -559,6 +584,54 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
     </section>
   </main>
 
+  <!-- COMPTE -->
+  <main id="account" hidden>
+    <section class="two">
+      <div class="panel">
+        <div class="seg" id="acTabs"><button type="button" data-t="login" data-i18n="ac_login"></button><button type="button" data-t="register" data-i18n="ac_register"></button></div>
+        <h2 class="h2" id="acTitle"></h2>
+        <form id="acForm" class="settings" autocomplete="on">
+          <div class="field"><label class="label" for="acName" data-i18n="ac_name"></label><input class="input" id="acName" maxlength="18" autocomplete="username"></div>
+          <div class="field"><label class="label" for="acPass" data-i18n="ac_pass"></label><input class="input" id="acPass" type="password" maxlength="64" autocomplete="current-password"></div>
+          <button class="btn primary" id="acSubmit" type="submit"></button>
+          <p class="note warn" id="acErr" aria-live="polite"></p>
+        </form>
+        <p class="note" data-i18n="ac_note"></p>
+        <div class="row"><button class="btn ghost small" id="acBack" type="button" data-i18n="home"></button></div>
+      </div>
+      <div class="panel">
+        <div class="label" data-i18n="ac_why"></div>
+        <ul class="perks">
+          <li><span>📊</span><em data-i18n="ac_p1" style="font-style:normal"></em></li>
+          <li><span>🏅</span><em data-i18n="ac_p2" style="font-style:normal"></em></li>
+          <li><span>🔥</span><em data-i18n="ac_p3" style="font-style:normal"></em></li>
+          <li><span>🏆</span><em data-i18n="ac_p4" style="font-style:normal"></em></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- PROFIL -->
+  <main id="profile" hidden>
+    <div class="solo-top">
+      <h2 class="h2" data-i18n="pr_title"></h2>
+      <button class="btn ghost small" id="prBack" type="button" data-i18n="home"></button>
+    </div>
+    <section class="two" style="margin-top:14px">
+      <div class="panel">
+        <div class="pr-head"><span class="pr-av" id="prAv"></span><div style="min-width:0"><div class="pr-name" id="prName"></div><div class="note" id="prSince"></div></div></div>
+        <div class="streakbox" id="prStreak"></div>
+        <div class="tiles" id="prTiles"></div>
+        <p class="note" id="prFav"></p>
+        <div class="row"><button class="btn ghost small" id="prLogout" type="button" data-i18n="ac_logout"></button></div>
+      </div>
+      <div class="panel">
+        <div class="row" style="justify-content:space-between;align-items:center"><div class="label" data-i18n="pr_badges"></div><span class="chip"><b id="prBadgeCount"></b></span></div>
+        <div class="badges" id="prBadges"></div>
+      </div>
+    </section>
+  </main>
+
   <!-- CLASSEMENTS -->
   <main id="boards" hidden>
     <div class="solo-top">
@@ -590,6 +663,12 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ acct_btn:'Connexion', acct_in:'Connecté : {x}', acct_out:'Crée un compte pour garder tes stats, débloquer des badges et entrer aux classements.', my_profile:'Mon profil',
+ ac_login:'Se connecter', ac_register:'Créer un compte', ac_name:'Pseudo', ac_pass:'Mot de passe', ac_title_login:'Content de te revoir', ac_title_register:'Rejoins le vestiaire', ac_note:'Pas d\'e-mail demandé. Garde bien ton mot de passe : il ne peut pas être récupéré.', ac_why:'Avec un compte', ac_p1:'Tes statistiques sur tous les modes', ac_p2:'15 badges à débloquer', ac_p3:'Ta série de jours à la lettre du jour', ac_p4:'Des classements vérifiés par le serveur', ac_logout:'Se déconnecter', ac_err_taken:'Ce pseudo est déjà pris.', ac_err_bad_login:'Pseudo ou mot de passe incorrect.', ac_err_bad_name:'Pseudo : 2 à 18 caractères (lettres, chiffres, espace, - _ .).', ac_err_bad_pass:'Mot de passe : 4 caractères minimum.', ac_err_net:'Serveur injoignable. Réessaie dans un instant.', ac_welcome:'Bienvenue {x} !',
+ pr_title:'Profil', pr_since:'Membre depuis le {d}', pr_badges:'Badges', streak_days:'{n} jours de suite', streak_days_1:'{n} jour de suite', streak_best:'Record : {n}', streak_none:'Joue la lettre du jour pour lancer ta série',
+ st_games:'Parties', st_wins:'Victoires entre amis', st_names:'Joueurs cités', st_daily:'Record lettre du jour', st_defi:'Plus gros défi', st_abc:'Meilleur alphabet', st_letters:'Lettres explorées', fav_player:'Joueur le plus cité : {x} ({n} fois)', fav_letter:'Lettre préférée : {x}',
+ badge_new:'Nouveau badge', unranked_note:'Sans compte, tu joues hors classement. Connecte-toi pour être classé et garder tes stats.', unranked_now:'Serveur injoignable : partie hors classement.', server_checked:'vérifié par le serveur : {n} valides', daily_done_short:'Tu as déjà joué la lettre du jour.',
+ b_kickoff:'Coup d\'envoi', bd_kickoff:'Jouer sa première partie', b_ten_minute:'Éclair', bd_ten_minute:'10 joueurs en moins d\'une minute (lettre du jour)', b_daily20:'Buteur du jour', bd_daily20:'20 joueurs à la lettre du jour', b_streak3:'Régulier', bd_streak3:'3 jours de suite', b_streak7:'Une semaine', bd_streak7:'7 jours de suite', b_streak30:'Un mois', bd_streak30:'30 jours de suite', b_defi10:'Parole tenue', bd_defi10:'Réussir un défi de 10', b_defi20:'Monstre', bd_defi20:'Réussir un défi de 20', b_abc_clean:'Sans filet', bd_abc_clean:'Alphabet sans joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet en moins de 3 min', b_win1:'Première victoire', bd_win1:'Gagner un match entre amis', b_win10:'Patron', bd_win10:'10 victoires entre amis', b_century:'Centurion', bd_century:'100 joueurs cités', b_legend:'Encyclopédie', bd_legend:'500 joueurs cités', b_polyglot:'Globe-trotter', bd_polyglot:'Des joueurs sur 20 lettres différentes',
  home:'Accueil', sound_on:'Son : on', sound_off:'Son : off',
  hero_lede:'Une lettre tombe. Citez un footballeur dont le <b>nom de famille</b> commence par cette lettre. Entre amis, en solo ou chaque jour face au monde entier.',
  nick_label:'Ton pseudo', nick_ph:'Ex. Zizou10',
@@ -633,6 +712,12 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ acct_btn:'Log in', acct_in:'Logged in: {x}', acct_out:'Create an account to keep your stats, unlock badges and enter the leaderboards.', my_profile:'My profile',
+ ac_login:'Log in', ac_register:'Create account', ac_name:'Nickname', ac_pass:'Password', ac_title_login:'Welcome back', ac_title_register:'Join the squad', ac_note:'No e-mail needed. Keep your password safe: it can\'t be recovered.', ac_why:'With an account', ac_p1:'Your stats across every mode', ac_p2:'15 badges to unlock', ac_p3:'Your daily-letter streak', ac_p4:'Server-checked leaderboards', ac_logout:'Log out', ac_err_taken:'That nickname is taken.', ac_err_bad_login:'Wrong nickname or password.', ac_err_bad_name:'Nickname: 2 to 18 characters (letters, digits, space, - _ .).', ac_err_bad_pass:'Password: at least 4 characters.', ac_err_net:'Server unreachable. Try again in a moment.', ac_welcome:'Welcome {x}!',
+ pr_title:'Profile', pr_since:'Member since {d}', pr_badges:'Badges', streak_days:'{n} days in a row', streak_days_1:'{n} day in a row', streak_best:'Best: {n}', streak_none:'Play the daily letter to start your streak',
+ st_games:'Games', st_wins:'Wins with friends', st_names:'Players named', st_daily:'Best daily letter', st_defi:'Biggest challenge', st_abc:'Best alphabet', st_letters:'Letters explored', fav_player:'Most named: {x} ({n} times)', fav_letter:'Favourite letter: {x}',
+ badge_new:'New badge', unranked_note:'Without an account you play unranked. Log in to be ranked and keep your stats.', unranked_now:'Server unreachable: unranked game.', server_checked:'server-checked: {n} valid', daily_done_short:'You already played today\'s letter.',
+ b_kickoff:'Kick-off', bd_kickoff:'Play your first game', b_ten_minute:'Lightning', bd_ten_minute:'10 players in under a minute (daily letter)', b_daily20:'Daily scorer', bd_daily20:'20 players on the daily letter', b_streak3:'Regular', bd_streak3:'3 days in a row', b_streak7:'One week', bd_streak7:'7 days in a row', b_streak30:'One month', bd_streak30:'30 days in a row', b_defi10:'Word kept', bd_defi10:'Hit a challenge of 10', b_defi20:'Monster', bd_defi20:'Hit a challenge of 20', b_abc_clean:'No safety net', bd_abc_clean:'Alphabet with no joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in under 3 min', b_win1:'First win', bd_win1:'Win a match with friends', b_win10:'The boss', bd_win10:'10 wins with friends', b_century:'Centurion', bd_century:'100 players named', b_legend:'Encyclopedia', bd_legend:'500 players named', b_polyglot:'Globetrotter', bd_polyglot:'Players on 20 different letters',
  home:'Home', sound_on:'Sound: on', sound_off:'Sound: off',
  hero_lede:'A letter drops. Name a footballer whose <b>surname</b> starts with it. With friends, solo, or every day against the whole world.',
  nick_label:'Your nickname', nick_ph:'e.g. Zizou10',
@@ -676,6 +761,12 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ acct_btn:'Anmelden', acct_in:'Angemeldet: {x}', acct_out:'Erstelle ein Konto, um Statistiken zu behalten, Abzeichen freizuschalten und in die Ranglisten zu kommen.', my_profile:'Mein Profil',
+ ac_login:'Anmelden', ac_register:'Konto erstellen', ac_name:'Spielername', ac_pass:'Passwort', ac_title_login:'Schön, dass du da bist', ac_title_register:'Willkommen im Team', ac_note:'Keine E-Mail nötig. Merk dir dein Passwort gut: Es kann nicht wiederhergestellt werden.', ac_why:'Mit einem Konto', ac_p1:'Deine Statistiken in allen Modi', ac_p2:'15 Abzeichen zum Freischalten', ac_p3:'Deine Serie beim Buchstaben des Tages', ac_p4:'Vom Server geprüfte Ranglisten', ac_logout:'Abmelden', ac_err_taken:'Dieser Name ist schon vergeben.', ac_err_bad_login:'Name oder Passwort falsch.', ac_err_bad_name:'Name: 2 bis 18 Zeichen (Buchstaben, Ziffern, Leerzeichen, - _ .).', ac_err_bad_pass:'Passwort: mindestens 4 Zeichen.', ac_err_net:'Server nicht erreichbar. Versuch es gleich nochmal.', ac_welcome:'Willkommen {x}!',
+ pr_title:'Profil', pr_since:'Mitglied seit {d}', pr_badges:'Abzeichen', streak_days:'{n} Tage in Folge', streak_days_1:'{n} Tag in Folge', streak_best:'Rekord: {n}', streak_none:'Spiel den Buchstaben des Tages, um deine Serie zu starten',
+ st_games:'Spiele', st_wins:'Siege mit Freunden', st_names:'Genannte Spieler', st_daily:'Rekord Tagesbuchstabe', st_defi:'Größte Challenge', st_abc:'Bestes Alphabet', st_letters:'Erkundete Buchstaben', fav_player:'Meistgenannt: {x} ({n}-mal)', fav_letter:'Lieblingsbuchstabe: {x}',
+ badge_new:'Neues Abzeichen', unranked_note:'Ohne Konto spielst du ohne Wertung. Melde dich an, um gewertet zu werden.', unranked_now:'Server nicht erreichbar: Spiel ohne Wertung.', server_checked:'vom Server geprüft: {n} gültig', daily_done_short:'Du hast den Buchstaben des Tages schon gespielt.',
+ b_kickoff:'Anstoß', bd_kickoff:'Dein erstes Spiel', b_ten_minute:'Blitz', bd_ten_minute:'10 Spieler in unter einer Minute (Tagesbuchstabe)', b_daily20:'Tagestorschütze', bd_daily20:'20 Spieler beim Tagesbuchstaben', b_streak3:'Stammspieler', bd_streak3:'3 Tage in Folge', b_streak7:'Eine Woche', bd_streak7:'7 Tage in Folge', b_streak30:'Ein Monat', bd_streak30:'30 Tage in Folge', b_defi10:'Wort gehalten', bd_defi10:'Challenge mit 10 geschafft', b_defi20:'Monster', bd_defi20:'Challenge mit 20 geschafft', b_abc_clean:'Ohne Netz', bd_abc_clean:'Alphabet ohne Joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in unter 3 Min.', b_win1:'Erster Sieg', bd_win1:'Ein Spiel mit Freunden gewinnen', b_win10:'Der Boss', bd_win10:'10 Siege mit Freunden', b_century:'Centurion', bd_century:'100 Spieler genannt', b_legend:'Lexikon', bd_legend:'500 Spieler genannt', b_polyglot:'Weltenbummler', bd_polyglot:'Spieler auf 20 verschiedenen Buchstaben',
  home:'Start', sound_on:'Ton: an', sound_off:'Ton: aus',
  hero_lede:'Ein Buchstabe fällt. Nenne einen Fußballer, dessen <b>Nachname</b> damit beginnt. Mit Freunden, solo oder jeden Tag gegen die ganze Welt.',
  nick_label:'Dein Spielername', nick_ph:'z. B. Zizou10',
@@ -729,6 +820,8 @@ function t(k,p){
   return s;
 }
 
+const RAW_PLAYERS=document.getElementById('playersData').textContent;
+/*<GAME>*/
 /* ================= BASE DE JOUEURS ================= */
 const MAX_PLAYERS=10;
 const PARTICLES=new Set(['van','von','de','da','di','del','della','der','den','dos','das','do','du','la','le','el','al','ten','ter','mac','dal','degli']);
@@ -739,7 +832,7 @@ function norm(s){
 }
 const P=[], IDX=new Map(), FIRST=new Set();
 (function build(){
-  const raw=document.getElementById('playersData').textContent, seen=new Set();
+  const raw=RAW_PLAYERS, seen=new Set();
   raw.split('\n').forEach(line=>{
     line=line.trim(); if(!line||line[0]==='#'||line.startsWith('/*')) return;
     const parts=line.split('|'), name=parts[0].trim(), full=norm(name);
@@ -759,7 +852,7 @@ const P=[], IDX=new Map(), FIRST=new Set();
       if(at.length===1) letters.add(n[0]);
       else{ let j=1; while(j<at.length-1&&PARTICLES.has(norm(at[j]))) j++; const s=norm(at.slice(j).join(' ')); if(s) letters.add(s[0]); }
     });
-    P.push({name,letters,full});
+    P.push({name,letters,full,sur:toks.length>1?norm(toks.slice(1).join(' ')):full});
     keys.forEach(k=>{ let arr=IDX.get(k); if(!arr){ arr=[]; IDX.set(k,arr); } if(!arr.includes(id)) arr.push(id); });
   });
 })();
@@ -805,7 +898,7 @@ function checkLocal(input,letter,used){
     const k=r.key;
     const fullHit=r.ids.filter(i=>P[i].full===k&&P[i].name.includes(' '));
     const pool=fullHit.length?fullHit:r.ids;
-    const withL=pool.filter(i=>(P[i].full===k&&P[i].name.includes(' '))?fullNameLetters(k).has(l):nameLetters(k).has(l));
+    const withL=pool.filter(i=>(P[i].full===k&&P[i].name.includes(' '))?nameLetters(P[i].sur).has(l):nameLetters(k).has(l));
     if(!withL.length){ if(r.fuzzy) return {st:'unknown',n}; return {st:'bad',c:'letter',x:P[pool[0]].name,count:true}; }
     let display,keys;
     const exactFull=withL.filter(i=>P[i].full===k);
@@ -821,6 +914,16 @@ function checkLocal(input,letter,used){
   if(!nameLetters(n).has(l)&&!fullNameLetters(n).has(l)) return {st:'bad',c:'letter2',x:titleCase(input),count:true};
   return {st:'unknown',n};
 }
+function parisDate(d){ try{ return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(d||new Date()); }catch(_){ return (d||new Date()).toISOString().slice(0,10); } }
+function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+function dailyLetter(date){
+  const pick=dt=>DAILY_LETTERS[hash('footletter:'+dt)%DAILY_LETTERS.length];
+  let l=pick(date);
+  const y=parisDate(new Date(new Date(date+'T12:00:00Z').getTime()-86400000));
+  if(l===pick(y)) l=DAILY_LETTERS[(DAILY_LETTERS.indexOf(l)+1)%DAILY_LETTERS.length];
+  return l.toUpperCase();
+}
+/*</GAME>*/
 
 /* ================= WIKIDATA ================= */
 function fetchJSON(url,ms){
@@ -828,6 +931,7 @@ function fetchJSON(url,ms){
   const tm=setTimeout(()=>ctl&&ctl.abort(),ms);
   return fetch(url,ctl?{signal:ctl.signal}:{}).then(r=>{ clearTimeout(tm); if(!r.ok) throw new Error('http'); return r.json(); });
 }
+/*<GAME2>*/
 const WD='https://www.wikidata.org/w/api.php?format=json&origin=*&';
 function wdSearch(text,limit,extra){
   const q=`haswbstatement:P106=Q937857 haswbstatement:P21=Q6581097 ${extra||''} ${String(text).trim().slice(0,60)}`;
@@ -874,6 +978,7 @@ async function resolveRemote(text,letter,used){
   if(keys.some(k=>used.has(k))) return {st:'bad',c:'dup',x:display,count:true};
   return {st:'ok',display,keys};
 }
+/*</GAME2>*/
 // Fiche joueur : photo, drapeau, pays, poste, club
 const SPECIAL_FLAGS={Q21:'gb-eng',Q22:'gb-sct',Q25:'gb-wls',Q26:'gb-nir',Q1246:'xk'};
 const FOOT_DESC=/foot|soccer|fußball|fussball|calcio|fútbol|futbol|voetbal|futebol/i;
@@ -1105,60 +1210,28 @@ const Net=(function(){
   return {host,join};
 })();
 
-/* Classements publics : un message « retenu » par tableau sur chaque serveur, fusionné à la lecture */
-const LB=(function(){
-  const KINDS={
-    daily:{cmp:(a,b)=>b.s-a.s||a.t-b.t||a.d-b.d, ok:e=>e.s>=0&&e.s<=90&&e.t>=0&&e.t<=200000},
-    defi:{cmp:(a,b)=>b.s-a.s||a.t-b.t||a.d-b.d, ok:e=>e.s>=1&&e.s<=99&&e.t>=e.s*250&&e.t<=3600000},
-    abc:{cmp:(a,b)=>a.t-b.t||a.s-b.s||a.d-b.d, ok:e=>e.s>=0&&e.s<=3&&e.t>=4000&&e.t<=3600000}
+/* Compte et classements : API du serveur (fonction Netlify) */
+const API=(function(){
+  const A={tok:lsGet('fl_tok')||null,me:null,today:null,date:null};
+  A.call=async(path,body)=>{
+    const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),15000);
+    try{
+      const r=await fetch('/api/'+path,{method:body?'POST':'GET',signal:ctl.signal,headers:Object.assign({'content-type':'application/json'},A.tok?{authorization:'Bearer '+A.tok}:{}),body:body?JSON.stringify(body):undefined});
+      let d=null; try{ d=await r.json(); }catch(_){ }
+      if(!r.ok||!d) throw {status:r.status,code:(d&&d.error)||'net'};
+      return d;
+    }catch(e){ if(e&&e.status!==undefined) throw e; throw {status:0,code:'net'}; }
+    finally{ clearTimeout(tm); }
   };
-  const topic=(k,key)=>ROOT+'lb/'+k+'/'+key;
-  function clean(k,e){
-    if(!e||typeof e!=='object') return null;
-    const o={n:cleanNick(e.n),s:Math.round(+e.s),t:Math.round(+e.t),d:Math.round(+e.d)||0,i:String(e.i||'').replace(/[^a-z0-9]/g,'').slice(0,12)};
-    if(![o.s,o.t,o.d].every(Number.isFinite)) return null;
-    return KINDS[k].ok(o)?o:null;
-  }
-  function merge(k,lists){
-    const best=new Map();
-    lists.forEach(list=>(list||[]).forEach(raw=>{ const e=clean(k,raw); if(!e) return; const key=norm(e.n); const cur=best.get(key); if(!cur||KINDS[k].cmp(e,cur)<0) best.set(key,e); }));
-    return [...best.values()].sort(KINDS[k].cmp).slice(0,50);
-  }
-  async function readRaw(pattern){
-    if(!(await Hub.ready(6000))) return null;
-    const got=new Map();
-    const h=Hub.sub(pattern,(tp,txt)=>{ let d; try{ d=JSON.parse(txt); }catch(_){ return; } if(!d||!Array.isArray(d.e)) return; if(!got.has(tp)) got.set(tp,[]); got.get(tp).push(d.e); });
-    await h.ready; await new Promise(r=>setTimeout(r,450));
-    h.off();
-    return got;
-  }
-  async function read(k,key){
-    const tp=topic(k,key), cache=lsGet('fl_lb_'+k+'_'+key)||[];
-    const got=await readRaw(tp);
-    if(!got) return {list:merge(k,[cache]),off:true};
-    const lists=got.get(tp)||[];
-    const list=merge(k,[cache,...lists]);
-    const maxLen=Math.max(0,...lists.map(x=>x.length));
-    if(list.length>maxLen) Hub.pub(tp,JSON.stringify({e:list}),true);
-    lsSet('fl_lb_'+k+'_'+key,list);
-    return {list};
-  }
-  async function readAll(k){
-    const got=await readRaw(ROOT+'lb/'+k+'/+');
-    const out={};
-    if(got) got.forEach((lists,tp)=>{ out[tp.split('/').pop()]=merge(k,lists); });
-    return got?out:null;
-  }
-  async function submit(k,key,entry){
-    const tp=topic(k,key), cache=lsGet('fl_lb_'+k+'_'+key)||[];
-    const got=await readRaw(tp);
-    const list=merge(k,[cache,...(got&&got.get(tp)||[]),[entry]]);
-    lsSet('fl_lb_'+k+'_'+key,list);
-    if(got) Hub.pub(tp,JSON.stringify({e:list}),true);
-    return {list,off:!got};
-  }
-  return {read,readAll,submit,cmp:k=>KINDS[k].cmp};
+  A.setSession=(tok,profile)=>{ A.tok=tok; A.me=profile; A.today=null; lsSet('fl_tok',tok); A.refresh(); };
+  A.logout=()=>{ A.tok=null; A.me=null; A.today=null; try{ localStorage.removeItem('fl_tok'); }catch(_){ } onAccount(); };
+  A.refresh=async()=>{ if(!A.tok){ onAccount(); return; } try{ const d=await A.call('me'); A.me=d.profile; A.today=d.today; A.date=d.date; }catch(e){ if(e.status===401){ A.logout(); return; } } onAccount(); };
+  return A;
 })();
+const LB={
+  async read(k,key){ try{ const d=await API.call('board?kind='+k+'&key='+encodeURIComponent(key)); return {list:d.list||[]}; }catch(_){ return {list:[],off:true}; } },
+  async readAll(k){ try{ const d=await API.call('board?kind='+k); return d.map||{}; }catch(_){ return null; } }
+};
 
 /* ================= MOTEUR DE MATCH (hôte) ================= */
 const DEFAULT_CFG={t:120,tries:3,letter:'?',rounds:3};
@@ -1181,7 +1254,7 @@ function makeEngine(publish){
     g.phase=g.round>=g.rounds?'over':'rend';
     if(g.phase==='over'){
       const rank=[...g.order].sort((x,y)=>(g.pts[y]||0)-(g.pts[x]||0)||(g.tf[y]||0)-(g.tf[x]||0));
-      g.final=rank; g.win=rank[0];
+      g.final=rank; g.win=rank[0]; g.letters=[...e.usedL];
       g.tie=multi&&rank.length>1&&(g.pts[rank[0]]||0)===(g.pts[rank[1]]||0)&&(g.tf[rank[0]]||0)===(g.tf[rank[1]]||0);
     }
   }
@@ -1242,7 +1315,7 @@ function makeEngine(publish){
     const cfg=e.cfg, order=shuffle(players.map(p=>p.id)), nk={};
     players.forEach(p=>{ nk[p.id]=p.nick; });
     e.usedL=[];
-    e.g={v:(e.g?.v||0)+1,order,nk,t:cfg.t,mt:cfg.tries,rounds:cfg.rounds,round:1,pts:{},tf:{},tm:{},gone:{},all:[],fast:null,tid:0,cfg:{...cfg}};
+    e.g={v:(e.g?.v||0)+1,mid:rid(8),order,nk,t:cfg.t,mt:cfg.tries,rounds:cfg.rounds,round:1,pts:{},tf:{},tm:{},gone:{},all:[],fast:null,tid:0,cfg:{...cfg}};
     order.forEach(id=>{ e.g.pts[id]=0; e.g.tf[id]=0; e.g.tm[id]=0; });
     startRound();
   };
@@ -1292,7 +1365,7 @@ function makeEngine(publish){
 
 /* ================= INTERFACE COMMUNE ================= */
 const $=id=>document.getElementById(id);
-const screens=['home','setup','lobby','game','round','over','solo','boards'];
+const screens=['home','setup','lobby','game','round','over','solo','boards','account','profile'];
 let SCREEN='home';
 function show(s){ const was=$(s).hidden; screens.forEach(x=>{ const h=x!==s; if($(x).hidden!==h) $(x).hidden=h; }); SCREEN=s; if(was) window.scrollTo({top:0}); }
 function toast(msg,kind){ const tt=$('toast'); tt.textContent=msg; tt.className='toast'+(kind?' '+kind:''); tt.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>tt.hidden=true,2800); }
@@ -1324,6 +1397,9 @@ function refreshScreen(){
   else if((SCREEN==='game'||SCREEN==='round'||SCREEN==='over')&&S.g){ S.lastK=-1; S.feedKey=null; renderGame(S.g,true); }
   else if(SCREEN==='solo') Solo.refresh();
   else if(SCREEN==='boards') Boards.render();
+  else if(SCREEN==='account') Account.render();
+  else if(SCREEN==='profile') Profile.render();
+  onAccount();
 }
 $('langSeg').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-lang]'); if(!b) return; LANG=b.dataset.lang; lsSet('fl_lang',LANG); refreshScreen(); });
 
@@ -1343,8 +1419,8 @@ function nickOf(g,id){ return (g.nk&&g.nk[id])||'?'; }
 function colorOf(g,id){ const i=g.order?g.order.indexOf(id):0; return COLORS[(i<0?0:i)%COLORS.length]; }
 function isMyTurn(g){ return g&&g.phase==='play'&&(S.mode==='local'||g.cur===S.me); }
 function canDecide(){ return S.mode==='local'||S.isHost; }
-function myNick(){ const n=cleanNick($('nick').value); store('fl_nick',n); return n; }
-function requireNick(){ if(!$('nick').value.trim()){ show('home'); $('nick').focus(); toast(t('need_nick')); return false; } myNick(); return true; }
+function myNick(){ if(API.me) return API.me.name; const n=cleanNick($('nick').value); store('fl_nick',n); return n; }
+function requireNick(){ if(API.me) return true; if(!$('nick').value.trim()){ show('home'); $('nick').focus(); toast(t('need_nick')); return false; } myNick(); return true; }
 
 $('nick').value=store('fl_nick')||'';
 $('nick').addEventListener('input',()=>store('fl_nick',$('nick').value));
@@ -1602,7 +1678,14 @@ function renderOver(g,force){
   foundChips($('foundList'),g.all,g);
   const canAgain=S.mode==='local'||S.isHost;
   $('again').hidden=!canAgain; $('againNote').textContent=canAgain?'':t('again_guest');
-  if(first){ beep('win'); confetti(); }
+  if(first){ beep('win'); confetti(); reportMatch(g); }
+}
+function reportMatch(g){
+  if(!API.me||!g.mid||S.reported===g.mid) return; S.reported=g.mid;
+  const myId=S.mode==='online'?S.me:g.order.find(id=>norm(g.nk[id])===norm(API.me.name)); if(!myId) return;
+  const oi=g.order.indexOf(myId), names=g.all.filter(x=>x[0]===oi).map(x=>x[1]);
+  const won=g.order.length>1&&!g.tie&&g.win===myId;
+  API.call('match',{won,names,letters:g.letters||[]}).then(d=>{ API.me=d.profile; showBadges(d.newBadges); onAccount(); }).catch(()=>{});
 }
 
 /* confettis légers (canvas, ~1,6 s) */
@@ -1819,20 +1902,14 @@ $('again').addEventListener('click',()=>{ if(S.mode==='local') startLocal(); els
 window.addEventListener('pagehide',()=>{ try{ S.nr&&S.nr.leave(); }catch(_){ } });
 
 /* ================= MODES SOLO : Lettre du jour, Défi, Alphabet ================= */
-function parisDate(d){ try{ return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(d||new Date()); }catch(_){ return (d||new Date()).toISOString().slice(0,10); } }
-function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
-function dailyLetter(date){
-  const pick=dt=>DAILY_LETTERS[hash('footletter:'+dt)%DAILY_LETTERS.length];
-  let l=pick(date);
-  const y=parisDate(new Date(new Date(date+'T12:00:00Z').getTime()-86400000));
-  if(l===pick(y)) l=DAILY_LETTERS[(DAILY_LETTERS.indexOf(l)+1)%DAILY_LETTERS.length];
-  return l.toUpperCase();
-}
 function msToParisMidnight(){
   try{ const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date()); const g=k=>+p.find(x=>x.type===k).value; return (86400-(g('hour')*3600+g('minute')*60+g('second')))*1000; }catch(_){ return 0; }
 }
 function fmtHMS(ms){ const s=Math.max(0,Math.floor(ms/1000)); return Math.floor(s/3600)+'h '+String(Math.floor(s%3600/60)).padStart(2,'0')+'min'; }
-function dailyState(){ return lsGet('fl_d5_'+parisDate())||null; }
+function dailyState(){
+  if(API.me&&API.date===parisDate()){ const d=API.today; if(!d) return null; if(d.s!==undefined) return {done:1,n:d.s}; return {s:'start'}; }
+  return lsGet('fl_d5_'+parisDate())||null;
+}
 function renderDailyBadge(){
   const b=$('dailyBadge'), st=dailyState();
   b.hidden=false;
@@ -1843,9 +1920,10 @@ function renderDailyBadge(){
 function fillBoard(ul,list,k,meName,opts){
   ul.replaceChildren();
   if(!list||!list.length){ ul.append(el('li','empty',t('board_empty'))); return; }
-  const me=norm(meName||'');
+  const me=norm(meName||''), mk=API.me&&API.me.key;
   list.slice(0,(opts&&opts.max)||50).forEach((e,i)=>{
-    const li=el('li'); if(me&&norm(e.n)===me) li.className='me';
+    const li=el('li'); if((mk&&e.u===mk)||(!mk&&me&&norm(e.n)===me)) li.className='me';
+    if(e.u){ li.classList.add('click'); li.tabIndex=0; li.addEventListener('click',()=>Profile.open(e.n)); li.addEventListener('keydown',ev=>{ if(ev.key==='Enter') Profile.open(e.n); }); }
     li.append(el('span','rk',String(i+1)));
     const n=el('span','n',e.n); li.append(n);
     const v=el('span','v');
@@ -1891,6 +1969,7 @@ const Solo=(function(){
       if(st&&st.done){ $('soloGo').disabled=true; $('introNote').textContent=t('daily_done',{n:t('res_daily',{n:st.n})})+' '+t('next_letter',{h:fmtHMS(msToParisMidnight())}); }
       else if(st&&st.s==='start'){ $('soloGo').disabled=true; $('introNote').textContent=t('daily_interrupted')+' '+t('next_letter',{h:fmtHMS(msToParisMidnight())}); }
     }
+    if(!API.me&&!$('soloGo').disabled) $('introNote').textContent=t('unranked_note');
     loadBoard($('introBoard'),$('introBoardTitle'));
   }
   function boardKey(){ return R.mode==='daily'?R.date:R.mode==='defi'?R.letter.toLowerCase():'all'; }
@@ -1907,7 +1986,17 @@ const Solo=(function(){
   $('betMinus').addEventListener('click',()=>{ if(!R) return; R.bet=Math.max(1,R.bet-1); $('betVal').textContent=R.bet; renderPresets(); });
   $('betPlus').addEventListener('click',()=>{ if(!R) return; R.bet=Math.min(99,R.bet+1); $('betVal').textContent=R.bet; renderPresets(); });
   $('rerollBtn').addEventListener('click',()=>{ if(!R||R.started) return; let l; do{ l=DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)].toUpperCase(); }while(l===R.letter&&DRAW_LETTERS.length>1); R.letter=l; rollLetter($('introLetter'),l,false); setHeader(); loadBoard($('introBoard'),$('introBoardTitle')); });
-  $('soloGo').addEventListener('click',()=>{ if(!R||R.started) return; if(!requireNick()) return; start(); });
+  $('soloGo').addEventListener('click',async()=>{
+    if(!R||R.started||R.starting) return; if(!requireNick()) return;
+    R.run=null;
+    if(API.me){
+      R.starting=true; $('soloGo').disabled=true;
+      try{ const d=await API.call('run/start',{mode:R.mode,letter:(R.letter||'').toLowerCase(),bet:R.bet}); R.run=d.run; if(R.mode==='daily'&&d.letter) R.letter=d.letter; if(R.mode==='daily'){ API.today={st:1}; API.date=parisDate(); } }
+      catch(e){ R.starting=false; $('soloGo').disabled=false; if(e.code==='already'){ API.today=API.today||{st:1}; API.refresh().then(()=>{ if(R&&!R.started) renderIntro(); }); toast(t('daily_done_short')); return; } if(e.status===401){ API.logout(); } toast(t('unranked_now')); }
+      R.starting=false;
+    }
+    start();
+  });
   $('soloBack').addEventListener('click',goHome);
   $('sQuit').addEventListener('click',()=>{ if(active()) finish(false,'quit'); });
   $('sJoker').addEventListener('click',()=>{ if(active()&&R.mode==='abc'&&R.jokers>0&&!R.pend) useJoker(); });
@@ -2022,20 +2111,30 @@ const Solo=(function(){
     R.over=true; clearInterval(tick); tick=null;
     $('sAnswer').disabled=true; $('sSend').disabled=true;
     const run=R, n=run.found.length, total=Date.now()-(run.t0||Date.now());
-    let entry=null;
-    if(run.mode==='daily'&&!run.dq&&why!=='quit'){ entry={n:run.nick,s:n,t:n?run.found[n-1].ms:0,d:Date.now(),i:rid(8)}; }
-    if(run.mode==='defi'&&ok&&!run.dq) entry={n:run.nick,s:run.bet,t:total,d:Date.now(),i:rid(8)};
-    if(run.mode==='abc'&&ok&&!run.dq) entry={n:run.nick,s:3-run.jokers,t:total+run.pen,d:Date.now(),i:rid(8)};
-    run.total=total; run.ok=ok; run.why=why; run.entry=entry;
+    const ranked=!!run.run&&!run.dq&&why!=='quit';
+    run.total=total; run.ok=ok; run.why=why; run.entry=ranked&&(run.mode==='daily'||ok);
     if(run.mode==='daily') lsSet('fl_d5_'+run.date,{s:'done',done:1,n:run.dq||why==='quit'?0:n,list:run.found.map(x=>x.name)});
     if(ok){ beep('win'); confetti(); } else beep('whistle');
     show('solo'); $('soloIntro').hidden=true; $('soloPlay').hidden=true; $('soloEnd').hidden=false;
     renderEnd();
-    $('eRank').textContent=entry?t('saving'):(run.dq?t('dq'):t('not_ranked'));
+    $('eRank').textContent=run.run?t('saving'):(run.dq?t('dq'):t('unranked_note'));
     $('eBoard').replaceChildren(el('li','empty','…'));
     $('eBoardTitle').textContent=boardTitle();
     const key=boardKey();
-    const res=entry?await LB.submit(run.mode,key,entry):await LB.read(run.mode,key);
+    let res=null;
+    if(run.run&&(ranked||run.mode==='daily')){
+      let answers;
+      if(!ranked) answers=[];
+      else if(run.mode==='abc') answers=run.letters.map((L,i)=>{ if(run.marks[i]==='skip') return {L,joker:1}; const f=run.found.find(x=>x.L===L); return f?{v:f.name,L,ms:f.ms}:null; }).filter(Boolean);
+      else answers=run.found.map(f=>({v:f.name,ms:f.ms}));
+      try{
+        const d=await API.call('run/finish',{run:run.run,answers});
+        API.me=d.profile; if(run.mode==='daily'){ API.today={s:d.score}; API.date=parisDate(); }
+        run.server=d; res={list:d.list||null};
+        if(!d.list) res=await LB.read(run.mode,key);
+        showBadges(d.newBadges); onAccount();
+      }catch(e){ res=await LB.read(run.mode,key); res.failed=true; }
+    } else res=await LB.read(run.mode,key);
     if(R!==run) return;
     run.board=res;
     renderEndBoard();
@@ -2045,7 +2144,12 @@ const Solo=(function(){
     $('eBoardTitle').textContent=boardTitle();
     if(res.off&&!res.list.length){ $('eBoard').replaceChildren(el('li','empty',t('board_off'))); }
     else fillBoard($('eBoard'),res.list,run.mode,run.nick,{max:20});
-    if(run.entry){ const i=res.list.findIndex(e=>norm(e.n)===norm(run.nick)); $('eRank').textContent=res.off?t('board_off'):(i>=0?t('rank',{r:i+1,n:res.list.length}):t('not_ranked')); }
+    if(run.run){
+      const i=API.me?res.list.findIndex(e=>e.u===API.me.key):-1;
+      let txt=res.failed?t('board_off'):(run.entry&&i>=0?t('rank',{r:i+1,n:res.list.length}):(run.dq?t('dq'):t('not_ranked')));
+      if(run.server&&run.server.score!==run.found.length) txt+=' · '+t('server_checked',{n:run.server.score});
+      $('eRank').textContent=txt;
+    } else $('eRank').textContent=run.dq?t('dq'):t('unranked_note');
   }
   function renderEnd(){
     const run=R, n=run.found.length;
@@ -2117,9 +2221,89 @@ const Boards=(function(){
 })();
 $('boardsBtn').addEventListener('click',()=>Boards.open('daily'));
 
+/* ================= COMPTE, PROFIL, BADGES ================= */
+const BADGES=[['kickoff','⚽','#e8b21f'],['ten_minute','⚡','#f08a4b'],['daily20','🎯','#f08a4b'],['streak3','🔥','#ef5b4c'],['streak7','🔥','#ef5b4c'],['streak30','🏆','#e8b21f'],['defi10','💪','#f06aa8'],['defi20','🦾','#f06aa8'],['abc_clean','🔤','#9a7bf0'],['abc_fast','⏱️','#9a7bf0'],['win1','🥇','#2fb36b'],['win10','👑','#2fb36b'],['century','💯','#4ea3e8'],['legend','🌟','#4ea3e8'],['polyglot','🌍','#4ea3e8']];
+function showBadges(ids){
+  if(!ids||!ids.length) return;
+  confetti();
+  ids.forEach((id,i)=>{ const b=BADGES.find(x=>x[0]===id); if(!b) return; setTimeout(()=>{ toast('🏅 '+t('badge_new')+' : '+b[1]+' '+t('b_'+id)); beep('win'); },600+i*3000); });
+}
+function onAccount(){
+  const me=API.me, btn=$('acctBtn');
+  btn.textContent=me?('👤 '+me.name):t('acct_btn');
+  const nk=$('nick');
+  if(me){ nk.value=me.name; nk.disabled=true; } else { nk.disabled=false; if(!nk.value) nk.value=store('fl_nick')||''; }
+  const line=$('acctLine'); line.replaceChildren();
+  if(me){
+    line.append(el('span','note',t('acct_in',{x:me.name})));
+    if(me.daily&&me.daily.streak) line.append(el('span','chip','🔥 '+t('streak_days',{n:me.daily.streak})));
+    const b=el('button','btn small',t('my_profile')); b.type='button'; b.addEventListener('click',()=>Profile.open(me.name)); line.append(b);
+  } else {
+    line.append(el('span','note',t('acct_out')));
+    const b=el('button','btn small primary',t('ac_register')); b.type='button'; b.addEventListener('click',()=>Account.open('register')); line.append(b);
+    const c=el('button','btn small ghost',t('ac_login')); c.type='button'; c.addEventListener('click',()=>Account.open('login')); line.append(c);
+  }
+  renderDailyBadge();
+  if(SCREEN==='profile') Profile.render();
+}
+$('acctBtn').addEventListener('click',()=>{ if(API.me) Profile.open(API.me.name); else Account.open('login'); });
+const Account=(function(){
+  let mode='login';
+  function open(m){ Solo.stop(); mode=m||'login'; show('account'); $('acErr').textContent=''; render(); setTimeout(()=>$('acName').focus(),50); }
+  function render(){
+    document.querySelectorAll('#acTabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===mode)));
+    $('acTitle').textContent=t(mode==='login'?'ac_title_login':'ac_title_register');
+    $('acSubmit').textContent=t(mode==='login'?'ac_login':'ac_register');
+    $('acPass').autocomplete=mode==='login'?'current-password':'new-password';
+    if(!$('acName').value) $('acName').value=cleanNick($('nick').value||'').replace(/^Joueur$/,'');
+  }
+  $('acTabs').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-t]'); if(!b) return; mode=b.dataset.t; $('acErr').textContent=''; render(); });
+  $('acForm').addEventListener('submit',async ev=>{
+    ev.preventDefault();
+    const name=$('acName').value.trim(), pass=$('acPass').value;
+    $('acSubmit').disabled=true; $('acErr').textContent='';
+    try{ const d=await API.call(mode,{name,pass}); API.setSession(d.token,d.profile); $('acPass').value=''; toast(t('ac_welcome',{x:d.profile.name})); confetti(); goHome(); }
+    catch(e){ $('acErr').textContent=t('ac_err_'+(['taken','bad_login','bad_name','bad_pass'].includes(e.code)?e.code:'net')); }
+    finally{ $('acSubmit').disabled=false; }
+  });
+  $('acBack').addEventListener('click',goHome);
+  return {open,render};
+})();
+const Profile=(function(){
+  let cur=null, name=null;
+  async function open(n){
+    Solo.stop(); name=n; cur=(API.me&&norm(API.me.name)===norm(n))?API.me:null; show('profile'); render();
+    try{ const d=await API.call('profile?u='+encodeURIComponent(n)); if(name===n){ cur=d.profile; render(); } }catch(_){ if(!cur){ $('prFav').textContent=t('board_off'); } }
+  }
+  function render(){
+    const p=cur; if(!p){ $('prName').textContent=name||''; $('prTiles').replaceChildren(); $('prBadges').replaceChildren(); return; }
+    const mine=API.me&&API.me.key===p.key; if(mine) API.me=p;
+    $('prAv').textContent=initials(p.name); $('prName').textContent=p.name;
+    $('prSince').textContent=t('pr_since',{d:new Date(p.created).toLocaleDateString(LANG)});
+    const sb=$('prStreak'); sb.replaceChildren();
+    const d=p.daily||{streak:0,best:0}, active=d.last&&(d.last===parisDate()||d.last===parisDate(new Date(Date.now()-86400000)));
+    sb.append(el('span','f',active&&d.streak?'🔥':'🪵'));
+    const tx=el('div'); tx.append(el('b',null,active&&d.streak?t('streak_days',{n:d.streak}):t('streak_none'))); tx.append(el('span',null,t('streak_best',{n:d.best||0}))); sb.append(tx);
+    const s=p.stats, tl=$('prTiles'); tl.replaceChildren();
+    const tile=(v,l)=>{ const x=el('div','tile'); x.append(el('b',null,String(v)),el('span',null,l)); tl.append(x); };
+    tile(s.total,t('st_games')); tile(s.wins,t('st_wins')); tile(s.names,t('st_names')); tile(s.bestDaily||'–',t('st_daily')); tile(s.bestDefi||'–',t('st_defi')); tile(s.bestAbc?fmtDur(s.bestAbc):'–',t('st_abc')); tile((s.letterCount||0)+'/26',t('st_letters'));
+    const fav=[]; if(s.topPlayer) fav.push(t('fav_player',{x:s.topPlayer.k,n:s.topPlayer.n})); if(s.topLetter) fav.push(t('fav_letter',{x:s.topLetter.k.toUpperCase()}));
+    $('prFav').textContent=fav.join(' · ');
+    const bx=$('prBadges'); bx.replaceChildren(); let got=0;
+    BADGES.forEach(([id,e,c])=>{ const has=!!(p.badges&&p.badges[id]); if(has) got++; const x=el('div','badge'+(has?'':' locked')); x.style.setProperty('--bc',c); x.append(el('span','e',has?e:'🔒'),el('b',null,t('b_'+id)),el('span',null,t('bd_'+id))); bx.append(x); });
+    $('prBadgeCount').textContent=got+' / '+BADGES.length;
+    $('prLogout').hidden=!mine;
+  }
+  $('prLogout').addEventListener('click',()=>{ API.logout(); goHome(); });
+  $('prBack').addEventListener('click',goHome);
+  return {open,render};
+})();
+
 /* ================= DÉMARRAGE ================= */
 Hub.start();
 applyI18n();
+onAccount();
+API.refresh();
 setInterval(()=>{ if(SCREEN==='home') renderDailyBadge(); },60000);
 </script>
 </body>
