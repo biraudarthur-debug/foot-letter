@@ -24,3 +24,7 @@ lib.mkdir(parents=True, exist_ok=True)
     "\nexport { norm, titleCase, checkLocal, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };\n",
     encoding="utf8")
 print("index.html + netlify/lib/game.mjs reconstruits")
+
+# Pages de référencement /joueurs/*.html
+import subprocess
+subprocess.run(["node", str(root / "seo.mjs")], check=True)

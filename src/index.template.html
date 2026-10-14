@@ -3,10 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FOOT LETTER</title>
-<meta name="description" content="FOOT LETTER : une lettre, un chrono, citez un maximum de footballeurs par leur nom. Entre amis, en défi ou chaque jour face au monde entier.">
-<meta property="og:title" content="FOOT LETTER">
-<meta property="og:description" content="Le jeu de culture foot : une lettre, un chrono, le dernier debout gagne.">
+<title>FOOT LETTER · Le jeu de culture foot : cite des footballeurs par lettre</title>
+<meta name="description" content="Jeu de culture foot gratuit : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. Lettre du jour, défis, tour de l'alphabet et parties en ligne entre amis.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOOT LETTER">
+<meta property="og:image" content="/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOOT LETTER · le jeu de culture foot">
+<meta name="twitter:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
+<meta name="twitter:image" content="/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTER","alternateName":"Foot Letter","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<meta property="og:title" content="FOOT LETTER · le jeu de culture foot">
+<meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
 <meta name="theme-color" content="#0f4a2b">
 <link rel="manifest" href="/manifest.webmanifest">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5be1bb81-ef5d-42ba-a5bc-366e25d7735c"></script>
@@ -167,11 +177,6 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .feedback.ok{color:var(--go);font-weight:600} .feedback.bad{color:var(--warn);font-weight:600}
 .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .decide{width:100%;max-width:520px;background:var(--sunk);border-radius:var(--r);padding:10px 14px;display:flex;flex-direction:column;gap:10px;text-align:center}
-.vote{display:inline-flex;gap:4px;align-items:center}
-.vote button{min-width:26px;height:26px;border-radius:8px;border:0;cursor:pointer;font-size:11px;font-weight:700;color:var(--ink);padding:0 6px;transition:transform .1s}
-.vote button:active{transform:scale(.9)}
-.vote .y{background:var(--yellow)} .vote .r{background:#ef5b4c;color:#fff}
-.vote button.on{box-shadow:0 0 0 2px var(--chalk)}
 .streak{display:inline-block;margin-left:8px;font-size:18px;color:#d2601a}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
 .decide p{margin:0}
@@ -261,6 +266,15 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .pending{font-size:13px;color:var(--chalk-2);min-height:18px;text-align:center}
 .result-big{font-family:var(--f-display);font-weight:900;overflow-wrap:anywhere;font-size:clamp(44px,7vw,76px);line-height:.88;margin:0;text-transform:uppercase;text-wrap:balance}
 
+.wbox{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:var(--r);padding:14px}
+.wgrid{display:flex;gap:8px}
+.wgrid span{flex:1;max-width:56px;aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:22px;color:var(--ink);background:#2a3e34;animation:flip .5s both}
+.wgrid span.g{background:#5fd38d} .wgrid span.y{background:#f7c948} .wgrid span.n{color:var(--chalk-3)}
+@keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
+.wnext{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:.04em;margin:0}
+.seo-links{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.seo-links a{color:var(--chalk-2);text-decoration:none;padding:2px 7px;border-radius:8px;background:rgba(0,0,0,.18)}
+.seo-links a:hover{color:var(--chalk)}
 /* compte & profil */
 .perks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
 .perks li{display:flex;gap:10px;align-items:center;background:var(--sunk);border-radius:var(--r-sm);padding:10px 12px;font-weight:500}
@@ -324,6 +338,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 </style>
 </head>
 <body>
+<noscript><p style="padding:16px">FOOT LETTER est un jeu de culture foot : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. <a href="/joueurs/">Voir les footballeurs par lettre</a>.</p></noscript>
 <div class="wrap">
   <header class="topbar">
     <button class="brand" id="brand" type="button" data-i18n-aria="home"><i>F</i>Foot Letter</button>
@@ -384,7 +399,8 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9.2</p>
+    <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v10</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -590,8 +606,14 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
         <h2 class="result-big" id="eTitle"></h2>
         <p class="note" id="eSub" style="font-size:15px"></p>
         <p class="note" id="eRank"></p>
+        <div class="wbox" id="eWordle" hidden>
+          <div class="wgrid" id="eGrid" aria-hidden="true"></div>
+          <p class="note" id="ePct"></p>
+          <p class="wnext" id="eNext"></p>
+        </div>
         <div class="row">
           <button class="btn primary" id="eShare" type="button" data-i18n="share"></button>
+          <button class="btn" id="eShareImg" type="button" data-i18n="share_img"></button>
           <button class="btn" id="eAgain" type="button" data-i18n="again"></button>
           <button class="btn ghost" id="eBoards" type="button" data-i18n="boards_btn"></button>
         </div>
@@ -706,6 +728,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ share_img:'Image', img_saved:'Image enregistrée : publie-la en story !', beat:'Tu fais mieux que {p} % des joueurs du jour', seo_by_letter:'Footballeurs par lettre :',
  inst_btn:'Installer l\'appli', inst_title:'Installer FOOT LETTER', inst_ios1:'Touche le bouton Partager (le carré avec une flèche vers le haut) en bas de Safari.', inst_ios2:'Choisis « Sur l\'écran d\'accueil ».', inst_ios3:'Touche « Ajouter » : l\'icône FOOT LETTER apparaît avec tes applis.', inst_ok:'Compris', inst_done:'FOOT LETTER est installé !',
  ad_title:'Tableau de bord', ad_claim_note:'Espace réservé au créateur du jeu. Entre ton code administrateur une seule fois : il reste associé à ton compte.', ad_code:'Code administrateur', ad_unlock:'Débloquer', ad_bad:'Code incorrect.', ad_forbidden:'Accès réservé à l\'administrateur.', ad_total:'Comptes créés', ad_today:'Actifs aujourd\'hui', ad_week:'Actifs cette semaine', ad_new:'Nouveaux cette semaine', ad_daily:'Ont joué la lettre du jour', ad_list:'Joueurs ({n})', ad_search:'Rechercher un pseudo…', ad_seen:'Vu', ad_joined:'Inscrit', ad_now:'à l\'instant', ad_min:'il y a {n} min', ad_h:'il y a {n} h', ad_d:'il y a {n} j',
  acct_btn:'Connexion', acct_in:'Connecté : {x}', acct_out:'Crée un compte pour garder tes stats, débloquer des badges et entrer aux classements.', my_profile:'Mon profil',
@@ -727,7 +750,7 @@ fr:{
  daily_played:'Joué : {n} aujourd\'hui', daily_new:'Nouvelle lettre à jouer',
  join_code:'Code du salon', join_btn:'Rejoindre', boards_btn:'Classements',
  net_label:'Serveurs', net_wait:'Connexion…', net_ok:'Connecté : jeu en ligne et classements prêts.', net_partial:'{n}/{m} serveurs joignables : tout fonctionne.', net_none:'Aucun serveur joignable depuis ce réseau. Essaie en 4G. « Jouer ici » marche toujours.',
- r1b:'1 lettre', r1:'Au hasard, choisie, ou celle du jour.', r2b:'Le nom', r2:'Seul le nom de famille compte (ou le nom d\'usage : Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points de chaque manche selon le classement.', r4b:'Cartons', r4:'Quitter la page = jaune auto. Jaune ou rouge à la demande : 2 joueurs doivent être d\'accord.',
+ r1b:'1 lettre', r1:'Au hasard, choisie, ou celle du jour.', r2b:'Le nom', r2:'Seul le nom de famille compte (ou le nom d\'usage : Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points de chaque manche selon le classement.', r4b:'Fair-play', r4:'Quitter la page = carton jaune. Deux jaunes = rouge.',
  db_note:'Validation : {n} footballeurs intégrés, puis recherche parmi les joueurs professionnels du monde entier, actuels et retraités (Wikidata).',
  who_plays:'Qui joue ?', setup_note:'Jusqu\'à 10 joueurs sur cet appareil.', add_player:'+ Ajouter un joueur', remove:'Retirer', player_n:'Joueur {n}', settings:'Réglages', kickoff:'Coup d\'envoi',
  set_time:'Temps par passage', set_tries:'Essais par passage', unlimited:'Illimité', set_letter:'Lettre', random:'Au hasard', choose:'Choisir', set_rounds:'Nombre de manches',
@@ -736,7 +759,7 @@ fr:{
  set_host:'Réglages (toi seul peux les changer)', set_guest:'Réglages choisis par l\'hôte', players_n:'Joueurs ({n})', host_tag:'Hôte', you_tag:'Toi', leave:'Quitter', wait_kick:'En attente du coup d\'envoi…', wait_host:'Connexion à l\'hôte…', solo_hint:'Tu peux aussi lancer seul pour t\'entraîner.',
  code_copied:'Code copié', link_copied:'Lien copié, envoie-le à tes amis', link_file:'Le lien ne marche que si le site est en ligne. Donne plutôt le code.', share_invite:'Rejoins ma partie de FOOT LETTER !',
  letter:'Lettre', room:'Salon', round_chip:'Manche {r}/{m}', your_turn:'À toi de jouer', turn_of:'Au tour de', draw:'Tirage de la lettre', chosen_letter:'Lettre choisie par l\'hôte', starts:'{x} commence', pass_device:'Passe-lui l\'appareil', say_surname:'Un nom de famille en {L}', ph_mine:'Nom de famille en {L}…', ph_wait:'En attente de {x}…', validate:'Valider', give_up:'Je sèche', typing:'{x} écrit…',
- fairplay:'Quitter la page = jaune automatique. 🟨 🟥 à côté d\'un joueur : il faut l\'accord de 2 joueurs (1 seul si vous êtes deux).', fairplay_solo:'Fair-play : quitter la page = carton jaune, deux = disqualifié.',
+ fairplay:'Fair-play : quitter la page ou la fenêtre = carton jaune automatique, deux = rouge.', fairplay_solo:'Fair-play : quitter la page = carton jaune, deux = disqualifié.',
  players:'Joueurs', sheet:'Feuille de match', none_yet:'Aucun joueur cité pour le moment.', ok_line:'✓ {x} : +1 pour {p}', checking:'Recherche de « {x} » parmi les joueurs pros…', unknown_q:'« {x} » n\'est pas reconnu.', unknown_off:'« {x} » : recherche en ligne indisponible.', host_q:'Tu valides, en tant qu\'hôte ?', local_q:'Vous validez ?', host_dec:'L\'hôte décide…', accept:'Valider le joueur', reject:'Refuser', several:'plusieurs joueurs portent ce nom', born:'né en {y}', ex:'ex-', you:'toi', host:'hôte',
  ev_time:'Carton rouge pour {x} : temps écoulé', ev_give:'{x} abandonne la manche', ev_left:'{x} a quitté la partie', ev_tries:'Carton rouge pour {x} : plus d\'essais', ev_yellow:'Carton jaune pour {x} : a quitté la page', ev_yy:'Deuxième jaune pour {x} : carton rouge !', ev_vote_y:'{v} demande un jaune pour {x} : un 2e joueur doit confirmer', ev_vote_r:'{v} demande un rouge pour {x} : un 2e joueur doit confirmer', ev_cy:'Carton jaune pour {x} (validé)', ev_cr:'Carton rouge pour {x} (validé)', vote_y:'Jaune', a_player:'Un joueur', vote_r:'Rouge', streak:'Série x{n}', my_yellow:'Carton jaune : tu as quitté la page. Au prochain, c\'est le rouge.',
  r_short:'Écris au moins deux lettres.', r_first:'« {x} » est un prénom. Seuls les noms de famille comptent.', r_letter:'Le nom de {x} ne commence pas par {L}.', r_letter2:'« {x} » ne commence pas par {L}.', r_dup:'{x} a déjà été cité.', r_refused:'L\'hôte a refusé « {x} ».', r_unknown:'« {x} » n\'est pas un joueur pro reconnu.', r_offline:'Vérification impossible (hors ligne) : « {x} » refusé.',
@@ -746,7 +769,7 @@ fr:{
  aw_fast:'Éclair', aw_fast_d:'{p} en {s} s', aw_top:'Meilleur buteur', aw_top_d:'{n} noms', aw_miss:'Poteau rentrant', aw_miss_d:'{n} réponses refusées', aw_nat:'Nation la plus citée', aw_nat_d:'{n} joueurs', aw_club:'Club le plus cité',
  again:'Rejouer', again_guest:'L\'hôte peut relancer un match : tu restes dans le salon.', found_list:'Joueurs cités',
  your_letter:'Ta lettre', reroll:'Une autre lettre', bet:'Mon annonce', abandon:'Abandonner',
- daily_intro:'Tout le monde a la même lettre aujourd\'hui. Tu as 3 minutes pour citer un maximum de joueurs, sans limite d\'essais. Un seul essai par jour : la lettre se révèle au coup d\'envoi.', daily_go:'Révéler la lettre', daily_done:'Tu as déjà joué aujourd\'hui : {n}.', daily_interrupted:'Partie interrompue aujourd\'hui : pas de score.', next_letter:'Nouvelle lettre dans {h}', daily_board:'Classement du jour', hidden_letter:'lettre cachée',
+ daily_intro:'Tout le monde a la même lettre aujourd\'hui. Tu as 3 minutes pour citer un maximum de joueurs, sans limite d\'essais. Un seul essai par jour : la lettre se révèle au coup d\'envoi.', daily_go:'Révéler la lettre', daily_done:'Tu as déjà joué aujourd\'hui : {n}.', daily_interrupted:'Partie interrompue aujourd\'hui : pas de score.', next_letter:'Prochaine lettre dans {h}', daily_board:'Classement du jour', hidden_letter:'lettre cachée',
  defi_intro:'Voici ta lettre. Annonce combien de joueurs tu peux citer. Tu as 30 secondes par nom, et le chrono repart à chaque bonne réponse. Tiens ton annonce et tu entres au classement de cette lettre.', defi_go:'Je relève le défi', defi_board:'Classement de la lettre {L}',
  abc_intro:'Un joueur pour chaque lettre, de A à Z, les 26 lettres. 30 s max par lettre. 3 jokers pour passer une lettre (+15 s). Ton temps total fait ton classement.', abc_go:'Partir', abc_board:'Meilleurs temps', joker:'Joker (+15 s) · {n}',
  prog_daily:'{n} joueurs', prog_daily_1:'{n} joueur', prog_defi:'{f} / {t}', prog_abc:'{i} / {n}',
@@ -757,6 +780,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ share_img:'Image', img_saved:'Image saved: post it as a story!', beat:'You beat {p}% of today\'s players', seo_by_letter:'Footballers by letter:',
  inst_btn:'Install app', inst_title:'Install FOOT LETTER', inst_ios1:'Tap the Share button (the square with an up arrow) at the bottom of Safari.', inst_ios2:'Choose “Add to Home Screen”.', inst_ios3:'Tap “Add”: the FOOT LETTER icon appears with your apps.', inst_ok:'Got it', inst_done:'FOOT LETTER is installed!',
  ad_title:'Dashboard', ad_claim_note:'For the game\'s creator only. Enter your admin code once: it stays linked to your account.', ad_code:'Admin code', ad_unlock:'Unlock', ad_bad:'Wrong code.', ad_forbidden:'Admin only.', ad_total:'Accounts', ad_today:'Active today', ad_week:'Active this week', ad_new:'New this week', ad_daily:'Played the daily letter', ad_list:'Players ({n})', ad_search:'Search a nickname…', ad_seen:'Seen', ad_joined:'Joined', ad_now:'just now', ad_min:'{n} min ago', ad_h:'{n} h ago', ad_d:'{n} d ago',
  acct_btn:'Log in', acct_in:'Logged in: {x}', acct_out:'Create an account to keep your stats, unlock badges and enter the leaderboards.', my_profile:'My profile',
@@ -778,7 +802,7 @@ en:{
  daily_played:'Played: {n} today', daily_new:'New letter to play',
  join_code:'Room code', join_btn:'Join', boards_btn:'Leaderboards',
  net_label:'Servers', net_wait:'Connecting…', net_ok:'Connected: online play and leaderboards ready.', net_partial:'{n}/{m} servers reachable: everything works.', net_none:'No server reachable from this network. Try mobile data. “Play here” always works.',
- r1b:'1 letter', r1:'Random, picked, or the daily one.', r2b:'Surnames', r2:'Only the surname counts (or the known name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points per round based on the ranking.', r4b:'Cards', r4:'Leaving the page = automatic yellow. Yellow or red on request: 2 players must agree.',
+ r1b:'1 letter', r1:'Random, picked, or the daily one.', r2b:'Surnames', r2:'Only the surname counts (or the known name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points per round based on the ranking.', r4b:'Fair play', r4:'Leaving the page = yellow card. Two yellows = red.',
  db_note:'Checking: {n} built-in footballers, then a search through professional players worldwide, current and retired (Wikidata).',
  who_plays:'Who\'s playing?', setup_note:'Up to 10 players on this device.', add_player:'+ Add a player', remove:'Remove', player_n:'Player {n}', settings:'Settings', kickoff:'Kick-off',
  set_time:'Time per turn', set_tries:'Tries per turn', unlimited:'Unlimited', set_letter:'Letter', random:'Random', choose:'Pick', set_rounds:'Number of rounds',
@@ -787,7 +811,7 @@ en:{
  set_host:'Settings (only you can change them)', set_guest:'Settings chosen by the host', players_n:'Players ({n})', host_tag:'Host', you_tag:'You', leave:'Leave', wait_kick:'Waiting for kick-off…', wait_host:'Connecting to the host…', solo_hint:'You can also start alone to practise.',
  code_copied:'Code copied', link_copied:'Link copied, send it to your friends', link_file:'The link only works once the site is online. Share the code instead.', share_invite:'Join my FOOT LETTER game!',
  letter:'Letter', room:'Room', round_chip:'Round {r}/{m}', your_turn:'Your turn', turn_of:'Now playing', draw:'Drawing the letter', chosen_letter:'Letter picked by the host', starts:'{x} starts', pass_device:'Hand them the device', say_surname:'A surname starting with {L}', ph_mine:'Surname starting with {L}…', ph_wait:'Waiting for {x}…', validate:'Submit', give_up:'I\'m stuck', typing:'{x} is typing…',
- fairplay:'Leaving the page = automatic yellow. 🟨 🟥 next to a player: 2 players must agree (just 1 if there are two of you).', fairplay_solo:'Fair play: leaving the page = yellow card, two = disqualified.',
+ fairplay:'Fair play: leaving the page or window = automatic yellow card, two = red.', fairplay_solo:'Fair play: leaving the page = yellow card, two = disqualified.',
  players:'Players', sheet:'Match sheet', none_yet:'No player named yet.', ok_line:'✓ {x}: +1 for {p}', checking:'Looking up “{x}” among pro players…', unknown_q:'“{x}” isn\'t recognised.', unknown_off:'“{x}”: online search unavailable.', host_q:'As the host, do you accept it?', local_q:'Do you accept it?', host_dec:'The host decides…', accept:'Accept player', reject:'Reject', several:'several players share this name', born:'born {y}', ex:'ex-', you:'you', host:'host',
  ev_time:'Red card for {x}: time\'s up', ev_give:'{x} gives up the round', ev_left:'{x} left the game', ev_tries:'Red card for {x}: no tries left', ev_yellow:'Yellow card for {x}: left the page', ev_yy:'Second yellow for {x}: red card!', ev_vote_y:'{v} asks for a yellow for {x}: a 2nd player must confirm', ev_vote_r:'{v} asks for a red for {x}: a 2nd player must confirm', ev_cy:'Yellow card for {x} (confirmed)', ev_cr:'Red card for {x} (confirmed)', vote_y:'Yellow', a_player:'A player', vote_r:'Red', streak:'Streak x{n}', my_yellow:'Yellow card: you left the page. Next time it\'s red.',
  r_short:'Type at least two letters.', r_first:'“{x}” is a first name. Only surnames count.', r_letter:'{x}\'s surname doesn\'t start with {L}.', r_letter2:'“{x}” doesn\'t start with {L}.', r_dup:'{x} has already been named.', r_refused:'The host rejected “{x}”.', r_unknown:'“{x}” isn\'t a recognised pro player.', r_offline:'Can\'t check (offline): “{x}” rejected.',
@@ -808,6 +832,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ share_img:'Bild', img_saved:'Bild gespeichert: Teile es als Story!', beat:'Du bist besser als {p} % der heutigen Spieler', seo_by_letter:'Fußballer nach Buchstabe:',
  inst_btn:'App installieren', inst_title:'FOOT LETTER installieren', inst_ios1:'Tippe unten in Safari auf Teilen (das Quadrat mit dem Pfeil nach oben).', inst_ios2:'Wähle „Zum Home-Bildschirm“.', inst_ios3:'Tippe auf „Hinzufügen“: Das FOOT-LETTER-Symbol erscheint bei deinen Apps.', inst_ok:'Verstanden', inst_done:'FOOT LETTER ist installiert!',
  ad_title:'Dashboard', ad_claim_note:'Nur für den Ersteller des Spiels. Gib deinen Admin-Code einmal ein: Er bleibt mit deinem Konto verknüpft.', ad_code:'Admin-Code', ad_unlock:'Freischalten', ad_bad:'Falscher Code.', ad_forbidden:'Nur für den Admin.', ad_total:'Konten', ad_today:'Heute aktiv', ad_week:'Diese Woche aktiv', ad_new:'Neu diese Woche', ad_daily:'Tagesbuchstabe gespielt', ad_list:'Spieler ({n})', ad_search:'Spielernamen suchen…', ad_seen:'Gesehen', ad_joined:'Dabei seit', ad_now:'gerade eben', ad_min:'vor {n} Min.', ad_h:'vor {n} Std.', ad_d:'vor {n} T.',
  acct_btn:'Anmelden', acct_in:'Angemeldet: {x}', acct_out:'Erstelle ein Konto, um Statistiken zu behalten, Abzeichen freizuschalten und in die Ranglisten zu kommen.', my_profile:'Mein Profil',
@@ -829,7 +854,7 @@ de:{
  daily_played:'Gespielt: {n} heute', daily_new:'Neuer Buchstabe wartet',
  join_code:'Raumcode', join_btn:'Beitreten', boards_btn:'Ranglisten',
  net_label:'Server', net_wait:'Verbinde…', net_ok:'Verbunden: Online-Spiel und Ranglisten bereit.', net_partial:'{n}/{m} Server erreichbar: alles funktioniert.', net_none:'Kein Server aus diesem Netz erreichbar. Versuch es mit mobilen Daten. „Hier spielen“ geht immer.',
- r1b:'1 Buchstabe', r1:'Zufällig, gewählt oder der des Tages.', r2b:'Nachname', r2:'Nur der Nachname zählt (oder der bekannte Name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Punkte pro Runde nach Platzierung.', r4b:'Karten', r4:'Seite verlassen = automatisch Gelb. Gelb oder Rot auf Antrag: 2 Spieler müssen zustimmen.',
+ r1b:'1 Buchstabe', r1:'Zufällig, gewählt oder der des Tages.', r2b:'Nachname', r2:'Nur der Nachname zählt (oder der bekannte Name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Punkte pro Runde nach Platzierung.', r4b:'Fairplay', r4:'Seite verlassen = Gelbe Karte. Zwei Gelbe = Rot.',
  db_note:'Prüfung: {n} eingebaute Fußballer, danach Suche unter Profispielern weltweit, aktiv und im Ruhestand (Wikidata).',
  who_plays:'Wer spielt?', setup_note:'Bis zu 10 Spieler an diesem Gerät.', add_player:'+ Spieler hinzufügen', remove:'Entfernen', player_n:'Spieler {n}', settings:'Einstellungen', kickoff:'Anstoß',
  set_time:'Zeit pro Zug', set_tries:'Versuche pro Zug', unlimited:'Unbegrenzt', set_letter:'Buchstabe', random:'Zufall', choose:'Wählen', set_rounds:'Anzahl Runden',
@@ -838,7 +863,7 @@ de:{
  set_host:'Einstellungen (nur du kannst sie ändern)', set_guest:'Vom Gastgeber gewählte Einstellungen', players_n:'Spieler ({n})', host_tag:'Gastgeber', you_tag:'Du', leave:'Verlassen', wait_kick:'Warten auf den Anstoß…', wait_host:'Verbinde mit dem Gastgeber…', solo_hint:'Du kannst auch allein üben.',
  code_copied:'Code kopiert', link_copied:'Link kopiert, schick ihn deinen Freunden', link_file:'Der Link funktioniert erst, wenn die Seite online ist. Gib lieber den Code weiter.', share_invite:'Spiel mit mir FOOT LETTER!',
  letter:'Buchstabe', room:'Raum', round_chip:'Runde {r}/{m}', your_turn:'Du bist dran', turn_of:'Am Zug', draw:'Buchstabe wird gezogen', chosen_letter:'Vom Gastgeber gewählt', starts:'{x} beginnt', pass_device:'Gib das Gerät weiter', say_surname:'Ein Nachname mit {L}', ph_mine:'Nachname mit {L}…', ph_wait:'Warten auf {x}…', validate:'Senden', give_up:'Ich passe', typing:'{x} tippt…',
- fairplay:'Seite verlassen = automatisch Gelb. 🟨 🟥 neben einem Spieler: 2 Spieler müssen zustimmen (nur 1, wenn ihr zu zweit seid).', fairplay_solo:'Fairplay: Seite verlassen = Gelbe Karte, zweimal = disqualifiziert.',
+ fairplay:'Fairplay: Seite oder Fenster verlassen = automatisch Gelb, zweimal = Rot.', fairplay_solo:'Fairplay: Seite verlassen = Gelbe Karte, zweimal = disqualifiziert.',
  players:'Spieler', sheet:'Spielbericht', none_yet:'Noch kein Spieler genannt.', ok_line:'✓ {x}: +1 für {p}', checking:'Suche „{x}“ unter Profispielern…', unknown_q:'„{x}“ wurde nicht erkannt.', unknown_off:'„{x}“: Online-Suche nicht verfügbar.', host_q:'Als Gastgeber: Gilt das?', local_q:'Gilt das?', host_dec:'Der Gastgeber entscheidet…', accept:'Spieler anerkennen', reject:'Ablehnen', several:'mehrere Spieler heißen so', born:'geb. {y}', ex:'Ex-', you:'du', host:'Gastgeber',
  ev_time:'Rote Karte für {x}: Zeit abgelaufen', ev_give:'{x} gibt die Runde auf', ev_left:'{x} hat das Spiel verlassen', ev_tries:'Rote Karte für {x}: keine Versuche mehr', ev_yellow:'Gelbe Karte für {x}: Seite verlassen', ev_yy:'Zweite Gelbe für {x}: Rote Karte!', ev_vote_y:'{v} fordert Gelb für {x}: ein 2. Spieler muss bestätigen', ev_vote_r:'{v} fordert Rot für {x}: ein 2. Spieler muss bestätigen', ev_cy:'Gelbe Karte für {x} (bestätigt)', ev_cr:'Rote Karte für {x} (bestätigt)', vote_y:'Gelb', a_player:'Ein Spieler', vote_r:'Rot', streak:'Serie x{n}', my_yellow:'Gelbe Karte: Du hast die Seite verlassen. Beim nächsten Mal gibt es Rot.',
  r_short:'Mindestens zwei Buchstaben eingeben.', r_first:'„{x}“ ist ein Vorname. Nur Nachnamen zählen.', r_letter:'Der Nachname von {x} beginnt nicht mit {L}.', r_letter2:'„{x}“ beginnt nicht mit {L}.', r_dup:'{x} wurde schon genannt.', r_refused:'Der Gastgeber hat „{x}“ abgelehnt.', r_unknown:'„{x}“ ist kein bekannter Profispieler.', r_offline:'Prüfung nicht möglich (offline): „{x}“ abgelehnt.',
@@ -1352,12 +1377,12 @@ function makeEngine(publish){
     g.elim=g.order.filter(id=>g.gone[id]);
     const starters=g.order.filter(id=>!g.gone[id]);
     g.cur=starters.length?starters[(g.round-1)%starters.length]:g.order[0];
-    g.log=[]; g.cv={}; g.tu=0; g.tid=(g.tid||0)+1; g.check=null; g.pend=null; g.paused=0; g.res=null; g.rw=null; g.last=null; g.ev=null;
+    g.log=[]; g.tu=0; g.tid=(g.tid||0)+1; g.check=null; g.pend=null; g.paused=0; g.res=null; g.rw=null; g.last=null; g.ev=null;
     g.phase='draw'; e.keys=new Set(); e.lastFoul={};
     pub();
     clearInterval(e.timer); clearTimeout(e.dt);
     e.dt=setTimeout(()=>{ if(e.g.phase!=='draw') return; e.g.phase='play'; e.deadline=Date.now()+TMS(); if(!checkEnd()) {} pub(); },g.chosen?1200:2600);
-    e.timer=setInterval(()=>{ const x=e.g; if(!x) return; if(x.cv){ const now=Date.now(); let ch=false; Object.keys(x.cv).forEach(k=>{ if(now-x.cv[k].ts>30000){ delete x.cv[k]; ch=true; } }); if(ch) pub(); } if(x.phase==='play'&&!x.paused&&Date.now()>=e.deadline){ elim(x.cur,'time'); pub(); } },150);
+    e.timer=setInterval(()=>{ const x=e.g; if(!x) return; if(x.phase==='play'&&!x.paused&&Date.now()>=e.deadline){ elim(x.cur,'time'); pub(); } },150);
   }
   e.setCfg=cfg=>{ e.cfg={...e.cfg,...cfg}; if(e.g&&e.g.phase==='lobby'){ e.g.cfg={...e.cfg}; e.g.v++; publish(e.g); } };
   e.lobby=()=>{ clearInterval(e.timer); clearTimeout(e.dt); e.g={v:(e.g?.v||0)+1,phase:'lobby',cfg:{...e.cfg}}; publish(e.g); };
@@ -1392,21 +1417,6 @@ function makeEngine(publish){
     const now=Date.now(); if(now-(e.lastFoul[pid]||0)<2500) return; e.lastFoul[pid]=now;
     g.yc[pid]=(g.yc[pid]||0)+1;
     if(g.yc[pid]>=2) elim(pid,'yy'); else g.ev={k:(g.ev?.k||0)+1,p:pid,w:'yellow'};
-    pub();
-  };
-  e.vote=(voter,target,c)=>{
-    const g=e.g; if(!g||!g.al||!g.al[target]||(g.phase!=='play'&&g.phase!=='draw')||voter===target||(c!=='y'&&c!=='r')) return;
-    g.cv=g.cv||{}; const now=Date.now();
-    let v=g.cv[target];
-    if(!v||v.c!==c||now-v.ts>30000) v={c,by:[],ts:now};
-    if(v.by.includes(voter)) return;
-    v.by.push(voter);
-    const eligible=g.order.filter(id=>id!==target&&!g.gone[id]).length, need=Math.min(2,Math.max(1,eligible));
-    if(v.by.length>=need){
-      delete g.cv[target];
-      if(c==='r') elim(target,'cr');
-      else { g.yc[target]=(g.yc[target]||0)+1; if(g.yc[target]>=2) elim(target,'yy'); else g.ev={k:(g.ev?.k||0)+1,p:target,w:'cy'}; }
-    } else { g.cv[target]=v; g.ev={k:(g.ev?.k||0)+1,p:target,w:'vote_'+c,v:voter}; }
     pub();
   };
   e.stop=()=>{ clearInterval(e.timer); clearTimeout(e.dt); };
@@ -1565,7 +1575,7 @@ function renderGame(g,force){
   renderPlayers(g); renderFeed(g);
 }
 function renderPlayers(g){
-  const sig=JSON.stringify([g.cur,g.phase,g.al,g.sc,g.yc,g.pts,g.cv,S.hostPeer,S.me,LANG]);
+  const sig=JSON.stringify([g.cur,g.phase,g.al,g.sc,g.yc,g.pts,S.hostPeer,S.me,LANG]);
   const ul=$('players'); if(ul.dataset.sig===sig) return; ul.dataset.sig=sig;
   ul.replaceChildren();
   g.order.forEach(id=>{
@@ -1576,18 +1586,6 @@ function renderPlayers(g){
     if(S.mode==='online'&&id===S.hostPeer) nm.append(el('small',null,t('host')));
     if(g.rounds>1) nm.append(el('small',null,t('pts',{n:g.pts[id]||0})));
     const cards=el('span','cards'); for(let i=0;i<((g.al[id]&&g.yc[id])||0);i++) cards.append(el('span','card y'));
-    const voter=S.mode==='local'?'local':S.me;
-    if(g.al[id]&&(g.phase==='play'||g.phase==='draw')&&(S.mode==='local'||id!==S.me)){
-      const v=(g.cv||{})[id], need=Math.min(2,Math.max(1,g.order.filter(x=>x!==id&&!(g.gone||{})[x]).length));
-      const box=el('span','vote');
-      ['y','r'].forEach(c=>{
-        const b=el('button',c, v&&v.c===c?v.by.length+'/'+need:''); b.type='button';
-        b.title=t('vote_'+c); b.setAttribute('aria-label',t('vote_'+c)+' : '+nickOf(g,id));
-        if(v&&v.c===c&&v.by.includes(voter)) b.classList.add('on');
-        b.addEventListener('click',()=>castVote(id,c)); box.append(b);
-      });
-      cards.append(box);
-    }
     li.append(mark,nm,cards,el('span','sc',g.sc[id]||0)); ul.append(li);
   });
 }
@@ -1739,6 +1737,39 @@ function reportMatch(g){
   API.save('match',{mid:g.mid,won,names,letters:g.letters||[]}).then(d=>{ API.me=d.profile; showBadges(d.newBadges); onAccount(); }).catch(()=>{});
 }
 
+/* image de score à partager (format story 1080x1350) */
+async function shareCard(run){
+  try{ await Promise.all([document.fonts.load('900 120px "Big Shoulders Display"'),document.fonts.load('600 40px "Archivo"')]); }catch(_){ }
+  const W=1080,H=1350,c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  const D='"Big Shoulders Display","Arial Narrow",Impact,sans-serif', B='"Archivo",Arial,sans-serif';
+  let g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#13603b'); g.addColorStop(1,'#08301c'); x.fillStyle=g; x.fillRect(0,0,W,H);
+  for(let i=0;i<W;i+=160){ x.fillStyle='rgba(255,255,255,.05)'; x.fillRect(i,0,80,H); }
+  const rg=x.createRadialGradient(180,160,0,180,160,620); rg.addColorStop(0,'rgba(61,255,127,.35)'); rg.addColorStop(1,'rgba(61,255,127,0)'); x.fillStyle=rg; x.fillRect(0,0,W,H);
+  const gold=x.createLinearGradient(60,60,W-60,H-60); [['0','#fbe8a6'],['.3','#d4a537'],['.5','#f7dc8b'],['.75','#b07d1f'],['1','#f3d27a']].forEach(([o,cl])=>gold.addColorStop(+o,cl));
+  const rr=(X,Y,w,h,r)=>{ x.beginPath(); x.moveTo(X+r,Y); x.arcTo(X+w,Y,X+w,Y+h,r); x.arcTo(X+w,Y+h,X,Y+h,r); x.arcTo(X,Y+h,X,Y,r); x.arcTo(X,Y,X+w,Y,r); x.closePath(); };
+  rr(60,60,W-120,H-120,56); x.fillStyle='#1b4535'; x.fill(); x.lineWidth=10; x.strokeStyle=gold; x.stroke();
+  x.textAlign='center'; x.fillStyle='#f1f6ef';
+  x.font='900 76px '+D; x.fillText('FOOT LETTER',W/2,190);
+  x.fillStyle=gold; x.font='800 44px '+D;
+  const head=run.mode==='daily'?(t('m_daily')+' #'+dailyNum(run.date)).toUpperCase():run.mode==='defi'?t('m_defi').toUpperCase():t('m_abc').toUpperCase();
+  x.fillText(head,W/2,258);
+  x.lineWidth=12; x.strokeStyle='#f1f6ef'; x.beginPath(); x.arc(W/2,500,180,0,Math.PI*2); x.stroke();
+  x.fillStyle='#f1f6ef'; x.font='900 '+(run.mode==='abc'?150:260)+'px '+D; x.textBaseline='middle'; x.fillText(run.mode==='abc'?'A→Z':run.letter,W/2,510); x.textBaseline='alphabetic';
+  const n=run.found.length;
+  const big=run.mode==='daily'?t('res_daily',{n}):run.mode==='defi'?(n+' / '+run.bet):(run.ok?fmtDur(run.total+run.pen):t('res_abc_ko'));
+  x.font='900 112px '+D; x.fillStyle=run.mode==='daily'||run.ok?'#f1f6ef':'#ff7a6b'; x.fillText(big.toUpperCase(),W/2,820);
+  if(run.mode==='daily'){
+    const sl=dailySlices(run.found), s=112, gap=22, tot=sl.length*s+(sl.length-1)*gap; let X=(W-tot)/2;
+    sl.forEach(v=>{ rr(X,880,s,s,22); x.fillStyle=v>=3?'#5fd38d':v>=1?'#f7c948':'#2a3e34'; x.fill(); x.fillStyle=v?'#0a1f16':'rgba(241,246,239,.4)'; x.font='900 54px '+D; x.fillText(String(v),X+s/2,880+s/2+19); X+=s+gap; });
+  } else if(run.mode==='defi'){ x.font='800 54px '+D; x.fillStyle=run.ok?'#6be39a':'#ff7a6b'; x.fillText(run.ok?t('res_defi_ok').toUpperCase():t('res_defi_ko').toUpperCase(),W/2,940); }
+  else { x.font='600 40px '+B; x.fillStyle='rgba(241,246,239,.8)'; x.fillText(t('res_abc_sub',{n:run.marks.filter(m=>m==='ok').length,j:3-run.jokers}),W/2,930); }
+  const lines=[];
+  if(run.pct!=null) lines.push(t('beat',{p:run.pct}));
+  const streak=API.me&&API.me.daily&&API.me.daily.streak; if(run.mode==='daily'&&streak) lines.push('🔥 '+t('streak_days',{n:streak}));
+  x.font='600 40px '+B; x.fillStyle='rgba(241,246,239,.85)'; lines.forEach((l,i)=>x.fillText(l,W/2,1080+i*56));
+  x.font='800 40px '+D; x.fillStyle=gold; x.fillText((location.host||'FOOT LETTER').toUpperCase(),W/2,H-110);
+  return await new Promise(res=>c.toBlob(res,'image/png'));
+}
 /* confettis légers (canvas, ~1,6 s) */
 function confetti(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1755,13 +1786,6 @@ function confetti(){
   })(t0);
 }
 /* ---- actions joueur (match) ---- */
-function castVote(target,c){
-  const g=S.g; if(!g) return;
-  if(S.mode==='local'){ const v=(g.cv||{})[target]; const n=v&&v.c===c?v.by.length:0; S.engine.vote('local'+n,target,c); }
-  else if(S.isHost) S.engine.vote(S.me,target,c);
-  else sendSub({vote:{t:target,c}});
-  buzz(15);
-}
 function track(name,data){ try{ if(window.umami&&typeof window.umami.track==='function') window.umami.track(name,data); }catch(_){ } }
 function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(_){ } }
 function sendSub(extra){ S.subN=Math.max(S.subN+1,Date.now()%1e9); S.nr&&S.nr.presence({sub:Object.assign({n:S.subN},extra)}); }
@@ -1888,7 +1912,6 @@ function onRoomPeers(ch){
       if(sub&&typeof sub.n==='number'&&sub.n>(S.seen[p.peer]||0)){
         S.seen[p.peer]=sub.n;
         if(sub.foul) S.engine.foul(p.peer);
-        else if(sub.vote&&typeof sub.vote.t==='string') S.engine.vote(p.peer,sub.vote.t,sub.vote.c);
         else if(sub.give) S.engine.eliminate(p.peer,'give');
         else if(typeof sub.v==='string') S.engine.submit(p.peer,sub.v.slice(0,60));
       }
@@ -1959,6 +1982,11 @@ function msToParisMidnight(){
   try{ const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date()); const g=k=>+p.find(x=>x.type===k).value; return (86400-(g('hour')*3600+g('minute')*60+g('second')))*1000; }catch(_){ return 0; }
 }
 function fmtHMS(ms){ const s=Math.max(0,Math.floor(ms/1000)); return Math.floor(s/3600)+'h '+String(Math.floor(s%3600/60)).padStart(2,'0')+'min'; }
+const DAILY_EPOCH='2026-10-13';
+function dailyNum(date){ return Math.round((Date.parse((date||parisDate())+'T12:00:00Z')-Date.parse(DAILY_EPOCH+'T12:00:00Z'))/86400000)+1; }
+function fmtClock(ms){ const s=Math.max(0,Math.floor(ms/1000)); return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,'0')).join(':'); }
+function dailySlices(found){ const c=[0,0,0,0,0,0]; found.forEach(f=>{ const i=Math.min(5,Math.floor((f.ms||0)/30000)); c[i]++; }); return c; }
+function sliceEmoji(n){ return n>=3?'🟩':n>=1?'🟨':'⬛'; }
 function dailyState(){
   if(API.me&&API.date===parisDate()){ const d=API.today; if(!d) return null; if(d.s!==undefined) return {done:1,n:d.s}; return {s:'start'}; }
   return lsGet('fl_d5_'+parisDate())||null;
@@ -1966,9 +1994,9 @@ function dailyState(){
 function renderDailyBadge(){
   const b=$('dailyBadge'), st=dailyState();
   b.hidden=false;
-  if(st&&st.done) b.textContent=t('daily_played',{n:t('res_daily',{n:st.n})});
+  if(st&&st.done) b.textContent='#'+dailyNum()+' · '+t('daily_played',{n:t('res_daily',{n:st.n})});
   else if(st&&st.s==='start') b.textContent=t('daily_interrupted');
-  else b.textContent=t('daily_new');
+  else b.textContent='#'+dailyNum()+' · '+t('daily_new');
 }
 function fillBoard(ul,list,k,meName,opts){
   ul.replaceChildren();
@@ -2192,8 +2220,11 @@ const Solo=(function(){
     run.board=res;
     renderEndBoard();
   }
+  function tickNext(){ if(!R||R.mode!=='daily'||$('soloEnd').hidden) return; $('eNext').textContent='⏱️ '+t('next_letter',{h:fmtClock(msToParisMidnight())}); }
+  setInterval(tickNext,1000);
   function renderEndBoard(){
     const run=R, res=run.board; if(!res) return;
+    if(run.mode==='daily'&&!run.dq&&res.list&&res.list.length>1){ const me=run.server?run.server.score:run.found.length, below=res.list.filter(e=>e.s<me).length; run.pct=Math.round(100*below/(res.list.length-1)); $('ePct').textContent=t('beat',{p:run.pct}); } else $('ePct').textContent='';
     $('eBoardTitle').textContent=boardTitle();
     if(res.off&&!res.list.length){ $('eBoard').replaceChildren(el('li','empty',t('board_off'))); }
     else fillBoard($('eBoard'),res.list,run.mode,run.nick,{max:20});
@@ -2213,20 +2244,38 @@ const Solo=(function(){
     else { $('eLabel').textContent=run.ok?t('res_abc_label'):t('m_abc'); $('eTitle').textContent=run.ok?fmtDur(run.total+run.pen):t('res_abc_ko'); $('eTitle').style.color=run.ok?'var(--go)':'var(--red)'; }
     $('eSub').textContent=run.mode==='daily'?t('res_daily_sub',{L:run.letter,d:run.date}):run.mode==='defi'?t('res_defi_sub',{f:n,t:run.bet,L:run.letter}):t('res_abc_sub',{n:run.marks.filter(x=>x==='ok').length,j:3-run.jokers});
     $('eAgain').hidden=run.mode==='daily';
-    $('eShare').hidden=!!run.dq;
+    $('eShare').hidden=!!run.dq; $('eShareImg').hidden=!!run.dq;
+    const wb=$('eWordle'); wb.hidden=run.mode!=='daily'||!!run.dq;
+    if(run.mode==='daily'&&!run.dq){
+      const g=$('eGrid'); g.replaceChildren();
+      dailySlices(run.found).forEach((n,i)=>{ const x=el('span',n>=3?'g':n>=1?'y':'n',String(n)); x.style.animationDelay=(i*120)+'ms'; g.append(x); });
+      $('eLabel').textContent=t('m_daily')+' #'+dailyNum(run.date);
+      tickNext();
+    }
     foundChips($('eFound'),run.found.map(f=>[0,f.name]),null);
     if(run.board) renderEndBoard();
   }
   $('eAgain').addEventListener('click',()=>{ if(R) intro(R.mode); });
   $('eBoards').addEventListener('click',()=>{ const m=R?R.mode:'daily', L=R&&R.letter; Boards.open(m,L&&L.toLowerCase()); });
-  $('eShare').addEventListener('click',()=>{
-    if(!R) return;
-    const n=R.found.length, url=location.protocol==='file:'?'':location.href.split('#')[0];
-    let txt='FOOT LETTER · ';
-    if(R.mode==='daily') txt+=t('m_daily')+' '+R.date+' · '+R.letter+' · '+t('res_daily',{n})+' ⚽';
-    else if(R.mode==='defi') txt+=t('m_defi')+' '+R.letter+' · '+n+'/'+R.bet+(R.ok?' ✅':' ❌');
-    else txt+=t('m_abc')+' · '+(R.ok?fmtDur(R.total+R.pen)+' ⏱️':t('res_abc_ko'));
-    shareOrCopy('FOOT LETTER',txt,url,t('copied'));
+  function shareText(){
+    const n=R.found.length, url=location.protocol==='file:'?'':location.origin+'/';
+    if(R.mode==='daily'){
+      const streak=API.me&&API.me.daily&&API.me.daily.streak;
+      return ['FOOT LETTER #'+dailyNum(R.date)+' ⚽', t('m_daily')+' : '+R.letter, dailySlices(R.found).map(sliceEmoji).join('')+' '+t('res_daily',{n}), streak?'🔥 '+t('streak_days',{n:streak}):'', url].filter(Boolean).join('\n');
+    }
+    if(R.mode==='defi') return ['FOOT LETTER · '+t('m_defi')+' '+R.letter+' 🎯', n+' / '+R.bet+(R.ok?' ✅':' ❌'), url].join('\n');
+    return ['FOOT LETTER · '+t('m_abc')+' 🔤', R.ok?fmtDur(R.total+R.pen)+' ⏱️':t('res_abc_ko'), url].join('\n');
+  }
+  $('eShare').addEventListener('click',()=>{ if(!R) return; track('partage',{type:'texte',mode:R.mode}); const txt=shareText(); if(navigator.share) navigator.share({text:txt}).catch(()=>{}); else copy(txt,t('copied')); });
+  $('eShareImg').addEventListener('click',async()=>{
+    if(!R) return; track('partage',{type:'image',mode:R.mode});
+    const btn=$('eShareImg'); btn.disabled=true;
+    try{
+      const blob=await shareCard(R), file=new File([blob],'footletter.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file],text:shareText()}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='footletter-'+(R.date||R.mode)+'.png'; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+      toast(t('img_saved'));
+    } finally { btn.disabled=false; }
   });
   function frame(){
     if(!R||!R.started||R.over||!R.t0||$('soloPlay').hidden) return;
@@ -2410,6 +2459,7 @@ const Install=(function(){
 /* ================= DÉMARRAGE ================= */
 Hub.start();
 applyI18n();
+(function(){ const b=$('seoLetters'); ALL_LETTERS.forEach(l=>{ const a=el('a',null,l.toUpperCase()); a.href='/joueurs/'+l+'.html'; b.append(a); }); })();
 Install.render();
 onAccount();
 API.refresh().then(()=>{ if(location.hash.toLowerCase()==='#admin') Admin.open(); });
