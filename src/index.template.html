@@ -313,11 +313,14 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .install-sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
 .install-sheet .row{justify-content:flex-end}
 .iconbtn.hot{background:var(--yellow);color:var(--ink);font-weight:700}
-/* contours noirs partout */
-.panel,.panel.flat,.two>.panel:nth-child(2),.side .panel:first-child,.side .panel:last-child{--pc:#0b0f0d}
-.mode{--mc:#0b0f0d!important}
-.rules li,.rules li:nth-child(n){--rc:#0b0f0d}
-.badge:not(.locked){--bc:#0b0f0d!important}
+/* contours dorés */
+:root{--gold:linear-gradient(135deg,#fbe8a6 0%,#d4a537 28%,#f7dc8b 50%,#b07d1f 74%,#f3d27a 100%)}
+.panel,.stage{border:3px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--gold) border-box;box-shadow:var(--shadow),0 0 18px rgba(240,200,90,.12)}
+.mode{border:2px solid transparent;background:linear-gradient(#205040,#205040) padding-box,var(--gold) border-box;box-shadow:none}
+.mode:hover:not(:disabled){box-shadow:0 8px 18px rgba(0,0,0,.18),0 0 16px rgba(240,200,90,.35)}
+.rules li{border:2px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--gold) border-box;box-shadow:none}
+.badge:not(.locked){border:2px solid transparent;background:linear-gradient(var(--card-2),var(--card-2)) padding-box,var(--gold) border-box;box-shadow:none}
+.install-sheet{border:3px solid transparent;background:linear-gradient(#1b4535,#1b4535) padding-box,var(--gold) border-box;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
@@ -381,7 +384,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9.1</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v9.2</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
