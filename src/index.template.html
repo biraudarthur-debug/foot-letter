@@ -7,7 +7,7 @@
 <meta name="description" content="FOOT LETTER : une lettre, un chrono, citez un maximum de footballeurs par leur nom. Entre amis, en défi ou chaque jour face au monde entier.">
 <meta property="og:title" content="FOOT LETTER">
 <meta property="og:description" content="Le jeu de culture foot : une lettre, un chrono, le dernier debout gagne.">
-<meta name="theme-color" content="#0a2a1e">
+<meta name="theme-color" content="#17613e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230f3a2a'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23f1f6ef' stroke-width='4'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='27' text-anchor='middle' fill='%23f7c948'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
 /* Terrain la nuit, version arrondie : surfaces pleines aux angles doux, pastilles colorées par mode, la lettre reste la star au centre. */
 :root{
   color-scheme: dark;
-  --bg:#0a2a1e; --bg-2:#0c2f22; --card:#103a2b; --card-2:#144635; --sunk:#0b2c20;
+  --bg:#17613e; --bg-2:#145637; --card:#0f4429; --card-2:#144635; --sunk:#0b2c20;
   --chalk:#f1f6ef; --chalk-2:rgba(241,246,239,.72); --chalk-3:rgba(241,246,239,.4); --line:rgba(241,246,239,.11);
   --yellow:#f7c948; --red:#ef5b4c; --go:#5fd38d; --blue:#7cc4ff; --orange:#ff9f68; --purple:#b99cff; --pink:#ff86bd;
   --ink:#0a1f16; --paper:#f7f3e8; --on-chalk:#0a1f16; --warn:#f7c948; --surface:#f2f5ee;
@@ -32,7 +32,7 @@
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;min-height:100vh;background:var(--bg);color:var(--chalk);font-family:var(--f-body);font-size:15px;line-height:1.45;
-  background-image:radial-gradient(90% 60% at 50% -10%, rgba(241,246,239,.08), transparent 65%),repeating-linear-gradient(90deg, transparent 0 80px, rgba(255,255,255,.018) 80px 160px);
+  background-image:radial-gradient(90% 60% at 50% -10%, rgba(241,246,239,.10), transparent 65%),radial-gradient(120% 90% at 50% 120%, rgba(0,0,0,.22), transparent 70%),repeating-linear-gradient(90deg, transparent 0 80px, rgba(255,255,255,.045) 80px 160px);background-attachment:scroll;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 img{max-width:100%}
 button,input,select{font:inherit;color:inherit}
@@ -330,7 +330,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v6</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v6.1</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
