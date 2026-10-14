@@ -13,8 +13,8 @@ h1{font-family:"Big Shoulders Display",Impact,sans-serif;font-size:clamp(34px,7v
 .letters{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}.letters a{padding:4px 10px;border-radius:8px;background:#1b4535;text-decoration:none;font-weight:700}
 .letters a.on{background:#f3d27a;color:#0a1f16}ul{columns:3 200px;padding-left:18px}li{break-inside:avoid}.top{font-weight:800;text-decoration:none;font-size:20px}`;
 const head = (title, desc, path) => `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${path}">
-<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="/og.png">
+<title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="https://footletters.com${path}">
+<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="https://footletters.com/og.png">
 <link rel="icon" href="/icons/favicon-32.png"><style>${css}</style></head><body><main><a class="top" href="/">⚽ FOOT LETTERS</a>`;
 const nav = cur => `<nav class="letters">${ALL_LETTERS.map(l => `<a href="/joueurs/${l}.html"${l === cur ? ' class="on"' : ''}>${l.toUpperCase()}</a>`).join('')}</nav>`;
 const foot = `</main></body></html>\n`;
