@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.wikidata.org">
+<link rel="preconnect" href="https://upload.wikimedia.org">
+<link rel="preconnect" href="https://flagcdn.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&display=swap">
 <style>
 /* Terrain la nuit, version arrondie : surfaces pleines aux angles doux, pastilles colorées par mode, la lettre reste la star au centre. */
@@ -20,7 +22,7 @@
   --bg:#0a2a1e; --bg-2:#0c2f22; --card:#103a2b; --card-2:#144635; --sunk:#0b2c20;
   --chalk:#f1f6ef; --chalk-2:rgba(241,246,239,.72); --chalk-3:rgba(241,246,239,.4); --line:rgba(241,246,239,.11);
   --yellow:#f7c948; --red:#ef5b4c; --go:#5fd38d; --blue:#7cc4ff; --orange:#ff9f68; --purple:#b99cff; --pink:#ff86bd;
-  --ink:#0a1f16; --paper:#f7f3e8;
+  --ink:#0a1f16; --paper:#f7f3e8; --on-chalk:#0a1f16; --warn:#f7c948; --surface:#f2f5ee;
   --r-lg:24px; --r:16px; --r-sm:12px;
   --shadow:0 10px 30px rgba(0,0,0,.22);
   --f-display:"Big Shoulders Display","Oswald","Impact","Arial Narrow",sans-serif;
@@ -47,7 +49,7 @@ button{-webkit-tap-highlight-color:transparent}
 .chip b{color:var(--chalk);font-family:var(--f-display);letter-spacing:.1em;font-size:15px}
 .seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--sunk);padding:4px;border-radius:999px}
 .seg button{border:0;background:transparent;border-radius:999px;padding:6px 13px;cursor:pointer;font-family:var(--f-display);font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--chalk-2);transition:background .15s,color .15s}
-.seg button[aria-pressed="true"]{background:var(--chalk);color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--chalk);color:var(--on-chalk)}
 .seg button:disabled{cursor:default}
 .seg button:not([aria-pressed="true"]):not(:disabled):hover{color:var(--chalk)}
 .iconbtn{border:0;background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--chalk-2);cursor:pointer}
@@ -66,9 +68,16 @@ button{-webkit-tap-highlight-color:transparent}
 .input:focus{border-color:var(--chalk-3);outline:none}
 .input::placeholder{color:var(--chalk-3)}
 .note{font-size:13px;color:var(--chalk-2);margin:0}
-.note.warn{color:var(--yellow)} .note.ok{color:var(--go)}
-.panel{background:var(--card);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:var(--shadow)}
-.panel.flat{box-shadow:none;background:var(--bg-2)}
+.note.warn{color:var(--warn)} .note.ok{color:var(--go)}
+.panel,.stage,.rules li{
+  --chalk:#14281e; --chalk-2:rgba(20,40,30,.74); --chalk-3:rgba(20,40,30,.46); --line:rgba(20,40,30,.13);
+  --sunk:#e2e9de; --card:#e2e9de; --card-2:#d6e0d1; --on-chalk:#f2f5ee; --go:#178a4a; --red:#cc3a2c; --warn:#946000;
+  color:var(--chalk);
+}
+.panel{--pc:#e8b21f;background:var(--surface);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:0 0 0 3px var(--pc),var(--shadow)}
+.panel.flat{--pc:#9a7bf0}
+.two>.panel:nth-child(2){--pc:#4ea3e8}
+.side .panel:first-child{--pc:#4ea3e8} .side .panel:last-child{--pc:#f08a4b}
 
 /* accueil */
 .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;padding-block:12px 0}
@@ -81,8 +90,8 @@ button{-webkit-tap-highlight-color:transparent}
 .pitchmark .half{position:absolute;left:-40%;right:-40%;top:50%;border-top:2px solid var(--line)}
 .pitchmark .demo{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:min(42vw,160px);line-height:1;transition:opacity .2s}
 .modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.mode{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;padding:16px;border:0;border-radius:var(--r);background:var(--card-2);cursor:pointer;transition:transform .15s,background .15s;min-width:0}
-.mode:hover:not(:disabled){transform:translateY(-3px);background:#185039}
+.mode{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;padding:16px;border:0;border-radius:var(--r);background:#fbfcf9;color:var(--chalk);cursor:pointer;transition:transform .15s,box-shadow .15s;min-width:0;box-shadow:inset 0 0 0 2px var(--mc,var(--line))}
+.mode:hover:not(:disabled){transform:translateY(-3px);box-shadow:inset 0 0 0 3px var(--mc,var(--line)),0 8px 18px rgba(0,0,0,.12)}
 .mode:active:not(:disabled){transform:scale(.98)}
 .mode:disabled{opacity:.45;cursor:not-allowed}
 .mode .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--ink);margin-bottom:4px}
@@ -90,9 +99,10 @@ button{-webkit-tap-highlight-color:transparent}
 .mode strong{font-family:var(--f-display);font-weight:900;font-size:23px;text-transform:uppercase;letter-spacing:.03em;line-height:1}
 .mode span.d{color:var(--chalk-2);font-size:13.5px}
 .mode .k{position:absolute;top:16px;right:14px;font-family:var(--f-display);font-weight:800;letter-spacing:.12em;font-size:11px;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--sunk);color:var(--chalk-2)}
-.mode .badge{align-self:flex-start;margin-top:4px;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--yellow)}
+.mode .badge{align-self:flex-start;margin-top:4px;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--warn);font-weight:600}
 .rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
-.rules li{background:var(--bg-2);border-radius:var(--r);padding:12px 14px;font-size:13.5px;color:var(--chalk-2)}
+.rules li{background:var(--surface);border-radius:var(--r);padding:12px 14px;font-size:13.5px;color:var(--chalk-2);box-shadow:inset 0 4px 0 var(--rc,#e8b21f)}
+.rules li:nth-child(2){--rc:#4ea3e8} .rules li:nth-child(3){--rc:#2fb36b} .rules li:nth-child(4){--rc:#cc3a2c}
 .rules li b{display:block;color:var(--chalk);font-family:var(--f-display);font-size:19px;letter-spacing:.03em;text-transform:uppercase}
 .netbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .leds{display:flex;gap:5px}
@@ -118,7 +128,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 /* partie */
 .game{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
-.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--card);border-radius:var(--r-lg);padding:22px 16px;box-shadow:var(--shadow);min-width:0}
+.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--surface);border-radius:var(--r-lg);padding:22px 16px;box-shadow:0 0 0 3px #e8b21f,var(--shadow);min-width:0}
 .ring{position:relative;width:min(300px,74vw);aspect-ratio:1;max-width:100%}
 .ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .ring .track{fill:none;stroke:var(--line);stroke-width:5}
@@ -139,9 +149,16 @@ button{-webkit-tap-highlight-color:transparent}
 form.answer{width:100%;max-width:520px;display:flex;gap:8px}
 form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:999px}
 .feedback{min-height:22px;font-size:15px;text-align:center;max-width:520px}
-.feedback.ok{color:var(--go)} .feedback.bad{color:var(--yellow)}
+.feedback.ok{color:var(--go);font-weight:600} .feedback.bad{color:var(--warn);font-weight:600}
 .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.decide{width:100%;max-width:520px;background:var(--sunk);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:10px;text-align:center;box-shadow:inset 0 0 0 2px var(--yellow)}
+.decide{width:100%;max-width:520px;background:var(--sunk);border-radius:var(--r);padding:10px 14px;display:flex;flex-direction:column;gap:10px;text-align:center}
+.vote{display:inline-flex;gap:4px;align-items:center}
+.vote button{min-width:26px;height:26px;border-radius:8px;border:0;cursor:pointer;font-size:11px;font-weight:700;color:var(--ink);padding:0 6px;transition:transform .1s}
+.vote button:active{transform:scale(.9)}
+.vote .y{background:var(--yellow)} .vote .r{background:#ef5b4c;color:#fff}
+.vote button.on{box-shadow:0 0 0 2px var(--chalk)}
+.streak{display:inline-block;margin-left:8px;font-size:18px;color:#d2601a}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
 .decide p{margin:0}
 .reacts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
 .reacts button{width:42px;height:42px;border-radius:50%;border:0;background:var(--sunk);font-size:20px;cursor:pointer;transition:transform .1s}
@@ -153,7 +170,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .fair{font-size:12px;color:var(--chalk-3);text-align:center}
 
 /* vignette joueur */
-.sticker{position:absolute;top:26px;left:50%;width:210px;max-width:78%;margin-left:-105px;background:var(--paper);color:var(--ink);border-radius:18px;padding:10px 10px 12px;box-shadow:0 20px 50px rgba(0,0,0,.45);z-index:5;animation:pop .4s cubic-bezier(.2,1.5,.4,1) both;text-align:center;will-change:transform,opacity;transform:rotate(-3deg)}
+.sticker{position:absolute;top:26px;left:50%;width:210px;max-width:78%;margin-left:-105px;background:#fff;color:var(--ink);border-radius:18px;padding:10px 10px 12px;box-shadow:0 0 0 3px #14281e,0 20px 50px rgba(0,0,0,.35);z-index:5;animation:pop .4s cubic-bezier(.2,1.5,.4,1) both;text-align:center;will-change:transform,opacity;transform:rotate(-3deg)}
 @media (max-width:420px){.sticker{margin-left:0;left:11%}}
 .sticker.out{animation:popout .28s ease-in forwards}
 @keyframes pop{from{transform:rotate(-12deg) scale(.5);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
@@ -180,7 +197,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;max-height:380px;overflow:auto;contain:content}
 .feed li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line);font-size:14px}
 .feed li:last-child{border-bottom:0}
-.av{width:36px;height:36px;border-radius:12px;background:#1d5a3f;display:grid;place-items:center;overflow:hidden;font-family:var(--f-display);font-weight:900;font-size:13px;flex:none}
+.av{width:36px;height:36px;border-radius:12px;background:#1d5a3f;color:#f1f6ef;display:grid;place-items:center;overflow:hidden;font-family:var(--f-display);font-weight:900;font-size:13px;flex:none}
 .av img{width:100%;height:100%;object-fit:cover;object-position:top}
 .feed .nm{min-width:0;display:flex;flex-direction:column}
 .feed .nm b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -189,6 +206,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .feed li.new{animation:flash 1.2s}
 @keyframes flash{0%{background:rgba(95,211,141,.22)}100%{background:transparent}}
 .empty{color:var(--chalk-3);font-size:14px;padding:6px 0}
+.feed li.empty,.lb li.empty{display:block;background:none;box-shadow:none}
 
 /* manches / fin */
 .tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:14px}
@@ -203,7 +221,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .tblwrap{overflow-x:auto;margin:-6px 0}
 .winner{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(36px,6.5vw,62px);margin:0;text-wrap:balance;overflow-wrap:anywhere}
 .podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
-.pod{border-radius:var(--r);padding:12px 10px;text-align:center;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
+.pod{box-shadow:inset 0 0 0 2px rgba(20,40,30,.14);border-radius:var(--r);padding:12px 10px;text-align:center;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
 .pod .pos{font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1}
 .pod .n{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pod .p{font-family:var(--f-display);font-weight:800;font-size:16px}
@@ -223,7 +241,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .stepper output{font-family:var(--f-display);font-weight:900;font-size:64px;min-width:2ch;text-align:center;line-height:1;font-variant-numeric:tabular-nums}
 .strip{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
 .strip span{width:26px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:15px;background:var(--sunk);color:var(--chalk-3)}
-.strip span.done{background:var(--go);color:var(--ink)} .strip span.skip{background:var(--red);color:#fff} .strip span.cur{background:var(--chalk);color:var(--ink)}
+.strip span.done{background:var(--go);color:#fff} .strip span.skip{background:var(--red);color:#fff} .strip span.cur{background:var(--chalk);color:var(--on-chalk)}
 .progress{font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:.04em}
 .pending{font-size:13px;color:var(--chalk-2);min-height:18px;text-align:center}
 .result-big{font-family:var(--f-display);font-weight:900;overflow-wrap:anywhere;font-size:clamp(44px,7vw,76px);line-height:.88;margin:0;text-transform:uppercase;text-wrap:balance}
@@ -285,12 +303,12 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
         </div>
       </div>
       <div class="modes">
-        <button class="mode" id="mFriends" type="button"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.4-.2 4.1 1.3 4.6 4"/></svg></span><strong data-i18n="m_friends"></strong><span class="d" data-i18n="m_friends_d"></span></button>
-        <button class="mode" id="mJoin" type="button"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg></span><strong data-i18n="m_join"></strong><span class="d" data-i18n="m_join_d"></span></button>
-        <button class="mode" id="mLocal" type="button"><span class="k" data-i18n="k_local"></span><span class="ic" style="background:var(--go)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></svg></span><strong data-i18n="m_local"></strong><span class="d" data-i18n="m_local_d"></span></button>
-        <button class="mode" id="mDaily" type="button"><span class="k" data-i18n="k_daily"></span><span class="ic" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><strong data-i18n="m_daily"></strong><span class="d" data-i18n="m_daily_d"></span><span class="badge" id="dailyBadge" hidden></span></button>
-        <button class="mode" id="mDefi" type="button"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><strong data-i18n="m_defi"></strong><span class="d" data-i18n="m_defi_d"></span></button>
-        <button class="mode" id="mAbc" type="button"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l3.5-11L10 18M4.2 14.5h4.6"/><path d="M14 7h6l-6 11h6"/></svg></span><strong data-i18n="m_abc"></strong><span class="d" data-i18n="m_abc_d"></span></button>
+        <button class="mode" id="mFriends" type="button" style="--mc:#e8b21f"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.4-.2 4.1 1.3 4.6 4"/></svg></span><strong data-i18n="m_friends"></strong><span class="d" data-i18n="m_friends_d"></span></button>
+        <button class="mode" id="mJoin" type="button" style="--mc:#4ea3e8"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg></span><strong data-i18n="m_join"></strong><span class="d" data-i18n="m_join_d"></span></button>
+        <button class="mode" id="mLocal" type="button" style="--mc:#2fb36b"><span class="k" data-i18n="k_local"></span><span class="ic" style="background:var(--go)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></svg></span><strong data-i18n="m_local"></strong><span class="d" data-i18n="m_local_d"></span></button>
+        <button class="mode" id="mDaily" type="button" style="--mc:#f08a4b"><span class="k" data-i18n="k_daily"></span><span class="ic" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><strong data-i18n="m_daily"></strong><span class="d" data-i18n="m_daily_d"></span><span class="badge" id="dailyBadge" hidden></span></button>
+        <button class="mode" id="mDefi" type="button" style="--mc:#f06aa8"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><strong data-i18n="m_defi"></strong><span class="d" data-i18n="m_defi_d"></span></button>
+        <button class="mode" id="mAbc" type="button" style="--mc:#9a7bf0"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l3.5-11L10 18M4.2 14.5h4.6"/><path d="M14 7h6l-6 11h6"/></svg></span><strong data-i18n="m_abc"></strong><span class="d" data-i18n="m_abc_d"></span></button>
       </div>
       <form class="row" id="joinForm" hidden>
         <div class="field">
@@ -312,7 +330,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v5.2</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v6</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -388,10 +406,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
           <button class="btn primary" id="sendBtn" type="submit" data-i18n="validate"></button>
         </form>
         <div class="feedback" id="feedback" aria-live="polite"></div>
-        <div class="decide" id="decide" hidden>
-          <p id="decideText" aria-live="polite"></p>
-          <div class="actions" id="decideBtns"><button class="btn primary small" id="okBtn" type="button" data-i18n="accept"></button><button class="btn small" id="noBtn" type="button" data-i18n="reject"></button></div>
-        </div>
+        <div class="decide" id="decide" hidden><p id="decideText" aria-live="polite"></p></div>
         <div class="actions"><button class="btn ghost small" id="giveUp" type="button" data-i18n="give_up"></button></div>
         <div class="reacts" id="reacts" hidden>
           <button type="button" data-e="⚽">⚽</button><button type="button" data-e="🔥">🔥</button><button type="button" data-e="👏">👏</button><button type="button" data-e="😂">😂</button><button type="button" data-e="😱">😱</button><button type="button" data-e="🧤">🧤</button>
@@ -557,6 +572,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
   </main>
 </div>
 <div class="toast" id="toast" hidden></div>
+<canvas id="confetti" hidden></canvas>
 
 <script type="text/plain" id="playersData">
 # A
@@ -4289,6 +4305,173 @@ Alan Quinn
 Stephen Quinn
 Quentin Westberg
 
+# Ajouts v6
+Lamine Yamal
+Pau Cubarsí|Cubarsi
+Alejandro Balde
+Dean Huijsen
+Arda Güler
+Franco Mastantuono
+Nico O'Reilly
+Myles Lewis-Skelly|Lewis-Skelly
+Ethan Nwaneri
+Kenan Yıldız
+Désiré Doué
+Mathys Tel
+Rayan Cherki
+Warren Zaïre-Emery
+Leny Yoro
+Castello Lukeba
+El Chadaille Bitshiabu
+Lucas Bergvall
+Archie Gray
+Alejandro Garnacho
+Kobbie Mainoo
+Florian Wirtz
+Jamal Musiala
+Benjamin Šeško
+Viktor Gyökeres
+Hugo Ekitiké
+Alexander Isak
+Omar Marmoush
+Bryan Mbeumo
+Matheus Cunha
+Antoine Semenyo
+Morgan Rogers
+Elliot Anderson
+Murillo
+Savinho
+Estêvão|Estevao
+Endrick
+Vitor Roque
+João Pedro
+Igor Thiago
+Andrey Santos
+Gabriel Martinelli
+Bruno Guimarães
+Lucas Paquetá
+Douglas Luiz
+Bremer|Gleison Bremer
+Wesley França
+Ederson
+Alisson
+Bento
+Yan Diomande
+Ousmane Diomande
+Nuno Mendes
+Ruben Neves
+Tomás Araújo
+Renato Veiga
+Pedro Neto
+Francisco Conceição
+Geovany Quenda
+Quenda
+Jeremie Frimpong
+Xavi Simons
+Quinten Timber
+Jurriën Timber
+Micky van de Ven
+Ryan Gravenberch
+Brian Brobbey
+Donyell Malen
+Teun Koopmeiners
+Tijjani Reijnders
+Ademola Lookman
+Victor Boniface
+Victor Osimhen
+Samuel Chukwueze
+Tolu Arokodare
+Mohammed Kudus
+Antoine Semenyo
+Iñaki Williams
+Nico Williams
+Oihan Sancet
+Unai Simón
+Mikel Oyarzabal
+Martín Zubimendi
+Mikel Merino
+Dani Olmo
+Fermín López
+Pedri
+Gavi
+Rodri
+Marc Casadó
+Álex Baena
+Yeremy Pino
+Samu Omorodion
+Ferran Torres
+Robin Le Normand
+Aymeric Laporte
+Dani Vivian
+Unai Núñez
+Umar Sadiq
+Unai López
+Uroš Račić
+Ugo Bonnet
+Ulisses Garcia
+Uche Ikpeazu
+Ulrich Ramé
+Umut Bozok
+Uğurcan Çakır
+Urko González de Zárate|Urko Gonzalez
+Uriel Antuna
+Uvini Bitshiabu
+Usman Mohammed
+Utkir Yusupov
+Ugo Ehiogu
+Uli Stielike|Stielike
+Quentin Merlin
+Quentin Boisgard
+Quinten Timber
+Quincy Promes
+Quincy Owusu-Abeyie
+Quini
+Qazaishvili|Vako Qazaishvili
+Quique Flores
+Quilindschy Hartman
+Jesús Quintero
+Juan Fernando Quintero
+Quaresma
+Ricardo Quaresma
+Fabio Quagliarella
+Jarell Quansah
+Mick Quinn
+Niall Quinn
+Stephen Quinn
+Alan Quinn
+Xherdan Shaqiri
+Granit Xhaka
+Taulant Xhaka
+Xavi Simons
+Xabi Alonso
+Xavier Mercier
+Xeka
+Xisco
+Xande Silva
+Xavier Chen
+Xu Xin
+Xie Hui
+Xavier Arreaga
+Xavi Quintillà
+Xaver Schlager
+Xabier Etxeita
+Xabi Prieto
+Ximo Navarro
+Xavier Margairaz
+Xavier Kouassi
+Xavier Mous
+Yan Couto
+Yunus Musah
+Yoane Wissa
+Youssoufa Moukoko|Moukoko
+Yankuba Minteh
+Yeremy Pino
+Zeno Debast
+Zian Flemming
+Zion Suzuki
+Ilyas Ansah
+Kenan Karaman
+Merih Demiral
 
 </script>
 <script>
@@ -4309,7 +4492,7 @@ fr:{
  daily_played:'Joué : {n} aujourd\'hui', daily_new:'Nouvelle lettre à jouer',
  join_code:'Code du salon', join_btn:'Rejoindre', boards_btn:'Classements',
  net_label:'Serveurs', net_wait:'Connexion…', net_ok:'Connecté : jeu en ligne et classements prêts.', net_partial:'{n}/{m} serveurs joignables : tout fonctionne.', net_none:'Aucun serveur joignable depuis ce réseau. Essaie en 4G. « Jouer ici » marche toujours.',
- r1b:'1 lettre', r1:'Au hasard, choisie, ou celle du jour.', r2b:'Le nom', r2:'Seul le nom de famille compte (ou le nom d\'usage : Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points de chaque manche selon le classement.', r4b:'Fair-play', r4:'Quitter la page = carton jaune. Deux jaunes = rouge.',
+ r1b:'1 lettre', r1:'Au hasard, choisie, ou celle du jour.', r2b:'Le nom', r2:'Seul le nom de famille compte (ou le nom d\'usage : Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points de chaque manche selon le classement.', r4b:'Cartons', r4:'Quitter la page = jaune auto. Jaune ou rouge à la demande : 2 joueurs doivent être d\'accord.',
  db_note:'Validation : {n} footballeurs intégrés, puis recherche parmi les joueurs professionnels du monde entier, actuels et retraités (Wikidata).',
  who_plays:'Qui joue ?', setup_note:'Jusqu\'à 10 joueurs sur cet appareil.', add_player:'+ Ajouter un joueur', remove:'Retirer', player_n:'Joueur {n}', settings:'Réglages', kickoff:'Coup d\'envoi',
  set_time:'Temps par passage', set_tries:'Essais par passage', unlimited:'Illimité', set_letter:'Lettre', random:'Au hasard', choose:'Choisir', set_rounds:'Nombre de manches',
@@ -4318,9 +4501,9 @@ fr:{
  set_host:'Réglages (toi seul peux les changer)', set_guest:'Réglages choisis par l\'hôte', players_n:'Joueurs ({n})', host_tag:'Hôte', you_tag:'Toi', leave:'Quitter', wait_kick:'En attente du coup d\'envoi…', wait_host:'Connexion à l\'hôte…', solo_hint:'Tu peux aussi lancer seul pour t\'entraîner.',
  code_copied:'Code copié', link_copied:'Lien copié, envoie-le à tes amis', link_file:'Le lien ne marche que si le site est en ligne. Donne plutôt le code.', share_invite:'Rejoins ma partie de FOOT LETTER !',
  letter:'Lettre', room:'Salon', round_chip:'Manche {r}/{m}', your_turn:'À toi de jouer', turn_of:'Au tour de', draw:'Tirage de la lettre', chosen_letter:'Lettre choisie par l\'hôte', starts:'{x} commence', pass_device:'Passe-lui l\'appareil', say_surname:'Un nom de famille en {L}', ph_mine:'Nom de famille en {L}…', ph_wait:'En attente de {x}…', validate:'Valider', give_up:'Je sèche', typing:'{x} écrit…',
- fairplay:'Fair-play : quitter la page ou la fenêtre = carton jaune automatique, deux = rouge.', fairplay_solo:'Fair-play : quitter la page = carton jaune, deux = disqualifié.',
+ fairplay:'Quitter la page = jaune automatique. 🟨 🟥 à côté d\'un joueur : il faut l\'accord de 2 joueurs (1 seul si vous êtes deux).', fairplay_solo:'Fair-play : quitter la page = carton jaune, deux = disqualifié.',
  players:'Joueurs', sheet:'Feuille de match', none_yet:'Aucun joueur cité pour le moment.', ok_line:'✓ {x} : +1 pour {p}', checking:'Recherche de « {x} » parmi les joueurs pros…', unknown_q:'« {x} » n\'est pas reconnu.', unknown_off:'« {x} » : recherche en ligne indisponible.', host_q:'Tu valides, en tant qu\'hôte ?', local_q:'Vous validez ?', host_dec:'L\'hôte décide…', accept:'Valider le joueur', reject:'Refuser', several:'plusieurs joueurs portent ce nom', born:'né en {y}', ex:'ex-', you:'toi', host:'hôte',
- ev_time:'Carton rouge pour {x} : temps écoulé', ev_give:'{x} abandonne la manche', ev_left:'{x} a quitté la partie', ev_tries:'Carton rouge pour {x} : plus d\'essais', ev_yellow:'Carton jaune pour {x} : a quitté la page', ev_yy:'Deuxième jaune pour {x} : carton rouge !', my_yellow:'Carton jaune : tu as quitté la page. Au prochain, c\'est le rouge.',
+ ev_time:'Carton rouge pour {x} : temps écoulé', ev_give:'{x} abandonne la manche', ev_left:'{x} a quitté la partie', ev_tries:'Carton rouge pour {x} : plus d\'essais', ev_yellow:'Carton jaune pour {x} : a quitté la page', ev_yy:'Deuxième jaune pour {x} : carton rouge !', ev_vote_y:'{v} demande un jaune pour {x} : un 2e joueur doit confirmer', ev_vote_r:'{v} demande un rouge pour {x} : un 2e joueur doit confirmer', ev_cy:'Carton jaune pour {x} (validé)', ev_cr:'Carton rouge pour {x} (validé)', vote_y:'Jaune', a_player:'Un joueur', vote_r:'Rouge', streak:'Série x{n}', my_yellow:'Carton jaune : tu as quitté la page. Au prochain, c\'est le rouge.',
  r_short:'Écris au moins deux lettres.', r_first:'« {x} » est un prénom. Seuls les noms de famille comptent.', r_letter:'Le nom de {x} ne commence pas par {L}.', r_letter2:'« {x} » ne commence pas par {L}.', r_dup:'{x} a déjà été cité.', r_refused:'L\'hôte a refusé « {x} ».', r_unknown:'« {x} » n\'est pas un joueur pro reconnu.', r_offline:'Vérification impossible (hors ligne) : « {x} » refusé.',
  round_over:'Manche {r}/{m} terminée', round_win:'{x} gagne la manche', round_solo:'{n} noms trouvés', round_sub:'Lettre {L} · {n} joueurs cités', round_stats:'Statistiques de la manche', standings:'Classement général', next_round:'Manche suivante', wait_next:'L\'hôte lance la manche suivante…',
  c_player:'Joueur', c_pts:'Pts', c_found:'Noms', c_miss:'Ratés', c_avg:'Moy.', c_y:'Jaunes', c_total:'Total',
@@ -4330,7 +4513,7 @@ fr:{
  your_letter:'Ta lettre', reroll:'Une autre lettre', bet:'Mon annonce', abandon:'Abandonner',
  daily_intro:'Tout le monde a la même lettre aujourd\'hui. Tu as 3 minutes pour citer un maximum de joueurs, sans limite d\'essais. Un seul essai par jour : la lettre se révèle au coup d\'envoi.', daily_go:'Révéler la lettre', daily_done:'Tu as déjà joué aujourd\'hui : {n}.', daily_interrupted:'Partie interrompue aujourd\'hui : pas de score.', next_letter:'Nouvelle lettre dans {h}', daily_board:'Classement du jour', hidden_letter:'lettre cachée',
  defi_intro:'Voici ta lettre. Annonce combien de joueurs tu peux citer. Tu as 30 secondes par nom, et le chrono repart à chaque bonne réponse. Tiens ton annonce et tu entres au classement de cette lettre.', defi_go:'Je relève le défi', defi_board:'Classement de la lettre {L}',
- abc_intro:'Un joueur pour chaque lettre, dans l\'ordre de l\'alphabet. 30 s max par lettre. 3 jokers pour passer une lettre (+15 s). Ton temps total fait ton classement.', abc_go:'Partir', abc_board:'Meilleurs temps', joker:'Joker (+15 s) · {n}',
+ abc_intro:'Un joueur pour chaque lettre, de A à Z, les 26 lettres. 30 s max par lettre. 3 jokers pour passer une lettre (+15 s). Ton temps total fait ton classement.', abc_go:'Partir', abc_board:'Meilleurs temps', joker:'Joker (+15 s) · {n}',
  prog_daily:'{n} joueurs', prog_daily_1:'{n} joueur', prog_defi:'{f} / {t}', prog_abc:'{i} / {n}',
  res_daily:'{n} joueurs', res_daily_1:'{n} joueur', res_daily_sub:'Lettre du jour {L} · {d}', res_defi_ok:'Défi réussi !', res_defi_ko:'Défi raté', res_defi_sub:'{f} sur {t} annoncés · lettre {L}', res_abc_ok:'{t}', res_abc_ko:'Tour interrompu', res_abc_sub:'{n} lettres · {j} joker(s)', res_abc_label:'Alphabet bouclé', dq:'Disqualifié : deuxième carton jaune.', dq_label:'Carton rouge',
  rank:'Ta place : {r} sur {n}', not_ranked:'Pas classé cette fois.', saving:'Envoi au classement…', board_off:'Classement indisponible (serveurs injoignables).', board_empty:'Personne encore. Sois le premier !',
@@ -4352,7 +4535,7 @@ en:{
  daily_played:'Played: {n} today', daily_new:'New letter to play',
  join_code:'Room code', join_btn:'Join', boards_btn:'Leaderboards',
  net_label:'Servers', net_wait:'Connecting…', net_ok:'Connected: online play and leaderboards ready.', net_partial:'{n}/{m} servers reachable: everything works.', net_none:'No server reachable from this network. Try mobile data. “Play here” always works.',
- r1b:'1 letter', r1:'Random, picked, or the daily one.', r2b:'Surnames', r2:'Only the surname counts (or the known name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points per round based on the ranking.', r4b:'Fair play', r4:'Leaving the page = yellow card. Two yellows = red.',
+ r1b:'1 letter', r1:'Random, picked, or the daily one.', r2b:'Surnames', r2:'Only the surname counts (or the known name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Points per round based on the ranking.', r4b:'Cards', r4:'Leaving the page = automatic yellow. Yellow or red on request: 2 players must agree.',
  db_note:'Checking: {n} built-in footballers, then a search through professional players worldwide, current and retired (Wikidata).',
  who_plays:'Who\'s playing?', setup_note:'Up to 10 players on this device.', add_player:'+ Add a player', remove:'Remove', player_n:'Player {n}', settings:'Settings', kickoff:'Kick-off',
  set_time:'Time per turn', set_tries:'Tries per turn', unlimited:'Unlimited', set_letter:'Letter', random:'Random', choose:'Pick', set_rounds:'Number of rounds',
@@ -4361,9 +4544,9 @@ en:{
  set_host:'Settings (only you can change them)', set_guest:'Settings chosen by the host', players_n:'Players ({n})', host_tag:'Host', you_tag:'You', leave:'Leave', wait_kick:'Waiting for kick-off…', wait_host:'Connecting to the host…', solo_hint:'You can also start alone to practise.',
  code_copied:'Code copied', link_copied:'Link copied, send it to your friends', link_file:'The link only works once the site is online. Share the code instead.', share_invite:'Join my FOOT LETTER game!',
  letter:'Letter', room:'Room', round_chip:'Round {r}/{m}', your_turn:'Your turn', turn_of:'Now playing', draw:'Drawing the letter', chosen_letter:'Letter picked by the host', starts:'{x} starts', pass_device:'Hand them the device', say_surname:'A surname starting with {L}', ph_mine:'Surname starting with {L}…', ph_wait:'Waiting for {x}…', validate:'Submit', give_up:'I\'m stuck', typing:'{x} is typing…',
- fairplay:'Fair play: leaving the page or window = automatic yellow card, two = red.', fairplay_solo:'Fair play: leaving the page = yellow card, two = disqualified.',
+ fairplay:'Leaving the page = automatic yellow. 🟨 🟥 next to a player: 2 players must agree (just 1 if there are two of you).', fairplay_solo:'Fair play: leaving the page = yellow card, two = disqualified.',
  players:'Players', sheet:'Match sheet', none_yet:'No player named yet.', ok_line:'✓ {x}: +1 for {p}', checking:'Looking up “{x}” among pro players…', unknown_q:'“{x}” isn\'t recognised.', unknown_off:'“{x}”: online search unavailable.', host_q:'As the host, do you accept it?', local_q:'Do you accept it?', host_dec:'The host decides…', accept:'Accept player', reject:'Reject', several:'several players share this name', born:'born {y}', ex:'ex-', you:'you', host:'host',
- ev_time:'Red card for {x}: time\'s up', ev_give:'{x} gives up the round', ev_left:'{x} left the game', ev_tries:'Red card for {x}: no tries left', ev_yellow:'Yellow card for {x}: left the page', ev_yy:'Second yellow for {x}: red card!', my_yellow:'Yellow card: you left the page. Next time it\'s red.',
+ ev_time:'Red card for {x}: time\'s up', ev_give:'{x} gives up the round', ev_left:'{x} left the game', ev_tries:'Red card for {x}: no tries left', ev_yellow:'Yellow card for {x}: left the page', ev_yy:'Second yellow for {x}: red card!', ev_vote_y:'{v} asks for a yellow for {x}: a 2nd player must confirm', ev_vote_r:'{v} asks for a red for {x}: a 2nd player must confirm', ev_cy:'Yellow card for {x} (confirmed)', ev_cr:'Red card for {x} (confirmed)', vote_y:'Yellow', a_player:'A player', vote_r:'Red', streak:'Streak x{n}', my_yellow:'Yellow card: you left the page. Next time it\'s red.',
  r_short:'Type at least two letters.', r_first:'“{x}” is a first name. Only surnames count.', r_letter:'{x}\'s surname doesn\'t start with {L}.', r_letter2:'“{x}” doesn\'t start with {L}.', r_dup:'{x} has already been named.', r_refused:'The host rejected “{x}”.', r_unknown:'“{x}” isn\'t a recognised pro player.', r_offline:'Can\'t check (offline): “{x}” rejected.',
  round_over:'Round {r}/{m} over', round_win:'{x} wins the round', round_solo:'{n} names found', round_sub:'Letter {L} · {n} players named', round_stats:'Round stats', standings:'Overall standings', next_round:'Next round', wait_next:'The host starts the next round…',
  c_player:'Player', c_pts:'Pts', c_found:'Names', c_miss:'Missed', c_avg:'Avg', c_y:'Yellows', c_total:'Total',
@@ -4373,7 +4556,7 @@ en:{
  your_letter:'Your letter', reroll:'Another letter', bet:'My target', abandon:'Give up',
  daily_intro:'Everyone gets the same letter today. You have 3 minutes to name as many players as you can, with unlimited tries. One go per day: the letter is revealed at kick-off.', daily_go:'Reveal the letter', daily_done:'You already played today: {n}.', daily_interrupted:'Game interrupted today: no score.', next_letter:'New letter in {h}', daily_board:'Today\'s ranking', hidden_letter:'hidden letter',
  defi_intro:'Here\'s your letter. Announce how many players you can name. You get 30 seconds per name, and the clock resets after each correct answer. Hit your target and you join this letter\'s ranking.', defi_go:'Take the challenge', defi_board:'Letter {L} ranking',
- abc_intro:'One player for each letter, in alphabetical order. 30 s max per letter. 3 jokers to skip a letter (+15 s). Your total time sets your ranking.', abc_go:'Go', abc_board:'Best times', joker:'Joker (+15 s) · {n}',
+ abc_intro:'One player for each letter, A to Z, all 26 letters. 30 s max per letter. 3 jokers to skip a letter (+15 s). Your total time sets your ranking.', abc_go:'Go', abc_board:'Best times', joker:'Joker (+15 s) · {n}',
  prog_daily:'{n} players', prog_daily_1:'{n} player', prog_defi:'{f} / {t}', prog_abc:'{i} / {n}',
  res_daily:'{n} players', res_daily_1:'{n} player', res_daily_sub:'Daily letter {L} · {d}', res_defi_ok:'Challenge done!', res_defi_ko:'Challenge failed', res_defi_sub:'{f} of {t} announced · letter {L}', res_abc_ok:'{t}', res_abc_ko:'Run stopped', res_abc_sub:'{n} letters · {j} joker(s)', res_abc_label:'Alphabet complete', dq:'Disqualified: second yellow card.', dq_label:'Red card',
  rank:'Your rank: {r} of {n}', not_ranked:'Not ranked this time.', saving:'Sending to the leaderboard…', board_off:'Leaderboard unavailable (servers unreachable).', board_empty:'Nobody yet. Be the first!',
@@ -4395,7 +4578,7 @@ de:{
  daily_played:'Gespielt: {n} heute', daily_new:'Neuer Buchstabe wartet',
  join_code:'Raumcode', join_btn:'Beitreten', boards_btn:'Ranglisten',
  net_label:'Server', net_wait:'Verbinde…', net_ok:'Verbunden: Online-Spiel und Ranglisten bereit.', net_partial:'{n}/{m} Server erreichbar: alles funktioniert.', net_none:'Kein Server aus diesem Netz erreichbar. Versuch es mit mobilen Daten. „Hier spielen“ geht immer.',
- r1b:'1 Buchstabe', r1:'Zufällig, gewählt oder der des Tages.', r2b:'Nachname', r2:'Nur der Nachname zählt (oder der bekannte Name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Punkte pro Runde nach Platzierung.', r4b:'Fairplay', r4:'Seite verlassen = Gelbe Karte. Zwei Gelbe = Rot.',
+ r1b:'1 Buchstabe', r1:'Zufällig, gewählt oder der des Tages.', r2b:'Nachname', r2:'Nur der Nachname zählt (oder der bekannte Name: Neymar, Pelé).', r3b:'+3 · +2 · +1', r3:'Punkte pro Runde nach Platzierung.', r4b:'Karten', r4:'Seite verlassen = automatisch Gelb. Gelb oder Rot auf Antrag: 2 Spieler müssen zustimmen.',
  db_note:'Prüfung: {n} eingebaute Fußballer, danach Suche unter Profispielern weltweit, aktiv und im Ruhestand (Wikidata).',
  who_plays:'Wer spielt?', setup_note:'Bis zu 10 Spieler an diesem Gerät.', add_player:'+ Spieler hinzufügen', remove:'Entfernen', player_n:'Spieler {n}', settings:'Einstellungen', kickoff:'Anstoß',
  set_time:'Zeit pro Zug', set_tries:'Versuche pro Zug', unlimited:'Unbegrenzt', set_letter:'Buchstabe', random:'Zufall', choose:'Wählen', set_rounds:'Anzahl Runden',
@@ -4404,9 +4587,9 @@ de:{
  set_host:'Einstellungen (nur du kannst sie ändern)', set_guest:'Vom Gastgeber gewählte Einstellungen', players_n:'Spieler ({n})', host_tag:'Gastgeber', you_tag:'Du', leave:'Verlassen', wait_kick:'Warten auf den Anstoß…', wait_host:'Verbinde mit dem Gastgeber…', solo_hint:'Du kannst auch allein üben.',
  code_copied:'Code kopiert', link_copied:'Link kopiert, schick ihn deinen Freunden', link_file:'Der Link funktioniert erst, wenn die Seite online ist. Gib lieber den Code weiter.', share_invite:'Spiel mit mir FOOT LETTER!',
  letter:'Buchstabe', room:'Raum', round_chip:'Runde {r}/{m}', your_turn:'Du bist dran', turn_of:'Am Zug', draw:'Buchstabe wird gezogen', chosen_letter:'Vom Gastgeber gewählt', starts:'{x} beginnt', pass_device:'Gib das Gerät weiter', say_surname:'Ein Nachname mit {L}', ph_mine:'Nachname mit {L}…', ph_wait:'Warten auf {x}…', validate:'Senden', give_up:'Ich passe', typing:'{x} tippt…',
- fairplay:'Fairplay: Seite oder Fenster verlassen = automatisch Gelb, zweimal = Rot.', fairplay_solo:'Fairplay: Seite verlassen = Gelbe Karte, zweimal = disqualifiziert.',
+ fairplay:'Seite verlassen = automatisch Gelb. 🟨 🟥 neben einem Spieler: 2 Spieler müssen zustimmen (nur 1, wenn ihr zu zweit seid).', fairplay_solo:'Fairplay: Seite verlassen = Gelbe Karte, zweimal = disqualifiziert.',
  players:'Spieler', sheet:'Spielbericht', none_yet:'Noch kein Spieler genannt.', ok_line:'✓ {x}: +1 für {p}', checking:'Suche „{x}“ unter Profispielern…', unknown_q:'„{x}“ wurde nicht erkannt.', unknown_off:'„{x}“: Online-Suche nicht verfügbar.', host_q:'Als Gastgeber: Gilt das?', local_q:'Gilt das?', host_dec:'Der Gastgeber entscheidet…', accept:'Spieler anerkennen', reject:'Ablehnen', several:'mehrere Spieler heißen so', born:'geb. {y}', ex:'Ex-', you:'du', host:'Gastgeber',
- ev_time:'Rote Karte für {x}: Zeit abgelaufen', ev_give:'{x} gibt die Runde auf', ev_left:'{x} hat das Spiel verlassen', ev_tries:'Rote Karte für {x}: keine Versuche mehr', ev_yellow:'Gelbe Karte für {x}: Seite verlassen', ev_yy:'Zweite Gelbe für {x}: Rote Karte!', my_yellow:'Gelbe Karte: Du hast die Seite verlassen. Beim nächsten Mal gibt es Rot.',
+ ev_time:'Rote Karte für {x}: Zeit abgelaufen', ev_give:'{x} gibt die Runde auf', ev_left:'{x} hat das Spiel verlassen', ev_tries:'Rote Karte für {x}: keine Versuche mehr', ev_yellow:'Gelbe Karte für {x}: Seite verlassen', ev_yy:'Zweite Gelbe für {x}: Rote Karte!', ev_vote_y:'{v} fordert Gelb für {x}: ein 2. Spieler muss bestätigen', ev_vote_r:'{v} fordert Rot für {x}: ein 2. Spieler muss bestätigen', ev_cy:'Gelbe Karte für {x} (bestätigt)', ev_cr:'Rote Karte für {x} (bestätigt)', vote_y:'Gelb', a_player:'Ein Spieler', vote_r:'Rot', streak:'Serie x{n}', my_yellow:'Gelbe Karte: Du hast die Seite verlassen. Beim nächsten Mal gibt es Rot.',
  r_short:'Mindestens zwei Buchstaben eingeben.', r_first:'„{x}“ ist ein Vorname. Nur Nachnamen zählen.', r_letter:'Der Nachname von {x} beginnt nicht mit {L}.', r_letter2:'„{x}“ beginnt nicht mit {L}.', r_dup:'{x} wurde schon genannt.', r_refused:'Der Gastgeber hat „{x}“ abgelehnt.', r_unknown:'„{x}“ ist kein bekannter Profispieler.', r_offline:'Prüfung nicht möglich (offline): „{x}“ abgelehnt.',
  round_over:'Runde {r}/{m} beendet', round_win:'{x} gewinnt die Runde', round_solo:'{n} Namen gefunden', round_sub:'Buchstabe {L} · {n} Spieler genannt', round_stats:'Rundenstatistik', standings:'Gesamtwertung', next_round:'Nächste Runde', wait_next:'Der Gastgeber startet die nächste Runde…',
  c_player:'Spieler', c_pts:'Pkt.', c_found:'Namen', c_miss:'Fehler', c_avg:'Ø', c_y:'Gelb', c_total:'Gesamt',
@@ -4416,7 +4599,7 @@ de:{
  your_letter:'Dein Buchstabe', reroll:'Anderer Buchstabe', bet:'Meine Ansage', abandon:'Aufgeben',
  daily_intro:'Heute haben alle denselben Buchstaben. Du hast 3 Minuten, um so viele Spieler wie möglich zu nennen, unbegrenzte Versuche. Ein Versuch pro Tag: Der Buchstabe erscheint beim Anstoß.', daily_go:'Buchstaben aufdecken', daily_done:'Du hast heute schon gespielt: {n}.', daily_interrupted:'Spiel heute abgebrochen: keine Wertung.', next_letter:'Neuer Buchstabe in {h}', daily_board:'Tagesrangliste', hidden_letter:'verdeckter Buchstabe',
  defi_intro:'Das ist dein Buchstabe. Sag an, wie viele Spieler du nennen kannst. 30 Sekunden pro Name, die Uhr startet nach jeder richtigen Antwort neu. Schaffst du deine Ansage, kommst du in die Rangliste dieses Buchstabens.', defi_go:'Challenge annehmen', defi_board:'Rangliste Buchstabe {L}',
- abc_intro:'Ein Spieler für jeden Buchstaben, in alphabetischer Reihenfolge. Max. 30 s pro Buchstabe. 3 Joker zum Überspringen (+15 s). Deine Gesamtzeit zählt für die Rangliste.', abc_go:'Los', abc_board:'Bestzeiten', joker:'Joker (+15 s) · {n}',
+ abc_intro:'Ein Spieler für jeden Buchstaben, von A bis Z, alle 26. Max. 30 s pro Buchstabe. 3 Joker zum Überspringen (+15 s). Deine Gesamtzeit zählt für die Rangliste.', abc_go:'Los', abc_board:'Bestzeiten', joker:'Joker (+15 s) · {n}',
  prog_daily:'{n} Spieler', prog_daily_1:'{n} Spieler', prog_defi:'{f} / {t}', prog_abc:'{i} / {n}',
  res_daily:'{n} Spieler', res_daily_1:'{n} Spieler', res_daily_sub:'Buchstabe des Tages {L} · {d}', res_defi_ok:'Challenge geschafft!', res_defi_ko:'Challenge verfehlt', res_defi_sub:'{f} von {t} angesagt · Buchstabe {L}', res_abc_ok:'{t}', res_abc_ko:'Lauf abgebrochen', res_abc_sub:'{n} Buchstaben · {j} Joker', res_abc_label:'Alphabet geschafft', dq:'Disqualifiziert: zweite Gelbe Karte.', dq_label:'Rote Karte',
  rank:'Dein Platz: {r} von {n}', not_ranked:'Diesmal keine Wertung.', saving:'Wird an die Rangliste gesendet…', board_off:'Rangliste nicht verfügbar (Server nicht erreichbar).', board_empty:'Noch niemand. Sei der Erste!',
@@ -4582,6 +4765,7 @@ async function resolveRemote(text,letter,used){
 }
 // Fiche joueur : photo, drapeau, pays, poste, club
 const SPECIAL_FLAGS={Q21:'gb-eng',Q22:'gb-sct',Q25:'gb-wls',Q26:'gb-nir',Q1246:'xk'};
+const FOOT_DESC=/foot|soccer|fußball|fussball|calcio|fútbol|futbol|voetbal|futebol/i;
 const NAT_RE=/national|nationale|nazionale|nacional|selecci|équipe d|nationalmannschaft|auswahl|\bu-?\d{2}\b|under-?\d{2}|olymp|youth|jugend|espoirs|reserve|réserve|\bii\b|\bb\b/i;
 const INFO=new Map();
 function ambiguous(display){ const n=norm(display); return !display.includes(' ')&&(IDX.get(n)||[]).length>1; }
@@ -4589,15 +4773,22 @@ function playerInfo(display){
   const n=norm(display);
   if(INFO.has(n)) return INFO.get(n);
   if(ambiguous(display)){ const p=Promise.resolve(null); INFO.set(n,p); return p; }
-  const cached=lsGet('fl_i5_'+n);
+  const cached=lsGet('fl_i6_'+n);
   if(cached!==undefined){ const p=Promise.resolve(cached); INFO.set(n,p); return p; }
   const pr=(async()=>{
-    const ids=(await wdSearch(display,8)).slice(0,8);
-    if(!ids.length) return null;
-    const ents=await wdEntities(ids,'labels','fr|en|de');
     let pick=null;
-    for(const id of ids){ const e=ents[id]; if(e&&e.labels&&Object.values(e.labels).some(x=>norm(x.value)===n)){ pick=id; break; } }
-    if(!pick) for(const id of ids){ const e=ents[id]; if(e&&e.labels&&Object.values(e.labels).some(x=>norm(x.value).endsWith(' '+n))){ pick=id; break; } }
+    try{
+      const r=await fetchJSON(WD+'action=wbsearchentities&type=item&limit=8&language=en&uselang=en&search='+encodeURIComponent(display),6000);
+      const s=r.search||[], foot=x=>FOOT_DESC.test(x.description||'');
+      const hit=s.find(x=>foot(x)&&norm(x.label||'')===n)||s.find(x=>foot(x)&&x.match&&norm(x.match.text||'')===n)||s.find(x=>foot(x)&&norm(x.label||'').endsWith(' '+n));
+      if(hit) pick=hit.id;
+    }catch(_){ }
+    if(!pick){
+      const ids=(await wdSearch(display,6)).slice(0,6);
+      if(!ids.length) return null;
+      const ents=await wdEntities(ids,'labels','fr|en|de');
+      for(const id of ids){ const e=ents[id]; if(e&&e.labels&&Object.values(e.labels).some(x=>norm(x.value)===n||norm(x.value).endsWith(' '+n))){ pick=id; break; } }
+    }
     if(!pick) return null;
     const c=((await wdEntities([pick],'claims'))[pick]||{}).claims||{};
     const val=p=>{ const a=c[p]; if(!a||!a.length) return null; const s=(a.find(x=>x.rank==='preferred')||a[0]).mainsnak; return s&&s.datavalue?s.datavalue.value:null; };
@@ -4614,16 +4805,51 @@ function playerInfo(display){
     const isoP=country?(SPECIAL_FLAGS[country]?Promise.resolve(SPECIAL_FLAGS[country]):fetchJSON(WD+'action=wbgetclaims&property=P297&entity='+country,7000).then(r=>{ const a=r.claims&&r.claims.P297; return a&&a[0]&&a[0].mainsnak.datavalue?String(a[0].mainsnak.datavalue.value).toLowerCase():null; }).catch(()=>null)):Promise.resolve(null);
     const [lab,iso]=await Promise.all([need.length?wdEntities([...new Set(need)],'labels','fr|en|de'):Promise.resolve({}),isoP]);
     const L3=id=>{ const e=lab[id]; if(!e||!e.labels) return null; const o={}; ['fr','en','de'].forEach(k=>{ if(e.labels[k]) o[k]=e.labels[k].value; }); return Object.keys(o).length?o:null; };
-    const out={photo:img?('https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(img)+'?width=160'):null,year:born&&born.time?born.time.slice(1,5):null};
+    const out={file:img||null,year:born&&born.time?born.time.slice(1,5):null};
     if(country){ out.country=L3(country); if(iso) out.flag='https://flagcdn.com/w40/'+iso+'.png'; }
     if(pos&&pos.id) out.pos=L3(pos.id);
     for(const tm of cand){ const l3=L3(tm.id); if(!l3) continue; const nm=l3.fr||l3.en||l3.de; if(NAT_RE.test(l3.en||nm)||NAT_RE.test(nm)) continue; out.club=l3.en||nm; out.clubFr=l3.fr||out.club; out.clubCur=!tm.end; break; }
     return out;
   })().catch(()=>undefined);
   INFO.set(n,pr);
-  pr.then(v=>{ if(v===undefined) INFO.delete(n); else lsSet('fl_i5_'+n,v); });
+  pr.then(v=>{ if(v===undefined) INFO.delete(n); else { lsSet('fl_i6_'+n,v); preloadPhoto(v); } });
   return pr;
 }
+// MD5 (pour l'adresse directe des vignettes Wikimedia, sans redirection)
+function md5(str){
+  const b=U8E.encode(str), n=b.length, words=new Array(((n+8>>6)+1)*16).fill(0);
+  for(let i=0;i<n;i++) words[i>>2]|=b[i]<<((i%4)*8);
+  words[n>>2]|=0x80<<((n%4)*8); words[words.length-2]=n*8;
+  const S=[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21], K=[];
+  for(let i=0;i<64;i++) K[i]=Math.floor(Math.abs(Math.sin(i+1))*4294967296)|0;
+  let a0=0x67452301,b0=0xefcdab89|0,c0=0x98badcfe|0,d0=0x10325476;
+  for(let o=0;o<words.length;o+=16){
+    let A=a0,B=b0,C=c0,D=d0;
+    for(let i=0;i<64;i++){
+      let F,g;
+      if(i<16){F=(B&C)|(~B&D);g=i;} else if(i<32){F=(D&B)|(~D&C);g=(5*i+1)%16;} else if(i<48){F=B^C^D;g=(3*i+5)%16;} else {F=C^(B|~D);g=(7*i)%16;}
+      const tmp=D; D=C; C=B;
+      const x=(A+F+K[i]+words[o+g])|0, sh=S[(i>>4)*4+i%4];
+      B=(B+((x<<sh)|(x>>>(32-sh))))|0; A=tmp;
+    }
+    a0=(a0+A)|0; b0=(b0+B)|0; c0=(c0+C)|0; d0=(d0+D)|0;
+  }
+  return [a0,b0,c0,d0].map(v=>{ let h=''; for(let i=0;i<4;i++) h+=((v>>>(i*8))&255).toString(16).padStart(2,'0'); return h; }).join('');
+}
+function thumbURL(file,w){
+  const f=String(file).replace(/ /g,'_'), h=md5(f), e=encodeURIComponent(f);
+  return 'https://upload.wikimedia.org/wikipedia/commons/thumb/'+h[0]+'/'+h.slice(0,2)+'/'+e+'/'+w+'px-'+e+(/\.(svg|tiff?|pdf)$/i.test(f)?'.png':'');
+}
+function photoFallback(file){ return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(file)+'?width=250'; }
+function loadPhoto(info,onok){
+  if(!info||!info.file) return;
+  const im=new Image(); im.alt=''; im.decoding='async'; im.referrerPolicy='no-referrer';
+  im.onload=()=>onok(im);
+  im.onerror=()=>{ if(im.dataset.fb) return; im.dataset.fb='1'; im.src=photoFallback(info.file); };
+  im.src=thumbURL(info.file,250);
+}
+const PRELOADED=new Set();
+function preloadPhoto(info){ if(!info||!info.file||PRELOADED.has(info.file)) return; PRELOADED.add(info.file); loadPhoto(info,()=>{}); }
 function loc(o){ return o?(o[LANG]||o.en||o.fr||o.de||''):''; }
 function clubText(info){ if(!info||!info.club) return ''; const nm=LANG==='fr'?info.clubFr:info.club; return (info.clubCur?'':t('ex'))+nm; }
 
@@ -4866,6 +5092,7 @@ function makeEngine(publish){
     g.sc[pid]=(g.sc[pid]||0)+1; g.tf[pid]=(g.tf[pid]||0)+1; g.rt[pid]=(g.rt[pid]||0)+secs;
     if(!g.fast||secs<g.fast[2]) g.fast=[pid,display,secs];
     g.last={k:(g.last?.k||0)+1,p:pid,ok:1,x:display,s:secs};
+    playerInfo(display);
     advance(); pub();
   }
   function reject(pid,c,x,count){
@@ -4891,12 +5118,12 @@ function makeEngine(publish){
     g.elim=g.order.filter(id=>g.gone[id]);
     const starters=g.order.filter(id=>!g.gone[id]);
     g.cur=starters.length?starters[(g.round-1)%starters.length]:g.order[0];
-    g.log=[]; g.tu=0; g.tid=(g.tid||0)+1; g.check=null; g.pend=null; g.paused=0; g.res=null; g.rw=null; g.last=null; g.ev=null;
+    g.log=[]; g.cv={}; g.tu=0; g.tid=(g.tid||0)+1; g.check=null; g.pend=null; g.paused=0; g.res=null; g.rw=null; g.last=null; g.ev=null;
     g.phase='draw'; e.keys=new Set(); e.lastFoul={};
     pub();
     clearInterval(e.timer); clearTimeout(e.dt);
     e.dt=setTimeout(()=>{ if(e.g.phase!=='draw') return; e.g.phase='play'; e.deadline=Date.now()+TMS(); if(!checkEnd()) {} pub(); },g.chosen?1200:2600);
-    e.timer=setInterval(()=>{ const x=e.g; if(x&&x.phase==='play'&&!x.paused&&Date.now()>=e.deadline){ elim(x.cur,'time'); pub(); } },150);
+    e.timer=setInterval(()=>{ const x=e.g; if(!x) return; if(x.cv){ const now=Date.now(); let ch=false; Object.keys(x.cv).forEach(k=>{ if(now-x.cv[k].ts>30000){ delete x.cv[k]; ch=true; } }); if(ch) pub(); } if(x.phase==='play'&&!x.paused&&Date.now()>=e.deadline){ elim(x.cur,'time'); pub(); } },150);
   }
   e.setCfg=cfg=>{ e.cfg={...e.cfg,...cfg}; if(e.g&&e.g.phase==='lobby'){ e.g.cfg={...e.cfg}; e.g.v++; publish(e.g); } };
   e.lobby=()=>{ clearInterval(e.timer); clearTimeout(e.dt); e.g={v:(e.g?.v||0)+1,phase:'lobby',cfg:{...e.cfg}}; publish(e.g); };
@@ -4921,16 +5148,8 @@ function makeEngine(publish){
       const g2=e.g; if(!g2||g2.tid!==tid||g2.phase!=='play'||!g2.check) return;
       if(res.st==='ok') return accept(pid,res.display,res.keys);
       if(res.st==='bad') return reject(pid,res.c,res.x,res.count);
-      g2.check=null; g2.pend={p:pid,v:text,off:res.off?1:0}; pub();
+      reject(pid,res.off?'offline':'unknown',titleCase(text),res.off?false:true);
     });
-  };
-  e.decide=ok=>{
-    const g=e.g; if(!g||!g.pend||g.phase!=='play') return;
-    const {p,v}=g.pend, n=norm(v);
-    if(!ok) return reject(p,'refused',titleCase(v));
-    const keys=[(n.includes(' ')?'f:':'s:')+n];
-    if(keys.some(k=>e.keys.has(k))) return reject(p,'dup',titleCase(v));
-    accept(p,titleCase(v),keys);
   };
   e.eliminate=(pid,why)=>{ const g=e.g; if(!g||!g.al||!g.al[pid]||(g.phase!=='play'&&g.phase!=='draw')) return; elim(pid,why); pub(); };
   e.leftMatch=pid=>{ const g=e.g; if(!g||!g.order||!g.order.includes(pid)) return; g.gone[pid]=1; if(g.al&&g.al[pid]&&(g.phase==='play'||g.phase==='draw')){ elim(pid,'left'); pub(); } else { g.v++; publish(g); } };
@@ -4939,6 +5158,21 @@ function makeEngine(publish){
     const now=Date.now(); if(now-(e.lastFoul[pid]||0)<2500) return; e.lastFoul[pid]=now;
     g.yc[pid]=(g.yc[pid]||0)+1;
     if(g.yc[pid]>=2) elim(pid,'yy'); else g.ev={k:(g.ev?.k||0)+1,p:pid,w:'yellow'};
+    pub();
+  };
+  e.vote=(voter,target,c)=>{
+    const g=e.g; if(!g||!g.al||!g.al[target]||(g.phase!=='play'&&g.phase!=='draw')||voter===target||(c!=='y'&&c!=='r')) return;
+    g.cv=g.cv||{}; const now=Date.now();
+    let v=g.cv[target];
+    if(!v||v.c!==c||now-v.ts>30000) v={c,by:[],ts:now};
+    if(v.by.includes(voter)) return;
+    v.by.push(voter);
+    const eligible=g.order.filter(id=>id!==target&&!g.gone[id]).length, need=Math.min(2,Math.max(1,eligible));
+    if(v.by.length>=need){
+      delete g.cv[target];
+      if(c==='r') elim(target,'cr');
+      else { g.yc[target]=(g.yc[target]||0)+1; if(g.yc[target]>=2) elim(target,'yy'); else g.ev={k:(g.ev?.k||0)+1,p:target,w:'cy'}; }
+    } else { g.cv[target]=v; g.ev={k:(g.ev?.k||0)+1,p:target,w:'vote_'+c,v:voter}; }
     pub();
   };
   e.stop=()=>{ clearInterval(e.timer); clearTimeout(e.dt); };
@@ -4952,7 +5186,7 @@ let SCREEN='home';
 function show(s){ const was=$(s).hidden; screens.forEach(x=>{ const h=x!==s; if($(x).hidden!==h) $(x).hidden=h; }); SCREEN=s; if(was) window.scrollTo({top:0}); }
 function toast(msg,kind){ const tt=$('toast'); tt.textContent=msg; tt.className='toast'+(kind?' '+kind:''); tt.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>tt.hidden=true,2800); }
 function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(_){ return null; } }
-const COLORS=['#f7c948','#5fd38d','#7cc4ff','#ff9f68','#b99cff','#ff86bd','#4dd8c8','#ffb347','#a3e05f','#e9e9e9'];
+const COLORS=['#c98d00','#178a4a','#1f6fbf','#d2601a','#7a4fd6','#c2357a','#0f8a80','#a0661a','#4f7f12','#5b6470'];
 function cleanNick(s){ return String(s||'').replace(/[\u0000-\u001f​-‏‪-‮]/g,'').trim().slice(0,18)||'Joueur'; }
 function fmt(ms){ const s=Math.max(0,Math.ceil(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 function fmtT(sec){ return sec>=60?(sec%60?Math.floor(sec/60)+' min '+(sec%60):(sec/60)+' min'):sec+' s'; }
@@ -5084,17 +5318,16 @@ function renderGame(g,force){
   if(g.ev&&g.ev.k!==S.lastEvK){
     S.lastEvK=g.ev.k;
     const n=nickOf(g,g.ev.p), w=g.ev.w;
-    toast(t('ev_'+w,{x:n}),w==='yellow'?'yellow':'red'); beep(w==='yellow'||w==='yy'?'card':'whistle');
+    toast(t('ev_'+w,{x:n,v:g.ev.v?((g.nk&&g.nk[g.ev.v])||t('a_player')):''}),(w==='yellow'||w==='cy'||w==='vote_y')?'yellow':'red'); beep(w.startsWith('vote')?'tick':(w==='yellow'||w==='yy'||w==='cy'||w==='cr')?'card':'whistle'); buzz(w.startsWith('vote')?20:180);
     if(w==='yellow'&&g.ev.p===S.me&&S.mode==='online') setTimeout(()=>toast(t('my_yellow'),'yellow'),2900);
   }
   const dz=$('decide');
-  if(g.check){ dz.hidden=false; $('decideText').textContent=t('checking',{x:g.check.v}); $('decideBtns').hidden=true; }
-  else if(g.pend){ dz.hidden=false; $('decideText').textContent=(g.pend.off?t('unknown_off',{x:g.pend.v}):t('unknown_q',{x:g.pend.v}))+' '+(canDecide()?(S.mode==='local'?t('local_q'):t('host_q')):t('host_dec')); $('decideBtns').hidden=!canDecide(); }
+  if(g.check){ dz.hidden=false; $('decideText').textContent=t('checking',{x:g.check.v}); }
   else dz.hidden=true;
   renderPlayers(g); renderFeed(g);
 }
 function renderPlayers(g){
-  const sig=JSON.stringify([g.cur,g.phase,g.al,g.sc,g.yc,g.pts,S.hostPeer,LANG]);
+  const sig=JSON.stringify([g.cur,g.phase,g.al,g.sc,g.yc,g.pts,g.cv,S.hostPeer,S.me,LANG]);
   const ul=$('players'); if(ul.dataset.sig===sig) return; ul.dataset.sig=sig;
   ul.replaceChildren();
   g.order.forEach(id=>{
@@ -5105,12 +5338,22 @@ function renderPlayers(g){
     if(S.mode==='online'&&id===S.hostPeer) nm.append(el('small',null,t('host')));
     if(g.rounds>1) nm.append(el('small',null,t('pts',{n:g.pts[id]||0})));
     const cards=el('span','cards'); for(let i=0;i<((g.al[id]&&g.yc[id])||0);i++) cards.append(el('span','card y'));
+    const voter=S.mode==='local'?'local':S.me;
+    if(g.al[id]&&(g.phase==='play'||g.phase==='draw')&&(S.mode==='local'||id!==S.me)){
+      const v=(g.cv||{})[id], need=Math.min(2,Math.max(1,g.order.filter(x=>x!==id&&!(g.gone||{})[x]).length));
+      const box=el('span','vote');
+      ['y','r'].forEach(c=>{
+        const b=el('button',c, v&&v.c===c?v.by.length+'/'+need:''); b.type='button';
+        b.title=t('vote_'+c); b.setAttribute('aria-label',t('vote_'+c)+' : '+nickOf(g,id));
+        if(v&&v.c===c&&v.by.includes(voter)) b.classList.add('on');
+        b.addEventListener('click',()=>castVote(id,c)); box.append(b);
+      });
+      cards.append(box);
+    }
     li.append(mark,nm,cards,el('span','sc',g.sc[id]||0)); ul.append(li);
   });
 }
-function avatarInto(box,display,info){
-  if(info&&info.photo){ const im=new Image(); im.alt=''; im.decoding='async'; im.referrerPolicy='no-referrer'; im.onload=()=>{ box.replaceChildren(im); }; im.src=info.photo; }
-}
+function avatarInto(box,display,info){ loadPhoto(info,im=>{ if(box.isConnected) box.replaceChildren(im); }); }
 function flagImg(info){ if(!info||!info.flag) return null; const f=new Image(); f.className='flag'; f.alt=loc(info.country); f.title=loc(info.country); f.decoding='async'; f.src=info.flag; f.referrerPolicy='no-referrer'; f.onerror=()=>f.remove(); return f; }
 function metaLine(span,info,ambig){
   span.replaceChildren();
@@ -5149,7 +5392,7 @@ function showSticker(host,name,byText,color){
   host.append(c);
   playerInfo(name).then(info=>{
     if(!c.isConnected||!info) return;
-    if(info.photo){ const im=new Image(); im.alt=name; im.decoding='async'; im.referrerPolicy='no-referrer'; im.onload=()=>{ if(c.isConnected) ph.replaceChildren(im); }; im.src=info.photo; }
+    loadPhoto(info,im=>{ if(c.isConnected) ph.replaceChildren(im); });
     meta.replaceChildren(); const f=flagImg(info); if(f) meta.append(f);
     meta.append(document.createTextNode([loc(info.country),clubText(info)].filter(Boolean).join(' · ')));
   });
@@ -5248,10 +5491,33 @@ function renderOver(g,force){
   foundChips($('foundList'),g.all,g);
   const canAgain=S.mode==='local'||S.isHost;
   $('again').hidden=!canAgain; $('againNote').textContent=canAgain?'':t('again_guest');
-  if(first) beep('win');
+  if(first){ beep('win'); confetti(); }
 }
 
+/* confettis légers (canvas, ~1,6 s) */
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv=$('confetti'), ctx=cv.getContext('2d'); if(!ctx) return;
+  const dpr=Math.min(2,window.devicePixelRatio||1), W=innerWidth, H=innerHeight;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.width=W+'px'; cv.style.height=H+'px'; cv.hidden=false; ctx.scale(dpr,dpr);
+  const cols=['#f7c948','#5fd38d','#7cc4ff','#ff9f68','#b99cff','#ff86bd','#ffffff'];
+  const ps=Array.from({length:110},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,r:Math.random()*6+4,c:cols[Math.random()*cols.length|0],a:Math.random()*6,va:(Math.random()-.5)*.4}));
+  const t0=performance.now();
+  (function f(now){
+    const dt=now-t0; ctx.clearRect(0,0,W,H);
+    ps.forEach(p=>{ p.vy+=.35; p.x+=p.vx; p.y+=p.vy; p.a+=p.va; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle=p.c; ctx.globalAlpha=Math.max(0,1-dt/1700); ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2); ctx.restore(); });
+    if(dt<1700) requestAnimationFrame(f); else { ctx.clearRect(0,0,W,H); cv.hidden=true; }
+  })(t0);
+}
 /* ---- actions joueur (match) ---- */
+function castVote(target,c){
+  const g=S.g; if(!g) return;
+  if(S.mode==='local'){ const v=(g.cv||{})[target]; const n=v&&v.c===c?v.by.length:0; S.engine.vote('local'+n,target,c); }
+  else if(S.isHost) S.engine.vote(S.me,target,c);
+  else sendSub({vote:{t:target,c}});
+  buzz(15);
+}
+function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(_){ } }
 function sendSub(extra){ S.subN=Math.max(S.subN+1,Date.now()%1e9); S.nr&&S.nr.presence({sub:Object.assign({n:S.subN},extra)}); }
 $('answerForm').addEventListener('submit',ev=>{
   ev.preventDefault();
@@ -5263,8 +5529,6 @@ $('answerForm').addEventListener('submit',ev=>{
 let tyN=0,tyLast=0;
 $('answer').addEventListener('input',()=>{ if(S.mode!=='online'||!S.nr) return; const now=Date.now(); if(now-tyLast<900) return; tyLast=now; S.nr.presence({ty:++tyN}); });
 $('giveUp').addEventListener('click',()=>{ const g=S.g; if(!isMyTurn(g)) return; if(S.mode==='local'||S.isHost) S.engine.eliminate(g.cur,'give'); else sendSub({give:1}); });
-$('okBtn').addEventListener('click',()=>{ if(S.engine&&canDecide()) S.engine.decide(true); });
-$('noBtn').addEventListener('click',()=>{ if(S.engine&&canDecide()) S.engine.decide(false); });
 $('nextRound').addEventListener('click',()=>{ if(S.engine&&canDecide()) S.engine.next(); });
 function floatEmoji(e,who){ const f=el('div','floater'); f.style.left=(10+Math.random()*80)+'%'; f.append(document.createTextNode(e)); if(who) f.append(el('small',null,who)); $('floaters').append(f); setTimeout(()=>f.remove(),2300); }
 $('reacts').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-e]'); if(!b||!S.nr) return; const now=Date.now(); if(now-(S._reLast||0)<600) return; S._reLast=now; S.reN++; S.nr.presence({re:{n:S.reN,e:b.dataset.e}}); floatEmoji(b.dataset.e,t('you')); });
@@ -5377,6 +5641,7 @@ function onRoomPeers(ch){
       if(sub&&typeof sub.n==='number'&&sub.n>(S.seen[p.peer]||0)){
         S.seen[p.peer]=sub.n;
         if(sub.foul) S.engine.foul(p.peer);
+        else if(sub.vote&&typeof sub.vote.t==='string') S.engine.vote(p.peer,sub.vote.t,sub.vote.c);
         else if(sub.give) S.engine.eliminate(p.peer,'give');
         else if(typeof sub.v==='string') S.engine.submit(p.peer,sub.v.slice(0,60));
       }
@@ -5495,7 +5760,7 @@ const Solo=(function(){
     R={mode,found:[],keys:new Set(),pend:0,y:0,started:false,over:false,bet:lsGet('fl_bet')||10};
     if(mode==='daily'){ R.date=parisDate(); R.letter=dailyLetter(R.date); }
     if(mode==='defi'){ R.letter=DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)].toUpperCase(); }
-    if(mode==='abc'){ R.letters=DRAW_LETTERS.map(x=>x.toUpperCase()); R.i=0; R.jokers=3; R.pen=0; R.marks=[]; }
+    if(mode==='abc'){ R.letters=ALL_LETTERS.map(x=>x.toUpperCase()); R.i=0; R.jokers=3; R.pen=0; R.marks=[]; }
     show('solo');
     $('soloIntro').hidden=false; $('soloPlay').hidden=true; $('soloEnd').hidden=true;
     renderIntro();
@@ -5569,6 +5834,7 @@ const Solo=(function(){
       R.letters.forEach((l,i)=>{ const x=el('span',R.marks[i]==='ok'?'done':R.marks[i]==='skip'?'skip':i===R.i?'cur':null,l); s.append(x); });
       $('sJoker').textContent=t('joker',{n:R.jokers}); $('sJoker').disabled=R.jokers<=0;
     }
+    if(R.mode!=='abc'&&R.streak>=3) p.append(el('span','streak','🔥 '+t('streak',{n:R.streak})));
     $('sCount').textContent=R.found.length;
   }
   function step(){
@@ -5596,8 +5862,9 @@ const Solo=(function(){
   function accept(display,keys,L){
     keys.forEach(k=>R.keys.add(k));
     const ms=Date.now()-R.t0;
-    R.found.push({name:display,ms,L}); R.lastOk=Date.now();
-    beep('ok');
+    const prevOk=R.lastOk; R.found.push({name:display,ms,L}); R.lastOk=Date.now();
+    R.streak=(R.lastOk-prevOk<10000&&R.found.length>1)?(R.streak||1)+1:1;
+    beep('ok'); buzz(15);
     $('sFeedback').className='feedback ok'; $('sFeedback').textContent='✓ '+display;
     const fd=$('sFeed'); if(R.found.length===1) fd.replaceChildren();
     fd.prepend(feedRow(display,(R.mode==='abc'?L+' · ':'')+fmtDur(ms),null,true));
@@ -5606,7 +5873,7 @@ const Solo=(function(){
     if(R.mode==='abc'){ R.marks[R.i]='ok'; R.i++; renderProgress(); return nextAbc(); }
     renderProgress();
   }
-  function rejectMsg(o){ beep('bad'); $('sFeedback').className='feedback bad'; $('sFeedback').textContent=o; }
+  function rejectMsg(o){ beep('bad'); buzz(60); R.streak=0; $('sFeedback').className='feedback bad'; $('sFeedback').textContent=o; }
   $('sForm').addEventListener('submit',ev=>{
     ev.preventDefault();
     if(!active()||!R.t0) return;
@@ -5650,7 +5917,7 @@ const Solo=(function(){
     if(run.mode==='abc'&&ok&&!run.dq) entry={n:run.nick,s:3-run.jokers,t:total+run.pen,d:Date.now(),i:rid(8)};
     run.total=total; run.ok=ok; run.why=why; run.entry=entry;
     if(run.mode==='daily') lsSet('fl_d5_'+run.date,{s:'done',done:1,n:run.dq||why==='quit'?0:n,list:run.found.map(x=>x.name)});
-    if(ok) beep('win'); else beep('whistle');
+    if(ok){ beep('win'); confetti(); } else beep('whistle');
     show('solo'); $('soloIntro').hidden=true; $('soloPlay').hidden=true; $('soloEnd').hidden=false;
     renderEnd();
     $('eRank').textContent=entry?t('saving'):(run.dq?t('dq'):t('not_ranked'));
