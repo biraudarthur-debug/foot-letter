@@ -8,6 +8,12 @@
 <meta property="og:title" content="FOOT LETTER">
 <meta property="og:description" content="Le jeu de culture foot : une lettre, un chrono, le dernier debout gagne.">
 <meta name="theme-color" content="#0f4a2b">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Foot Letter">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%230f3a2a'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23f1f6ef' stroke-width='4'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='27' text-anchor='middle' fill='%23f7c948'%3EF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -301,6 +307,11 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 }
 @media (max-width:520px){ .modes{grid-template-columns:1fr} .mode .ic{width:40px;height:40px} }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.install-sheet{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#1b4535;color:#eef4ec;border-radius:20px;padding:16px 18px;z-index:25;box-shadow:0 0 0 3px #e8b21f,0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:10px}
+.install-sheet b{font-family:var(--f-display);font-size:22px;text-transform:uppercase}
+.install-sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.install-sheet .row{justify-content:flex-end}
+.iconbtn.hot{background:var(--yellow);color:var(--ink);font-weight:700}
 </style>
 </head>
 <body>
@@ -312,6 +323,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <div class="seg" id="langSeg" role="group" aria-label="Langue / Language / Sprache">
         <button type="button" data-lang="fr">FR</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="de">DE</button>
       </div>
+      <button class="iconbtn" id="installBtn" type="button" hidden></button>
       <button class="iconbtn" id="acctBtn" type="button"></button>
       <button class="iconbtn" id="soundBtn" type="button" aria-pressed="false"></button>
     </div>
@@ -363,7 +375,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v7.2</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTER · v8</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -670,6 +682,11 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
   </main>
 </div>
 <div class="toast" id="toast" hidden></div>
+<div class="install-sheet" id="installSheet" hidden role="dialog" aria-modal="false" aria-labelledby="isTitle">
+  <b id="isTitle" data-i18n="inst_title"></b>
+  <ol id="isSteps"></ol>
+  <div class="row"><button class="btn small" id="isClose" type="button" data-i18n="inst_ok"></button></div>
+</div>
 <canvas id="confetti" hidden></canvas>
 
 <script type="text/plain" id="playersData">
@@ -680,6 +697,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ inst_btn:'Installer l\'appli', inst_title:'Installer FOOT LETTER', inst_ios1:'Touche le bouton Partager (le carré avec une flèche vers le haut) en bas de Safari.', inst_ios2:'Choisis « Sur l\'écran d\'accueil ».', inst_ios3:'Touche « Ajouter » : l\'icône FOOT LETTER apparaît avec tes applis.', inst_ok:'Compris', inst_done:'FOOT LETTER est installé !',
  ad_title:'Tableau de bord', ad_claim_note:'Espace réservé au créateur du jeu. Entre ton code administrateur une seule fois : il reste associé à ton compte.', ad_code:'Code administrateur', ad_unlock:'Débloquer', ad_bad:'Code incorrect.', ad_forbidden:'Accès réservé à l\'administrateur.', ad_total:'Comptes créés', ad_today:'Actifs aujourd\'hui', ad_week:'Actifs cette semaine', ad_new:'Nouveaux cette semaine', ad_daily:'Ont joué la lettre du jour', ad_list:'Joueurs ({n})', ad_search:'Rechercher un pseudo…', ad_seen:'Vu', ad_joined:'Inscrit', ad_now:'à l\'instant', ad_min:'il y a {n} min', ad_h:'il y a {n} h', ad_d:'il y a {n} j',
  acct_btn:'Connexion', acct_in:'Connecté : {x}', acct_out:'Crée un compte pour garder tes stats, débloquer des badges et entrer aux classements.', my_profile:'Mon profil',
  ac_login:'Se connecter', ac_register:'Créer un compte', ac_name:'Pseudo', ac_pass:'Mot de passe', ac_title_login:'Content de te revoir', ac_title_register:'Rejoins le vestiaire', ac_note:'Pas d\'e-mail demandé. Garde bien ton mot de passe : il ne peut pas être récupéré.', ac_why:'Avec un compte', ac_p1:'Tes statistiques sur tous les modes', ac_p2:'15 badges à débloquer', ac_p3:'Ta série de jours à la lettre du jour', ac_p4:'Des classements vérifiés par le serveur', ac_logout:'Se déconnecter', ac_err_taken:'Ce pseudo est déjà pris.', ac_err_bad_login:'Pseudo ou mot de passe incorrect.', ac_err_bad_name:'Pseudo : 2 à 18 caractères (lettres, chiffres, espace, - _ .).', ac_err_bad_pass:'Mot de passe : 4 caractères minimum.', ac_err_net:'Serveur injoignable. Réessaie dans un instant.', ac_welcome:'Bienvenue {x} !',
@@ -730,6 +748,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ inst_btn:'Install app', inst_title:'Install FOOT LETTER', inst_ios1:'Tap the Share button (the square with an up arrow) at the bottom of Safari.', inst_ios2:'Choose “Add to Home Screen”.', inst_ios3:'Tap “Add”: the FOOT LETTER icon appears with your apps.', inst_ok:'Got it', inst_done:'FOOT LETTER is installed!',
  ad_title:'Dashboard', ad_claim_note:'For the game\'s creator only. Enter your admin code once: it stays linked to your account.', ad_code:'Admin code', ad_unlock:'Unlock', ad_bad:'Wrong code.', ad_forbidden:'Admin only.', ad_total:'Accounts', ad_today:'Active today', ad_week:'Active this week', ad_new:'New this week', ad_daily:'Played the daily letter', ad_list:'Players ({n})', ad_search:'Search a nickname…', ad_seen:'Seen', ad_joined:'Joined', ad_now:'just now', ad_min:'{n} min ago', ad_h:'{n} h ago', ad_d:'{n} d ago',
  acct_btn:'Log in', acct_in:'Logged in: {x}', acct_out:'Create an account to keep your stats, unlock badges and enter the leaderboards.', my_profile:'My profile',
  ac_login:'Log in', ac_register:'Create account', ac_name:'Nickname', ac_pass:'Password', ac_title_login:'Welcome back', ac_title_register:'Join the squad', ac_note:'No e-mail needed. Keep your password safe: it can\'t be recovered.', ac_why:'With an account', ac_p1:'Your stats across every mode', ac_p2:'15 badges to unlock', ac_p3:'Your daily-letter streak', ac_p4:'Server-checked leaderboards', ac_logout:'Log out', ac_err_taken:'That nickname is taken.', ac_err_bad_login:'Wrong nickname or password.', ac_err_bad_name:'Nickname: 2 to 18 characters (letters, digits, space, - _ .).', ac_err_bad_pass:'Password: at least 4 characters.', ac_err_net:'Server unreachable. Try again in a moment.', ac_welcome:'Welcome {x}!',
@@ -780,6 +799,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ inst_btn:'App installieren', inst_title:'FOOT LETTER installieren', inst_ios1:'Tippe unten in Safari auf Teilen (das Quadrat mit dem Pfeil nach oben).', inst_ios2:'Wähle „Zum Home-Bildschirm“.', inst_ios3:'Tippe auf „Hinzufügen“: Das FOOT-LETTER-Symbol erscheint bei deinen Apps.', inst_ok:'Verstanden', inst_done:'FOOT LETTER ist installiert!',
  ad_title:'Dashboard', ad_claim_note:'Nur für den Ersteller des Spiels. Gib deinen Admin-Code einmal ein: Er bleibt mit deinem Konto verknüpft.', ad_code:'Admin-Code', ad_unlock:'Freischalten', ad_bad:'Falscher Code.', ad_forbidden:'Nur für den Admin.', ad_total:'Konten', ad_today:'Heute aktiv', ad_week:'Diese Woche aktiv', ad_new:'Neu diese Woche', ad_daily:'Tagesbuchstabe gespielt', ad_list:'Spieler ({n})', ad_search:'Spielernamen suchen…', ad_seen:'Gesehen', ad_joined:'Dabei seit', ad_now:'gerade eben', ad_min:'vor {n} Min.', ad_h:'vor {n} Std.', ad_d:'vor {n} T.',
  acct_btn:'Anmelden', acct_in:'Angemeldet: {x}', acct_out:'Erstelle ein Konto, um Statistiken zu behalten, Abzeichen freizuschalten und in die Ranglisten zu kommen.', my_profile:'Mein Profil',
  ac_login:'Anmelden', ac_register:'Konto erstellen', ac_name:'Spielername', ac_pass:'Passwort', ac_title_login:'Schön, dass du da bist', ac_title_register:'Willkommen im Team', ac_note:'Keine E-Mail nötig. Merk dir dein Passwort gut: Es kann nicht wiederhergestellt werden.', ac_why:'Mit einem Konto', ac_p1:'Deine Statistiken in allen Modi', ac_p2:'15 Abzeichen zum Freischalten', ac_p3:'Deine Serie beim Buchstaben des Tages', ac_p4:'Vom Server geprüfte Ranglisten', ac_logout:'Abmelden', ac_err_taken:'Dieser Name ist schon vergeben.', ac_err_bad_login:'Name oder Passwort falsch.', ac_err_bad_name:'Name: 2 bis 18 Zeichen (Buchstaben, Ziffern, Leerzeichen, - _ .).', ac_err_bad_pass:'Passwort: mindestens 4 Zeichen.', ac_err_net:'Server nicht erreichbar. Versuch es gleich nochmal.', ac_welcome:'Willkommen {x}!',
@@ -1420,7 +1440,7 @@ function refreshScreen(){
   else if(SCREEN==='account') Account.render();
   else if(SCREEN==='profile') Profile.render();
   else if(SCREEN==='admin') Admin.render();
-  onAccount();
+  onAccount(); Install.render();
 }
 $('langSeg').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-lang]'); if(!b) return; LANG=b.dataset.lang; lsSet('fl_lang',LANG); refreshScreen(); });
 
@@ -2352,9 +2372,33 @@ const Admin=(function(){
 })();
 window.addEventListener('hashchange',()=>{ if(location.hash.toLowerCase()==='#admin') Admin.open(); });
 
+/* ================= APPLICATION INSTALLABLE ================= */
+const Install=(function(){
+  let deferred=null;
+  const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  const ua=navigator.userAgent||'';
+  const isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  function render(){
+    const b=$('installBtn');
+    b.hidden=standalone()||!(deferred||isIOS);
+    b.textContent='📲 '+t('inst_btn'); b.classList.add('hot');
+  }
+  window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferred=e; render(); });
+  window.addEventListener('appinstalled',()=>{ deferred=null; render(); toast(t('inst_done')); confetti(); });
+  $('installBtn').addEventListener('click',async()=>{
+    if(deferred){ deferred.prompt(); try{ await deferred.userChoice; }catch(_){ } deferred=null; render(); return; }
+    const ol=$('isSteps'); ol.replaceChildren(); ['inst_ios1','inst_ios2','inst_ios3'].forEach(k=>ol.append(el('li',null,t(k))));
+    $('installSheet').hidden=false;
+  });
+  $('isClose').addEventListener('click',()=>{ $('installSheet').hidden=true; });
+  if('serviceWorker' in navigator&&location.protocol==='https:') window.addEventListener('load',()=>{ navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+  return {render};
+})();
+
 /* ================= DÉMARRAGE ================= */
 Hub.start();
 applyI18n();
+Install.render();
 onAccount();
 API.refresh().then(()=>{ if(location.hash.toLowerCase()==='#admin') Admin.open(); });
 setInterval(()=>{ if(SCREEN==='home') renderDailyBadge(); },60000);

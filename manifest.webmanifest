@@ -1,0 +1,19 @@
+{
+  "name": "FOOT LETTER",
+  "short_name": "Foot Letter",
+  "description": "Le jeu de culture foot : une lettre, un chrono, citez un maximum de footballeurs.",
+  "id": "/",
+  "start_url": "/?app=1",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b3a22",
+  "theme_color": "#0f4a2b",
+  "lang": "fr",
+  "categories": ["games", "sports", "education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
