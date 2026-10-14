@@ -5,7 +5,7 @@
 // pour qu'aucune écriture n'en écrase une autre.
 import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
-import { norm, titleCase, checkLocal, resolveRemote, DRAW_LETTERS, ALL_LETTERS, parisDate, dailyLetter } from "../lib/game.mjs";
+import { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, ALL_LETTERS, parisDate, dailyLetter } from "../lib/game.mjs";
 
 export const config = { path: "/api/*" };
 
@@ -120,14 +120,34 @@ async function defiMap(st) {
 }
 
 /* ---------- vérification des réponses ---------- */
+// Vérifie chaque réponse. Les noms hors base sont recherchés sur Wikidata avec un budget de temps :
+// si le serveur n'obtient pas de réponse nette (réseau lent, limite de requêtes), on garde le verdict
+// du site, seul un refus net (mauvaise lettre, doublon) annule un nom.
+const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(() => r({ st: "none", off: 1 }), ms))]);
 async function validateSeq(items, letterOf) {
   const used = new Set(), remote = new Map(), unknown = [];
   items.forEach((it, i) => { if (checkLocal(String(it.v || "").slice(0, 60), letterOf(it, i), new Set()).st === "unknown") unknown.push(i); });
-  await Promise.all(unknown.slice(0, 25).map(async (i) => { remote.set(i, await resolveRemote(String(items[i].v).slice(0, 60), letterOf(items[i], i), new Set()).catch(() => ({ st: "none" }))); }));
+  const deadline = Date.now() + 6500; let next = 0;
+  const worker = async () => {
+    while (next < unknown.length && Date.now() < deadline) {
+      const i = unknown[next++];
+      const left = Math.max(500, deadline - Date.now());
+      remote.set(i, await withTimeout(resolveRemote(String(items[i].v).slice(0, 60), letterOf(items[i], i), new Set()).catch(() => ({ st: "none", off: 1 })), left));
+    }
+  };
+  await Promise.all([worker(), worker(), worker(), worker(), worker()]);
   return items.map((it, i) => {
     const L = letterOf(it, i), txt = String(it.v || "").slice(0, 60);
     let r = checkLocal(txt, L, used);
-    if (r.st === "unknown") { const rr = remote.get(i); r = rr && rr.st === "ok" && !rr.keys.some((k) => used.has(k)) ? rr : { st: "bad" }; }
+    if (r.st === "unknown") {
+      const rr = remote.get(i), n = norm(txt), l = L.toLowerCase();
+      if (rr && rr.st === "ok") r = rr.keys.some((k) => used.has(k)) ? { st: "bad" } : rr;
+      else if (rr && (rr.st === "bad" || (rr.st === "none" && !rr.off))) r = { st: "bad" };
+      else if (n.length >= 2 && (fullNameLetters(n).has(l) || nameLetters(n).has(l))) {
+        const key = (n.includes(" ") ? "f:" : "s:") + n;
+        r = used.has(key) ? { st: "bad" } : { st: "ok", display: titleCase(txt), keys: [key] };
+      } else r = { st: "bad" };
+    }
     if (r.st === "ok") { r.keys.forEach((k) => used.add(k)); return { ok: true, display: r.display, L, ms: +it.ms || 0 }; }
     return { ok: false };
   });
@@ -240,7 +260,8 @@ async function route(req, path, st) {
     const id = String(body.run || "").replace(/^R\./, "").replace(/[^A-Za-z0-9]/g, "");
     const run = id ? await getJSON(st, "run/" + id) : null;
     if (!run || run.u !== u.key) return fail("bad_run");
-    if (run.used) return json(run.result || { error: "used" }, run.result ? 200 : 409);
+    if (run.result) return json(run.result);
+    if (run.used && Date.now() - run.used < 20000) return json({ error: "busy" }, 503);
     run.used = Date.now(); await putJSON(st, "run/" + id, run);
     const now = Date.now(), elapsed = now - run.t0;
     const answers = Array.isArray(body.answers) ? body.answers.slice(0, 120) : [];

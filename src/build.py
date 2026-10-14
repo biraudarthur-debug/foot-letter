@@ -21,7 +21,7 @@ lib.mkdir(parents=True, exist_ok=True)
     "    .then(r => { clearTimeout(tm); if(!r.ok) throw new Error('http'); return r.json(); });\n"
     "}\n"
     + seg("GAME") + "\n" + seg("GAME2") +
-    "\nexport { norm, titleCase, checkLocal, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };\n",
+    "\nexport { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };\n",
     encoding="utf8")
 print("index.html + netlify/lib/game.mjs reconstruits")
 

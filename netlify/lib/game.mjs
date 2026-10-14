@@ -156,4 +156,4 @@ async function resolveRemote(text,letter,used){
   return {st:'ok',display,keys};
 }
 
-export { norm, titleCase, checkLocal, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };
+export { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };

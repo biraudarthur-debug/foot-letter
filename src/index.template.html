@@ -403,7 +403,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
     </ul>
     <p class="note" style="margin-top:12px" id="dbNote"></p>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.1</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.2</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -2082,7 +2082,7 @@ const Solo=(function(){
     start();
   });
   $('soloBack').addEventListener('click',goHome);
-  $('sQuit').addEventListener('click',()=>{ if(active()) finish(false,'quit'); });
+  $('sQuit').addEventListener('click',()=>{ if(!active()) return; if(R.mode==='daily') finish(true,'stop'); else finish(false,'quit'); });
   $('sJoker').addEventListener('click',()=>{ if(active()&&R.mode==='abc'&&R.jokers>0&&!R.pend) useJoker(); });
 
   function start(){
@@ -2192,6 +2192,7 @@ const Solo=(function(){
   }
   async function finish(ok,why){
     if(R.over) return;
+    if(R.mode==='daily'&&R.pend>0&&!R.flushing){ R.flushing=true; R.deadline=0; $('sAnswer').disabled=true; $('sSend').disabled=true; const until=Date.now()+6000; while(R.pend>0&&Date.now()<until) await new Promise(r=>setTimeout(r,150)); if(R.over) return; }
     R.over=true; clearInterval(tick); tick=null;
     $('sAnswer').disabled=true; $('sSend').disabled=true;
     const run=R, n=run.found.length, total=Date.now()-(run.t0||Date.now());
