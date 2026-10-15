@@ -195,8 +195,8 @@ async function route(req, path, st) {
 
   // joueur sans compte : profil invité (pseudo libre), classé comme les autres
   if (path === "guest") {
-    const name = cleanName(body.name);
-    if (!validName(name)) return fail("bad_name");
+    let name = cleanName(String(body.name || "").replace(/[^\p{L}\p{N} _.\-]/gu, "")).slice(0, 18);
+    if (!validName(name)) name = "Joueur " + rnd(3).toUpperCase();
     const cur = await authUser(req, st);
     if (cur && cur.guest) { if (cur.name !== name) { cur.name = name; await saveUser(st, cur); } await putJSON(st, "seen/" + cur.key, { t: Date.now() }); return json({ token: null, profile: publicProfile(cur) }); }
     const u = newUser(name); u.key = "g~" + rnd(14).toLowerCase(); u.guest = true;
@@ -235,6 +235,15 @@ async function route(req, path, st) {
     if (kind === "daily" && /^\d{4}-\d{2}-\d{2}$/.test(key)) return json({ list: await boardRead(st, "daily", key) });
     if (kind === "abc") return json({ list: await boardRead(st, "abc", "all") });
     if (kind === "online") return json({ list: await boardRead(st, "online", "all") });
+    if (kind === "xp") {
+      const c = await getJSON(st, "cache/xp");
+      if (c && Date.now() - c.t < 60000) return json({ list: c.list });
+      const keys = (await listKeys(st, "user/")).slice(0, 2000);
+      const users = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter((x) => x && !x.guest).map(fixUser);
+      const list = users.map((x) => { const l = xpOf(x); return { u: x.key, n: x.name, s: l.xp, lvl: l.lvl, d: x.created || 0 }; }).filter((e) => e.s > 0).sort((a, b) => b.s - a.s || a.d - b.d).slice(0, 100);
+      await putJSON(st, "cache/xp", { t: Date.now(), list });
+      return json({ list });
+    }
     return fail("bad_board");
   }
 
@@ -372,6 +381,7 @@ async function route(req, path, st) {
     }
     const newBadges = award(u);
     await saveUser(st, u);
+    putJSON(st, "log/" + Date.now() + "-" + rnd(4), { k: "match", online, players, won, claim: body.won === true, t: Date.now() }).catch(() => {});
     return json({ newBadges, profile: publicProfile(u) });
   }
   return fail("not_found", 404);

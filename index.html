@@ -453,7 +453,7 @@ body.has-chat main{padding-bottom:150px}
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
     <p style="margin-top:14px"><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.11</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.12</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -759,15 +759,17 @@ body.has-chat main{padding-bottom:150px}
     <section class="panel" style="margin-top:14px">
       <div class="row" style="justify-content:space-between;align-items:center">
         <div class="seg" id="bTabs">
-          <button type="button" data-tab="daily" data-i18n="m_daily"></button><button type="button" data-tab="defi" data-i18n="m_defi"></button><button type="button" data-tab="abc" data-i18n="m_abc"></button><button type="button" data-tab="online" data-i18n="b_online_tab"></button>
+          <button type="button" data-tab="daily" data-i18n="m_daily"></button><button type="button" data-tab="defi" data-i18n="m_defi"></button><button type="button" data-tab="abc" data-i18n="m_abc"></button><button type="button" data-tab="online" data-i18n="b_online_tab"></button><button type="button" data-tab="xp" data-i18n="b_xp_tab"></button>
         </div>
         <button class="btn small" id="bRefresh" type="button" data-i18n="refresh"></button>
       </div>
       <div class="letters" id="bLetters" hidden></div>
+      <div class="row" id="bDays" hidden style="align-items:center;gap:8px;margin-top:10px"><button class="btn small ghost" id="bPrev" type="button">◀</button><b id="bDay" style="min-width:110px;text-align:center"></b><button class="btn small ghost" id="bNext" type="button">▶</button></div>
       <div class="label" id="bTitle"></div>
       <ul class="lb" id="bList"></ul>
       <p class="note" data-i18n="boards_note"></p>
       <p class="note" id="bOnNote" data-i18n="online_note" hidden></p>
+      <p class="note" id="bRule" hidden></p>
     </section>
   </main>
 </div>
@@ -4694,6 +4696,7 @@ Merih Demiral
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ b_daily_past:'Lettre du jour {L}', b_xp_tab:'Niveaux', b_xp:'Classement général · niveaux', today:'Aujourd\'hui', rule_daily:'Une ligne par joueur et par jour : ton score du jour. Utilise ◀ ▶ pour voir les jours précédents.', rule_defi:'Seuls les défis réussis entrent au classement de la lettre : la plus grosse annonce tenue.', rule_abc:'Seuls les tours de l\'alphabet terminés (A à Z) entrent au classement, au meilleur temps.', rule_xp:'Tous les comptes, classés par expérience totale. Mis à jour toutes les minutes.',
  lv_n:'Niveau {n}', xp_of:'{a} / {b} XP', lv_up:'Niveau {n} !', lv_remp:'Remplaçant', lv_titu:'Titulaire', lv_capt:'Capitaine', lv_inter:'International', lv_ballon:'Ballon d\'or', lv_legend:'Légende', xp_rules:'XP : 10 par joueur cité, 20 par partie, 50 par victoire entre amis, 15 par podium en ligne, 10 par jour de ta meilleure série, 100 par badge.', tiktok:'Suis-nous sur TikTok',
  chat_report:'Signaler ce joueur', chat_reported:'Signalement envoyé. À 3 signalements, le joueur ne peut plus écrire.', chat_muted:'{x} a été signalé par 3 joueurs : il ne peut plus écrire.', chat_muted_me:'Tu as été signalé par 3 joueurs : tu ne peux plus écrire dans ce salon.',
  guest_note:'Tu joues sans compte : ton score entre quand même au classement avec ton pseudo. Crée un compte pour garder tes stats sur tous tes appareils.', ad_guests:'Joueurs sans compte', chat:'Chat', chat_ph:'Écris un message…', chat_send:'Envoyer', chat_empty:'Personne n\'a encore écrit. Lance la discussion !', chat_slow:'Doucement : un message par seconde.',
@@ -4751,6 +4754,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ b_daily_past:'Daily letter {L}', b_xp_tab:'Levels', b_xp:'Overall ranking · levels', today:'Today', rule_daily:'One row per player per day: your score of the day. Use ◀ ▶ to see previous days.', rule_defi:'Only successful challenges are ranked for the letter: the biggest call you hit.', rule_abc:'Only completed alphabet runs (A to Z) are ranked, by best time.', rule_xp:'All accounts, ranked by total experience. Updated every minute.',
  lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Substitute', lv_titu:'Starter', lv_capt:'Captain', lv_inter:'International', lv_ballon:'Ballon d\'Or', lv_legend:'Legend', xp_rules:'XP: 10 per player named, 20 per game, 50 per win with friends, 15 per online podium, 10 per day of your best streak, 100 per badge.', tiktok:'Follow us on TikTok',
  chat_report:'Report this player', chat_reported:'Report sent. After 3 reports, the player can no longer write.', chat_muted:'{x} was reported by 3 players and can no longer write.', chat_muted_me:'You were reported by 3 players: you can no longer write in this room.',
  guest_note:'You are playing without an account: your score still goes on the leaderboard under your nickname. Create an account to keep your stats on all your devices.', ad_guests:'Players without account', chat:'Chat', chat_ph:'Write a message…', chat_send:'Send', chat_empty:'No messages yet. Start the chat!', chat_slow:'Easy: one message per second.',
@@ -4808,6 +4812,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ b_daily_past:'Buchstabe des Tages {L}', b_xp_tab:'Level', b_xp:'Gesamtrangliste · Level', today:'Heute', rule_daily:'Eine Zeile pro Spieler und Tag: dein Tagesergebnis. Mit ◀ ▶ siehst du frühere Tage.', rule_defi:'Nur geschaffte Challenges kommen in die Rangliste des Buchstabens: die größte gehaltene Ansage.', rule_abc:'Nur beendete Alphabet-Runden (A bis Z) kommen in die Rangliste, nach Bestzeit.', rule_xp:'Alle Konten, nach Gesamterfahrung sortiert. Jede Minute aktualisiert.',
  lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Ersatzspieler', lv_titu:'Stammspieler', lv_capt:'Kapitän', lv_inter:'Nationalspieler', lv_ballon:'Ballon d\'Or', lv_legend:'Legende', xp_rules:'XP: 10 pro genanntem Spieler, 20 pro Spiel, 50 pro Sieg mit Freunden, 15 pro Online-Podium, 10 pro Tag deiner besten Serie, 100 pro Abzeichen.', tiktok:'Folge uns auf TikTok',
  chat_report:'Spieler melden', chat_reported:'Meldung gesendet. Nach 3 Meldungen kann der Spieler nicht mehr schreiben.', chat_muted:'{x} wurde von 3 Spielern gemeldet und kann nicht mehr schreiben.', chat_muted_me:'Du wurdest von 3 Spielern gemeldet: Du kannst in diesem Raum nicht mehr schreiben.',
  guest_note:'Du spielst ohne Konto: Dein Ergebnis kommt trotzdem mit deinem Spielernamen in die Rangliste. Erstelle ein Konto, um deine Statistiken auf allen Geräten zu behalten.', ad_guests:'Spieler ohne Konto', chat:'Chat', chat_ph:'Nachricht schreiben…', chat_send:'Senden', chat_empty:'Noch keine Nachrichten. Starte den Chat!', chat_slow:'Langsam: eine Nachricht pro Sekunde.',
@@ -6168,6 +6173,7 @@ function fillBoard(ul,list,k,meName,opts){
     const v=el('span','v');
     if(k==='daily'){ v.textContent=e.s; v.append(el('small',null,fmtDur(e.t))); }
     else if(k==='defi'){ v.textContent=e.s; v.append(el('small',null,fmtDur(e.t))); }
+    else if(k==='xp'){ v.textContent=t('lv_n',{n:e.lvl}); v.append(el('small',null,e.s.toLocaleString(LANG)+' XP')); }
     else if(k==='online'){ v.textContent=t('v_wins',{n:e.s}); v.append(el('small',null,t('v_online',{p:e.p,r:Math.round(100*e.s/Math.max(1,e.p)),pts:e.pts}))); }
     else { v.textContent=fmtDur(e.t); v.append(el('small',null,t('v_jokers',{n:e.s}))); }
     li.append(v); ul.append(li);
@@ -6456,11 +6462,13 @@ $('mAbc').addEventListener('click',()=>Solo.intro('abc'));
 
 /* ================= CLASSEMENTS ================= */
 const Boards=(function(){
-  let tab='daily', letter=null, data={}, loading=false;
-  function open(t0,L){ Solo.stop(); tab=t0||'daily'; if(L) letter=L; show('boards'); load(); }
+  let tab='daily', letter=null, data={}, loading=false, day=null;
+  const shiftDay=(d,n)=>new Date(Date.parse(d+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);
+  function open(t0,L){ Solo.stop(); tab=t0||'daily'; day=null; if(L) letter=L; show('boards'); load(); }
   async function load(){
     loading=true; render();
-    if(tab==='daily'){ const r=await LB.read('daily',parisDate()); data.daily=r; }
+    if(tab==='daily'){ day=day||parisDate(); const r=await LB.read('daily',day); data.daily=r; }
+    else if(tab==='xp'){ data.xp=await LB.read('xp','all'); }
     else if(tab==='defi'){ const all=await LB.readAll('defi'); data.defi=all; if(!letter){ const ks=all?Object.keys(all).filter(k=>all[k].length):[]; letter=ks.length?ks.sort((a,b)=>all[b].length-all[a].length)[0]:'m'; } }
     else if(tab==='online'){ data.online=await LB.read('online','all'); }
     else { data.abc=await LB.read('abc','all'); }
@@ -6470,6 +6478,8 @@ const Boards=(function(){
     document.querySelectorAll('#bTabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab===tab)));
     const ul=$('bList'), title=$('bTitle'), lt=$('bLetters');
     lt.hidden=tab!=='defi'; $('bOnNote').hidden=tab!=='online';
+    $('bDays').hidden=tab!=='daily'; if(tab==='daily'){ day=day||parisDate(); $('bDay').textContent=day===parisDate()?t('today'):new Date(day+'T12:00:00Z').toLocaleDateString(LANG,{day:'numeric',month:'short'}); $('bNext').disabled=day>=parisDate(); }
+    const rule={defi:'rule_defi',abc:'rule_abc',xp:'rule_xp',daily:'rule_daily'}[tab]; $('bRule').hidden=!rule; if(rule) $('bRule').textContent=t(rule);
     if(tab==='defi'){
       lt.replaceChildren();
       const all=data.defi||{};
@@ -6477,13 +6487,16 @@ const Boards=(function(){
     }
     if(loading){ title.textContent=''; ul.replaceChildren(el('li','empty','…')); return; }
     const me=myNick();
-    if(tab==='daily'){ const st=dailyState(); title.textContent=t('b_daily',{L:st&&st.done?dailyLetter(parisDate()):t('hidden_letter')})+' · '+parisDate(); const r=data.daily; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'daily',me); }
+    if(tab==='daily'){ const st=dailyState(), past=day&&day<parisDate(); title.textContent=t(past?'b_daily_past':'b_daily',{L:past||(st&&st.done)?dailyLetter(day||parisDate()):t('hidden_letter')})+' · '+(day||parisDate()); const r=data.daily; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'daily',me); }
     else if(tab==='defi'){ title.textContent=t('b_defi',{L:(letter||'m').toUpperCase()}); if(!data.defi){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,data.defi[letter]||[],'defi',me); }
+    else if(tab==='xp'){ title.textContent=t('b_xp'); const r=data.xp; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'xp',me); }
     else if(tab==='online'){ title.textContent=t('b_online'); const r=data.online; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'online',me); }
     else { title.textContent=t('b_abc'); const r=data.abc; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'abc',me); }
   }
   $('bTabs').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-tab]'); if(!b) return; tab=b.dataset.tab; load(); });
   $('bRefresh').addEventListener('click',load);
+  $('bPrev').addEventListener('click',()=>{ day=shiftDay(day||parisDate(),-1); load(); });
+  $('bNext').addEventListener('click',()=>{ const n=shiftDay(day||parisDate(),1); if(n<=parisDate()){ day=n; load(); } });
   $('bBack').addEventListener('click',goHome);
   return {open,render};
 })();
