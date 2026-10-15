@@ -142,7 +142,7 @@ const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(()
 async function validateSeq(items, letterOf) {
   const used = new Set(), remote = new Map(), unknown = [];
   items.forEach((it, i) => { if (checkLocal(String(it.v || "").slice(0, 60), letterOf(it, i), new Set()).st === "unknown") unknown.push(i); });
-  const deadline = Date.now() + 6500; let next = 0;
+  const deadline = Date.now() + 4000; let next = 0;
   const worker = async () => {
     while (next < unknown.length && Date.now() < deadline) {
       const i = unknown[next++];
@@ -181,7 +181,15 @@ async function route(req, path, st) {
   if (path === "health") {
     let blobs = false;
     try { const k = "meta/health"; const v = Date.now(); await putJSON(st, k, { v }); blobs = ((await getJSON(st, k)) || {}).v === v; } catch (_) { }
-    return json({ ok: true, blobs, version: 9, time: Date.now() });
+    const out = { ok: true, blobs, version: 11, time: Date.now() };
+    if (url.searchParams.get("deep") === "1") {
+      const t0 = Date.now(), pk = "probe/" + rnd(8);
+      try { await putJSON(st, pk, { t: t0 }); out.probeWriteMs = Date.now() - t0; const l = await listKeys(st, "probe/"); out.probeListed = l.includes(pk); await st.delete(pk); } catch (e) { out.probeErr = String(e && e.message || e); }
+      const count = async (p) => { try { return (await listKeys(st, p)).length; } catch (e) { return "err:" + (e && e.message); } };
+      out.counts = { users: await count("user/"), entriesDaily: await count("entry/daily/"), entriesDefi: await count("entry/defi/"), entriesAbc: await count("entry/abc/"), entriesOnline: await count("entry/online/"), legacyBoards: await count("board/"), runs: await count("run/"), sessions: await count("session/") };
+      try { const ks = (await listKeys(st, "log/")).sort().slice(-25); out.log = (await Promise.all(ks.map((k) => getJSON(st, k)))).filter(Boolean); } catch (_) { }
+    }
+    return json(out);
   }
 
   // joueur sans compte : profil invité (pseudo libre), classé comme les autres
@@ -291,7 +299,7 @@ async function route(req, path, st) {
     const run = id ? await getJSON(st, "run/" + id) : null;
     if (!run || run.u !== u.key) return fail("bad_run");
     if (run.result) return json(run.result);
-    if (run.used && Date.now() - run.used < 20000) return json({ error: "busy" }, 503);
+
     run.used = Date.now(); await putJSON(st, "run/" + id, run);
     const now = Date.now(), elapsed = now - run.t0;
     const answers = Array.isArray(body.answers) ? body.answers.slice(0, 120) : [];
@@ -334,6 +342,7 @@ async function route(req, path, st) {
     const list = entry ? await boardRead(st, run.m, key) : null;
     const result = { ok, score: oks.length, valid: oks.map((o) => o.display), entry, list, newBadges, profile: publicProfile(u) };
     run.result = { ok, score: oks.length, valid: result.valid, entry, newBadges: [], profile: result.profile };
+    putJSON(st, "log/" + Date.now() + "-" + rnd(4), { k: "finish", m: run.m, ok, score: oks.length, sent: answers.length, entry: !!entry, ms: Date.now() - now, t: Date.now() }).catch(() => {});
     await putJSON(st, "run/" + id, run);
     return json(result);
   }
@@ -370,5 +379,5 @@ async function route(req, path, st) {
 export default async (req) => {
   const path = new URL(req.url).pathname.replace(/^\/api\/?/, "").replace(/\/$/, "");
   try { return await route(req, path, store()); }
-  catch (e) { console.error(e); return fail("server", 500); }
+  catch (e) { console.error(e); try { await store().setJSON("log/" + Date.now() + "-" + rnd(4), { k: "error", path, msg: String(e && e.stack || e).slice(0, 400), t: Date.now() }); } catch (_) { } return fail("server", 500); }
 };

@@ -3,7 +3,7 @@ const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 export default async (req) => {
   const u = new URL(req.url), base = u.origin;
   if (u.pathname === '/robots.txt')
-    return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`, {headers: {'content-type': 'text/plain; charset=utf-8'}});
+    return new Response(`User-agent: *\nAllow: /\nAllow: /api/health\nAllow: /api/board\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`, {headers: {'content-type': 'text/plain; charset=utf-8'}});
   const day = new Date().toISOString().slice(0, 10);
   const urls = ['/', '/quiz-foot/', '/joueurs/', ...LETTERS.map(l => `/joueurs/${l}.html`)];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
