@@ -187,6 +187,11 @@ async function route(req, path, st) {
       try { await putJSON(st, pk, { t: t0 }); out.probeWriteMs = Date.now() - t0; const l = await listKeys(st, "probe/"); out.probeListed = l.includes(pk); await st.delete(pk); } catch (e) { out.probeErr = String(e && e.message || e); }
       const count = async (p) => { try { return (await listKeys(st, p)).length; } catch (e) { return "err:" + (e && e.message); } };
       out.counts = { users: await count("user/"), entriesDaily: await count("entry/daily/"), entriesDefi: await count("entry/defi/"), entriesAbc: await count("entry/abc/"), entriesOnline: await count("entry/online/"), legacyBoards: await count("board/"), runs: await count("run/"), sessions: await count("session/") };
+      try {
+        const rk = await listKeys(st, "run/");
+        const runs = (await Promise.all(rk.map((k) => getJSON(st, k)))).filter(Boolean);
+        out.runs = runs.map((r) => ({ u: r.u, m: r.m, start: r.t0, used: r.used ? r.used - r.t0 : null, ok: r.result ? r.result.ok : null, score: r.result ? r.result.score : null, ranked: r.result ? !!r.result.entry : null })).sort((a, b) => a.start - b.start);
+      } catch (_) { }
       try { out.entryKeys = (await listKeys(st, "entry/")).map((k) => k.split("/").slice(1, 3).join("/")); out.legacy = await listKeys(st, "board/"); } catch (_) { }
       try { const ks = (await listKeys(st, "log/")).sort().slice(-25); out.log = (await Promise.all(ks.map((k) => getJSON(st, k)))).filter(Boolean); } catch (_) { }
     }
