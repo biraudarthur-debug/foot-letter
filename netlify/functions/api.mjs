@@ -28,9 +28,10 @@ const hashPass = (pass, salt) => crypto.scryptSync(String(pass), salt, 32).toStr
 function newUser(name) {
   return { key: userKey(name), name, created: Date.now(), stats: blankStats(), badges: {}, daily: { last: null, streak: 0, best: 0 }, done: {}, runs: [] };
 }
-function blankStats() { return { games: { daily: 0, defi: 0, abc: 0, friends: 0 }, wins: 0, names: 0, bestDaily: 0, bestDefi: 0, bestAbc: 0, bestMinute: 0, abcClean: false, letters: {}, players: {} }; }
+function blankStats() { return { games: { daily: 0, defi: 0, abc: 0, friends: 0 }, wins: 0, names: 0, bestDaily: 0, bestDefi: 0, bestAbc: 0, bestMinute: 0, abcClean: false, letters: {}, players: {}, online: { p: 0, w: 0, pts: 0, names: 0, podium: 0 } }; }
 function fixUser(u) {
   u.stats = Object.assign(blankStats(), u.stats || {});
+  u.stats.online = Object.assign({ p: 0, w: 0, pts: 0, names: 0, podium: 0 }, u.stats.online || {});
   u.stats.games = Object.assign({ daily: 0, defi: 0, abc: 0, friends: 0 }, u.stats.games || {});
   u.badges = u.badges || {}; u.daily = u.daily || { last: null, streak: 0, best: 0 }; u.done = u.done || {}; u.runs = u.runs || [];
   return u;
@@ -42,7 +43,7 @@ function publicProfile(u) {
   return { name: u.name, key: u.key, created: u.created, badges: u.badges, daily: u.daily,
     stats: { games: s.games, total: Object.values(s.games).reduce((a, b) => a + b, 0), wins: s.wins, names: s.names,
       bestDaily: s.bestDaily, bestDefi: s.bestDefi, bestAbc: s.bestAbc, topPlayer: top(s.players), topLetter: top(s.letters),
-      letterCount: Object.keys(s.letters || {}).length } };
+      letterCount: Object.keys(s.letters || {}).length, online: s.online } };
 }
 async function saveUser(st, u) {
   const p = u.stats.players; const ks = Object.keys(p);
@@ -92,10 +93,14 @@ const CMP = {
   daily: (a, b) => b.s - a.s || a.t - b.t || a.d - b.d,
   defi: (a, b) => b.s - a.s || a.t - b.t || a.d - b.d,
   abc: (a, b) => a.t - b.t || a.s - b.s || a.d - b.d,
+  // victoires en ligne : victoires, puis % de victoires, puis points
+  online: (a, b) => b.s - a.s || (b.s / Math.max(1, b.p)) - (a.s / Math.max(1, a.p)) || b.pts - a.pts || a.d - b.d,
 };
 const entryKey = (kind, key, u) => "entry/" + kind + "/" + key + "/" + u;
-async function entryPut(st, kind, key, e) {
-  const k = entryKey(kind, key, e.u), cur = await getJSON(st, k);
+async function entryPut(st, kind, key, e, force) {
+  const k = entryKey(kind, key, e.u);
+  if (force) return putJSON(st, k, e);
+  const cur = await getJSON(st, k);
   if (!cur || CMP[kind](e, cur) < 0) await putJSON(st, k, e);
 }
 async function legacyBoard(st, kind, key) {
@@ -197,6 +202,7 @@ async function route(req, path, st) {
     if (kind === "defi") return json(key ? { list: /^[a-z]$/.test(key) ? await boardRead(st, "defi", key) : [] } : { map: await defiMap(st) });
     if (kind === "daily" && /^\d{4}-\d{2}-\d{2}$/.test(key)) return json({ list: await boardRead(st, "daily", key) });
     if (kind === "abc") return json({ list: await boardRead(st, "abc", "all") });
+    if (kind === "online") return json({ list: await boardRead(st, "online", "all") });
     return fail("bad_board");
   }
 
@@ -312,10 +318,24 @@ async function route(req, path, st) {
     const mid = String(body.mid || "").replace(/[^a-z0-9]/gi, "").slice(0, 16);
     if (mid) { const k = "match/" + mid + "/" + u.key; if (await getJSON(st, k)) return json({ newBadges: [], profile: publicProfile(u) }); await putJSON(st, k, { t: Date.now() }); }
     const names = Array.isArray(body.names) ? body.names.slice(0, 200).map((n) => titleCase(String(n).slice(0, 40))) : [];
+    const online = body.online === true, players = Math.max(1, Math.min(10, +body.players || 1));
+    let won = body.won === true;
+    // même match signalé par plusieurs joueurs : un seul vainqueur possible
+    if (mid && players >= 2) {
+      const rk = "mres/" + mid, cur = await getJSON(st, rk), w = norm(String(body.winner || ""));
+      if (!cur) await putJSON(st, rk, { w, n: players, t: Date.now() });
+      else if (cur.w !== w) won = false;
+    }
     u.stats.games.friends++;
-    if (body.won === true) u.stats.wins++;
+    if (won) u.stats.wins++;
     names.forEach((n) => { u.stats.names++; u.stats.players[n] = (u.stats.players[n] || 0) + 1; });
     if (Array.isArray(body.letters)) body.letters.slice(0, 10).forEach((l) => { l = String(l).toLowerCase(); if (/^[a-z]$/.test(l)) u.stats.letters[l] = (u.stats.letters[l] || 0) + 1; });
+    if (online && players >= 2) {
+      const o = u.stats.online;
+      o.p++; if (won) o.w++; o.pts += Math.max(0, Math.min(60, +body.pts || 0)); o.names += names.length;
+      if ((+body.rank || 9) <= 3) o.podium++;
+      await entryPut(st, "online", "all", { u: u.key, n: u.name, s: o.w, p: o.p, pts: o.pts, nm: o.names, pod: o.podium, d: Date.now() }, true);
+    }
     const newBadges = award(u);
     await saveUser(st, u);
     return json({ newBadges, profile: publicProfile(u) });
