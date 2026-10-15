@@ -141,7 +141,8 @@ async function defiMap(st) {
 const withTimeout = (p, ms) => Promise.race([p, new Promise((r) => setTimeout(() => r({ st: "none", off: 1 }), ms))]);
 async function validateSeq(items, letterOf) {
   const used = new Set(), remote = new Map(), unknown = [];
-  items.forEach((it, i) => { if (checkLocal(String(it.v || "").slice(0, 60), letterOf(it, i), new Set()).st === "unknown") unknown.push(i); });
+  const alt = (it, L) => { if (!it.d || it.d === it.v) return null; const r = checkLocal(String(it.d).slice(0, 60), L, new Set()); return r.st === "ok" ? r : null; };
+  items.forEach((it, i) => { if (checkLocal(String(it.v || "").slice(0, 60), letterOf(it, i), new Set()).st === "unknown" && !alt(it, letterOf(it, i))) unknown.push(i); });
   const deadline = Date.now() + 4000; let next = 0;
   const worker = async () => {
     while (next < unknown.length && Date.now() < deadline) {
@@ -154,6 +155,7 @@ async function validateSeq(items, letterOf) {
   return items.map((it, i) => {
     const L = letterOf(it, i), txt = String(it.v || "").slice(0, 60);
     let r = checkLocal(txt, L, used);
+    if (r.st !== "ok") { const a = alt(it, L); if (a) r = a.keys.some((k) => used.has(k)) ? { st: "bad" } : a; }
     if (r.st === "unknown") {
       const rr = remote.get(i), n = norm(txt), l = L.toLowerCase();
       if (rr && rr.st === "ok") r = rr.keys.some((k) => used.has(k)) ? { st: "bad" } : rr;
@@ -357,6 +359,7 @@ async function route(req, path, st) {
     const list = entry ? await boardRead(st, run.m, key) : null;
     const result = { ok, score: oks.length, valid: oks.map((o) => o.display), entry, list, newBadges, profile: publicProfile(u) };
     run.result = { ok, score: oks.length, valid: result.valid, entry, newBadges: [], profile: result.profile };
+    run.answers = answers.slice(0, 60).map((a) => ({ v: String(a.v || "").slice(0, 60), d: a.d ? String(a.d).slice(0, 60) : undefined, L: a.L, joker: a.joker ? 1 : undefined }));
     putJSON(st, "log/" + Date.now() + "-" + rnd(4), { k: "finish", m: run.m, ok, score: oks.length, sent: answers.length, entry: !!entry, ms: Date.now() - now, t: Date.now() }).catch(() => {});
     await putJSON(st, "run/" + id, run);
     return json(result);
