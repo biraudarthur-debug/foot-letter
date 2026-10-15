@@ -441,7 +441,7 @@ body.has-chat main{padding-bottom:150px}
     </section>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.7</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.8</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -1120,8 +1120,16 @@ const FOOT_DESC=/foot|soccer|fußball|fussball|calcio|fútbol|futbol|voetbal|fut
 const NAT_RE=/national|nationale|nazionale|nacional|selecci|équipe d|nationalmannschaft|auswahl|\bu-?\d{2}\b|under-?\d{2}|olymp|youth|jugend|espoirs|reserve|réserve|\bii\b|\bb\b/i;
 const INFO=new Map();
 function ambiguous(display){ const n=norm(display); return !display.includes(' ')&&(IDX.get(n)||[]).length>1; }
+// Joueurs ajoutés à la main (à leur demande) : fiche fixe, sans recherche Wikidata
+const FR_C={fr:'France',en:'France',de:'Frankreich'}, FR_F='https://flagcdn.com/w40/fr.png';
+const CUSTOM_INFO={
+  'antoine rentz':{file:null,country:FR_C,flag:FR_F,club:'RC Strasbourg',clubFr:'Racing Club de Strasbourg',clubCur:true},
+  'evan nehrer':{file:null,country:FR_C,flag:FR_F,club:'Élise Bonet FC',clubFr:'Élise Bonet FC',clubCur:true},
+  'arthur biraud':{file:null,country:FR_C,flag:FR_F,club:'Olympique de Marseille',clubFr:'Olympique de Marseille',clubCur:true}
+};
 function playerInfo(display){
   const n=norm(display);
+  if(CUSTOM_INFO[n]) return Promise.resolve(CUSTOM_INFO[n]);
   if(INFO.has(n)) return INFO.get(n);
   if(ambiguous(display)){ const p=Promise.resolve(null); INFO.set(n,p); return p; }
   const cached=lsGet('fl_i6_'+n);

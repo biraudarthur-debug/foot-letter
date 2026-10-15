@@ -4,7 +4,8 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 const out = new URL('../joueurs/', import.meta.url); mkdirSync(out, {recursive: true});
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const by = {}; ALL_LETTERS.forEach(l => by[l] = []);
-P.forEach(p => { const l = (p.sur || '')[0]; if (by[l]) by[l].push(p.name); });
+const HIDE = new Set(['Antoine Rentz', 'Evan Nehrer', 'Arthur Biraud']);
+P.forEach(p => { if (HIDE.has(p.name)) return; const l = (p.sur || '')[0]; if (by[l]) by[l].push(p.name); });
 const raw = {}; ALL_LETTERS.forEach(l => raw[l] = [...by[l]]);
 Object.values(by).forEach(a => a.sort((x, y) => x.localeCompare(y, 'fr')));
 const css = `body{margin:0;font-family:Archivo,Arial,sans-serif;background:#0b2a1d;color:#f1f6ef;line-height:1.5}
