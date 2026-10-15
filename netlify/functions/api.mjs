@@ -40,7 +40,7 @@ async function loadUser(st, key) { const u = await getJSON(st, "user/" + key); r
 function top(obj) { const e = Object.entries(obj || {}).sort((a, b) => b[1] - a[1])[0]; return e ? { k: e[0], n: e[1] } : null; }
 function publicProfile(u) {
   const s = u.stats;
-  return { name: u.name, key: u.key, created: u.created, badges: u.badges, daily: u.daily,
+  return { name: u.name, key: u.key, guest: !!u.guest, created: u.created, badges: u.badges, daily: u.daily,
     stats: { games: s.games, total: Object.values(s.games).reduce((a, b) => a + b, 0), wins: s.wins, names: s.names,
       bestDaily: s.bestDaily, bestDefi: s.bestDefi, bestAbc: s.bestAbc, topPlayer: top(s.players), topLetter: top(s.letters),
       letterCount: Object.keys(s.letters || {}).length, online: s.online } };
@@ -98,6 +98,7 @@ const CMP = {
 };
 const entryKey = (kind, key, u) => "entry/" + kind + "/" + key + "/" + u;
 async function entryPut(st, kind, key, e, force) {
+  if (String(e.u).startsWith("g~")) e.g = 1;
   const k = entryKey(kind, key, e.u);
   if (force) return putJSON(st, k, e);
   const cur = await getJSON(st, k);
@@ -174,6 +175,17 @@ async function route(req, path, st) {
     return json({ ok: true, blobs, version: 9, time: Date.now() });
   }
 
+  // joueur sans compte : profil invité (pseudo libre), classé comme les autres
+  if (path === "guest") {
+    const name = cleanName(body.name);
+    if (!validName(name)) return fail("bad_name");
+    const cur = await authUser(req, st);
+    if (cur && cur.guest) { if (cur.name !== name) { cur.name = name; await saveUser(st, cur); } await putJSON(st, "seen/" + cur.key, { t: Date.now() }); return json({ token: null, profile: publicProfile(cur) }); }
+    const u = newUser(name); u.key = "g~" + rnd(14).toLowerCase(); u.guest = true;
+    await saveUser(st, u);
+    await putJSON(st, "seen/" + u.key, { t: Date.now() });
+    return json({ token: await newSession(st, u.key), profile: publicProfile(u) });
+  }
   if (path === "register") {
     const name = cleanName(body.name), pass = String(body.pass || "");
     if (!validName(name)) return fail("bad_name");
@@ -181,6 +193,8 @@ async function route(req, path, st) {
     const key = userKey(name);
     if (await getJSON(st, "user/" + key)) return fail("taken", 409);
     const u = newUser(name); u.salt = crypto.randomBytes(16).toString("hex"); u.hash = hashPass(pass, u.salt);
+    const g = await authUser(req, st);
+    if (g && g.guest) { u.stats = g.stats; u.badges = g.badges; u.daily = g.daily; u.done = g.done; u.created = g.created; }
     await saveUser(st, u);
     await putJSON(st, "seen/" + key, { t: Date.now() });
     return json({ token: await newSession(st, key), profile: publicProfile(u) });
@@ -228,7 +242,8 @@ async function route(req, path, st) {
   if (path === "admin/stats") {
     if (!u.admin) return fail("forbidden", 403);
     const keys = (await listKeys(st, "user/")).slice(0, 1000);
-    const users = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter(Boolean).map(fixUser);
+    const all = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter(Boolean).map(fixUser);
+    const users = all.filter((x) => !x.guest), guestCount = all.length - users.length;
     const seen = await Promise.all(users.map((x) => getJSON(st, "seen/" + x.key)));
     const played = await Promise.all(users.map((x) => getJSON(st, "daily/" + today + "/" + x.key)));
     const now = Date.now(), DAY = 86400000;
@@ -239,7 +254,7 @@ async function route(req, path, st) {
     }).sort((a, b) => b.seen - a.seen);
     const sum = (f) => rows.reduce((a, r) => a + f(r), 0);
     return json({ total: rows.length, today: rows.filter((r) => now - r.seen < DAY).length, week: rows.filter((r) => now - r.seen < 7 * DAY).length,
-      newWeek: rows.filter((r) => now - r.created < 7 * DAY).length, games: sum((r) => r.games), names: sum((r) => r.names),
+      newWeek: rows.filter((r) => now - r.created < 7 * DAY).length, guests: guestCount, games: sum((r) => r.games), names: sum((r) => r.names),
       dailyToday: played.filter(Boolean).length + users.filter((x, i) => !played[i] && x.done[today]).length, rows });
   }
 
