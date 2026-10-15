@@ -187,6 +187,7 @@ async function route(req, path, st) {
       try { await putJSON(st, pk, { t: t0 }); out.probeWriteMs = Date.now() - t0; const l = await listKeys(st, "probe/"); out.probeListed = l.includes(pk); await st.delete(pk); } catch (e) { out.probeErr = String(e && e.message || e); }
       const count = async (p) => { try { return (await listKeys(st, p)).length; } catch (e) { return "err:" + (e && e.message); } };
       out.counts = { users: await count("user/"), entriesDaily: await count("entry/daily/"), entriesDefi: await count("entry/defi/"), entriesAbc: await count("entry/abc/"), entriesOnline: await count("entry/online/"), legacyBoards: await count("board/"), runs: await count("run/"), sessions: await count("session/") };
+      try { out.entryKeys = (await listKeys(st, "entry/")).map((k) => k.split("/").slice(1, 3).join("/")); out.legacy = await listKeys(st, "board/"); } catch (_) { }
       try { const ks = (await listKeys(st, "log/")).sort().slice(-25); out.log = (await Promise.all(ks.map((k) => getJSON(st, k)))).filter(Boolean); } catch (_) { }
     }
     return json(out);
@@ -378,7 +379,7 @@ async function route(req, path, st) {
 
 export default async (req) => {
   const pn = new URL(req.url).pathname;
-  const path = pn === "/diag" ? "health" : pn.replace(/^\/api\/?/, "").replace(/\/$/, "");
+  const path = pn === "/diag" ? (new URL(req.url).searchParams.get("kind") ? "board" : "health") : pn.replace(/^\/api\/?/, "").replace(/\/$/, "");
   try { return await route(req, path, store()); }
   catch (e) { console.error(e); try { await store().setJSON("log/" + Date.now() + "-" + rnd(4), { k: "error", path, msg: String(e && e.stack || e).slice(0, 400), t: Date.now() }); } catch (_) { } return fail("server", 500); }
 };
