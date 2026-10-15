@@ -38,9 +38,18 @@ function fixUser(u) {
 }
 async function loadUser(st, key) { const u = await getJSON(st, "user/" + key); return u ? fixUser(u) : null; }
 function top(obj) { const e = Object.entries(obj || {}).sort((a, b) => b[1] - a[1])[0]; return e ? { k: e[0], n: e[1] } : null; }
+// Expérience : calculée à partir des stats, donc jamais perdue et toujours cohérente
+// 10 XP par joueur cité, 20 par partie jouée, 50 par victoire entre amis, 15 par podium en ligne,
+// 10 par jour du record de série, 100 par badge. Passer du niveau N au niveau N+1 coûte 100 x N XP.
+function xpOf(u) {
+  const s = u.stats, games = Object.values(s.games || {}).reduce((a, b) => a + b, 0);
+  const xp = (s.names || 0) * 10 + games * 20 + (s.wins || 0) * 50 + ((s.online && s.online.podium) || 0) * 15 + ((u.daily && u.daily.best) || 0) * 10 + Object.keys(u.badges || {}).length * 100;
+  let lvl = 1, rem = xp; while (rem >= 100 * lvl && lvl < 999) { rem -= 100 * lvl; lvl++; }
+  return { xp, lvl, cur: rem, need: 100 * lvl };
+}
 function publicProfile(u) {
   const s = u.stats;
-  return { name: u.name, key: u.key, guest: !!u.guest, created: u.created, badges: u.badges, daily: u.daily,
+  return { name: u.name, key: u.key, guest: !!u.guest, created: u.created, level: xpOf(u), badges: u.badges, daily: u.daily,
     stats: { games: s.games, total: Object.values(s.games).reduce((a, b) => a + b, 0), wins: s.wins, names: s.names,
       bestDaily: s.bestDaily, bestDefi: s.bestDefi, bestAbc: s.bestAbc, topPlayer: top(s.players), topLetter: top(s.letters),
       letterCount: Object.keys(s.letters || {}).length, online: s.online } };

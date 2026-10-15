@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="FOOT LETTERS · le quiz foot du jour">
 <meta name="twitter:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
 <meta name="twitter:image" content="https://footletters.com/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","url":"https://footletters.com/","image":"https://footletters.com/og.png","alternateName":["Foot Letters","Quiz foot FOOT LETTERS"],"keywords":"quiz foot, quiz football, jeu de foot en ligne, culture foot, quiz foot entre amis, quiz foot gratuit","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","url":"https://footletters.com/","image":"https://footletters.com/og.png","alternateName":["Foot Letters","Quiz foot FOOT LETTERS"],"keywords":"quiz foot, quiz football, jeu de foot en ligne, culture foot, quiz foot entre amis, quiz foot gratuit","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"sameAs":["https://www.tiktok.com/@footletters.off"]}</script>
 <meta property="og:title" content="FOOT LETTERS · le quiz foot du jour">
 <meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
 <meta name="theme-color" content="#0f4a2b">
@@ -287,6 +287,17 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .seo-text p{margin:0 0 10px} .seo-text a{color:#f3d27a}
 .seo-text details{border-top:1px solid rgba(255,255,255,.08);padding:8px 0} .seo-text summary{cursor:pointer;font-weight:700;color:var(--chalk)}
 .seo-text details p{margin:6px 0 0}
+/* expérience */
+.xp{display:flex;align-items:center;gap:10px;width:100%}
+.xp .lv{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;font-family:var(--f-display);font-weight:900;font-size:20px;color:#0a1f16;background:linear-gradient(135deg,#fbe8a6,#d4a537 45%,#f7dc8b 60%,#b07d1f)}
+.xp .bd{flex:1;min-width:0}
+.xp .tt{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--chalk-2)} .xp .tt b{color:var(--chalk);font-weight:800}
+.xp .bar{height:10px;border-radius:6px;background:rgba(0,0,0,.3);overflow:hidden;margin-top:5px}
+.xp .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#6be39a,#f7c948);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.xp.small .lv{width:34px;height:34px;font-size:15px} .xp.small .bar{height:7px}
+.xpgain{font-family:var(--f-display);font-weight:900;font-size:22px;color:#f7c948;letter-spacing:.03em}
+.tiktok{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#000;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.18)}
+.tiktok svg{width:18px;height:18px}
 /* chat en partie */
 body.has-chat main{padding-bottom:150px}
 .chat-btn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;width:56px;height:56px;border-radius:50%;border:2px solid transparent;font-size:24px;cursor:pointer;color:var(--chalk);
@@ -441,7 +452,8 @@ body.has-chat main{padding-bottom:150px}
     </section>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.10</p>
+    <p style="margin-top:14px"><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a></p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.11</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -647,6 +659,7 @@ body.has-chat main{padding-bottom:150px}
         <h2 class="result-big" id="eTitle"></h2>
         <p class="note" id="eSub" style="font-size:15px"></p>
         <p class="note" id="eRank"></p>
+        <div id="eXp" hidden style="display:flex;flex-direction:column;gap:8px"></div>
         <div class="wbox" id="eWordle" hidden>
           <div class="wgrid" id="eGrid" aria-hidden="true"></div>
           <p class="note" id="ePct"></p>
@@ -655,9 +668,12 @@ body.has-chat main{padding-bottom:150px}
         <div class="row">
           <button class="btn primary" id="eShare" type="button" data-i18n="share"></button>
           <button class="btn" id="eShareImg" type="button" data-i18n="share_img"></button>
+        </div>
+        <div class="row">
           <button class="btn" id="eAgain" type="button" data-i18n="again"></button>
           <button class="btn ghost" id="eBoards" type="button" data-i18n="boards_btn"></button>
         </div>
+        <div><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a></div>
         <div class="label" data-i18n="found_list"></div>
         <div class="found" id="eFound"></div>
       </div>
@@ -704,6 +720,7 @@ body.has-chat main{padding-bottom:150px}
     <section class="two" style="margin-top:14px">
       <div class="panel">
         <div class="pr-head"><span class="pr-av" id="prAv"></span><div style="min-width:0"><div class="pr-name" id="prName"></div><div class="note" id="prSince"></div></div></div>
+        <div id="prXp" style="margin:6px 0 4px"></div>
         <div class="streakbox" id="prStreak"></div>
         <div class="tiles" id="prTiles"></div>
         <p class="note" id="prFav"></p>
@@ -777,6 +794,7 @@ body.has-chat main{padding-bottom:150px}
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ lv_n:'Niveau {n}', xp_of:'{a} / {b} XP', lv_up:'Niveau {n} !', lv_remp:'Remplaçant', lv_titu:'Titulaire', lv_capt:'Capitaine', lv_inter:'International', lv_ballon:'Ballon d\'or', lv_legend:'Légende', xp_rules:'XP : 10 par joueur cité, 20 par partie, 50 par victoire entre amis, 15 par podium en ligne, 10 par jour de ta meilleure série, 100 par badge.', tiktok:'Suis-nous sur TikTok',
  chat_report:'Signaler ce joueur', chat_reported:'Signalement envoyé. À 3 signalements, le joueur ne peut plus écrire.', chat_muted:'{x} a été signalé par 3 joueurs : il ne peut plus écrire.', chat_muted_me:'Tu as été signalé par 3 joueurs : tu ne peux plus écrire dans ce salon.',
  guest_note:'Tu joues sans compte : ton score entre quand même au classement avec ton pseudo. Crée un compte pour garder tes stats sur tous tes appareils.', ad_guests:'Joueurs sans compte', chat:'Chat', chat_ph:'Écris un message…', chat_send:'Envoyer', chat_empty:'Personne n\'a encore écrit. Lance la discussion !', chat_slow:'Doucement : un message par seconde.',
  new_host:'{x} est le nouvel hôte : la partie continue.', new_host_me:'L\'hôte est parti : tu es le nouvel hôte, la partie continue.',
@@ -833,6 +851,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Substitute', lv_titu:'Starter', lv_capt:'Captain', lv_inter:'International', lv_ballon:'Ballon d\'Or', lv_legend:'Legend', xp_rules:'XP: 10 per player named, 20 per game, 50 per win with friends, 15 per online podium, 10 per day of your best streak, 100 per badge.', tiktok:'Follow us on TikTok',
  chat_report:'Report this player', chat_reported:'Report sent. After 3 reports, the player can no longer write.', chat_muted:'{x} was reported by 3 players and can no longer write.', chat_muted_me:'You were reported by 3 players: you can no longer write in this room.',
  guest_note:'You are playing without an account: your score still goes on the leaderboard under your nickname. Create an account to keep your stats on all your devices.', ad_guests:'Players without account', chat:'Chat', chat_ph:'Write a message…', chat_send:'Send', chat_empty:'No messages yet. Start the chat!', chat_slow:'Easy: one message per second.',
  new_host:'{x} is the new host: the game goes on.', new_host_me:'The host left: you are the new host, the game goes on.',
@@ -889,6 +908,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Ersatzspieler', lv_titu:'Stammspieler', lv_capt:'Kapitän', lv_inter:'Nationalspieler', lv_ballon:'Ballon d\'Or', lv_legend:'Legende', xp_rules:'XP: 10 pro genanntem Spieler, 20 pro Spiel, 50 pro Sieg mit Freunden, 15 pro Online-Podium, 10 pro Tag deiner besten Serie, 100 pro Abzeichen.', tiktok:'Folge uns auf TikTok',
  chat_report:'Spieler melden', chat_reported:'Meldung gesendet. Nach 3 Meldungen kann der Spieler nicht mehr schreiben.', chat_muted:'{x} wurde von 3 Spielern gemeldet und kann nicht mehr schreiben.', chat_muted_me:'Du wurdest von 3 Spielern gemeldet: Du kannst in diesem Raum nicht mehr schreiben.',
  guest_note:'Du spielst ohne Konto: Dein Ergebnis kommt trotzdem mit deinem Spielernamen in die Rangliste. Erstelle ein Konto, um deine Statistiken auf allen Geräten zu behalten.', ad_guests:'Spieler ohne Konto', chat:'Chat', chat_ph:'Nachricht schreiben…', chat_send:'Senden', chat_empty:'Noch keine Nachrichten. Starte den Chat!', chat_slow:'Langsam: eine Nachricht pro Sekunde.',
  new_host:'{x} ist der neue Host: Das Spiel geht weiter.', new_host_me:'Der Host ist gegangen: Du bist der neue Host, das Spiel geht weiter.',
@@ -1844,7 +1864,7 @@ async function reportMatch(g){
   const oi=g.order.indexOf(myId), names=g.all.filter(x=>x[0]===oi).map(x=>x[1]);
   const won=g.order.length>1&&!g.tie&&g.win===myId;
   const rank=[...g.order].sort((x,y)=>(g.pts[y]||0)-(g.pts[x]||0)||(g.tf[y]||0)-(g.tf[x]||0)).indexOf(myId)+1;
-  API.save('match',{mid:g.mid,won,names,letters:g.letters||[],online:S.mode==='online',players:g.order.length,pts:g.pts[myId]||0,rank,winner:g.tie||!g.win?'':(g.nk[g.win]||'')}).then(d=>{ API.take(d.profile); showBadges(d.newBadges); onAccount(); }).catch(()=>{});
+  API.save('match',{mid:g.mid,won,names,letters:g.letters||[],online:S.mode==='online',players:g.order.length,pts:g.pts[myId]||0,rank,winner:g.tie||!g.win?'':(g.nk[g.win]||'')}).then(d=>{ const b0=API.me&&API.me.level&&API.me.level.xp, l0=API.me&&API.me.level&&API.me.level.lvl; API.take(d.profile); if(API.me&&API.me.level&&b0!=null&&API.me.level.xp>b0) setTimeout(()=>toast('+'+(API.me.level.xp-b0)+' XP'+(API.me.level.lvl>l0?' · '+t('lv_up',{n:API.me.level.lvl}):'')),1200); showBadges(d.newBadges); onAccount(); }).catch(()=>{});
 }
 
 /* image de score à partager (format story 1080x1350) */
@@ -2433,7 +2453,7 @@ const Solo=(function(){
     $('sAnswer').disabled=true; $('sSend').disabled=true;
     const run=R, n=run.found.length, total=Date.now()-(run.t0||Date.now());
     const ranked=!!run.run&&!run.dq&&why!=='quit';
-    run.total=total; run.ok=ok; run.why=why; run.entry=ranked&&(run.mode==='daily'||ok);
+    run.total=total; run.ok=ok; run.why=why; run.lvBefore=API.me&&API.me.level&&API.me.level.lvl; run.entry=ranked&&(run.mode==='daily'||ok);
     if(run.mode==='daily') lsSet('fl_d5_'+run.date,{s:'done',done:1,n:run.dq||why==='quit'?0:n,list:run.found.map(x=>x.name)});
     if(ok){ beep('win'); confetti(); } else beep('whistle');
     show('solo'); $('soloIntro').hidden=true; $('soloPlay').hidden=true; $('soloEnd').hidden=false;
@@ -2450,7 +2470,9 @@ const Solo=(function(){
       else answers=run.found.map(f=>({v:f.name,ms:f.ms}));
       try{
         const d=await API.save('run/finish',{run:run.run,answers});
+        const before=API.me&&API.me.level&&API.me.level.xp;
         API.take(d.profile); if(run.mode==='daily'){ API.today={s:d.score}; API.date=parisDate(); }
+        if(API.me&&!API.me.guest&&API.me.level&&before!=null){ run.xpGain=API.me.level.xp-before; run.lvUp=API.me.level.lvl>(run.lvBefore||API.me.level.lvl); }
         run.server=d; res={list:d.list||null};
         if(!d.list) res=await LB.read(run.mode,key);
         showBadges(d.newBadges); onAccount();
@@ -2464,6 +2486,8 @@ const Solo=(function(){
   setInterval(tickNext,1000);
   function renderEndBoard(){
     const run=R, res=run.board; if(!res) return;
+    const xg=$('eXp'); xg.replaceChildren(); xg.hidden=!(API.me&&!API.me.guest&&run.xpGain>0);
+    if(!xg.hidden){ xg.append(el('div','xpgain','+'+run.xpGain+' XP'+(run.lvUp?' · '+t('lv_up',{n:API.me.level.lvl}):'')),xpBar(API.me.level)); if(run.lvUp){ confetti(); beep('win'); } }
     if(run.mode==='daily'&&!run.dq&&res.list&&res.list.length>1){ const me=run.server?run.server.score:run.found.length, below=res.list.filter(e=>e.s<me).length; run.pct=Math.round(100*below/(res.list.length-1)); $('ePct').textContent=t('beat',{p:run.pct}); } else $('ePct').textContent='';
     $('eBoardTitle').textContent=boardTitle();
     if(res.off&&!res.list.length){ $('eBoard').replaceChildren(el('li','empty',t('board_off'))); }
@@ -2572,6 +2596,16 @@ function showBadges(ids){
   confetti();
   ids.forEach((id,i)=>{ const b=BADGES.find(x=>x[0]===id); if(!b) return; setTimeout(()=>{ toast('🏅 '+t('badge_new')+' : '+b[1]+' '+t('b_'+id)); beep('win'); },600+i*3000); });
 }
+const LEVEL_T=[[50,'lv_legend'],[30,'lv_ballon'],[20,'lv_inter'],[10,'lv_capt'],[5,'lv_titu'],[1,'lv_remp']];
+function levelTitle(l){ return t((LEVEL_T.find(x=>l>=x[0])||LEVEL_T[LEVEL_T.length-1])[1]); }
+function xpBar(lv,small){
+  const w=el('div','xp'+(small?' small':'')); if(!lv) return w;
+  const c=el('span','lv',String(lv.lvl)), bd=el('div','bd'), tt=el('div','tt'), bar=el('div','bar'), fill=el('i');
+  tt.append(el('b',null,t('lv_n',{n:lv.lvl})+' · '+levelTitle(lv.lvl)),el('span',null,t('xp_of',{a:lv.cur.toLocaleString(LANG),b:lv.need.toLocaleString(LANG)})));
+  fill.style.width='0%'; bar.append(fill); bd.append(tt,bar); w.append(c,bd);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ fill.style.width=Math.min(100,Math.round(100*lv.cur/lv.need))+'%'; }));
+  return w;
+}
 function onAccount(){
   const me=API.me, btn=$('acctBtn');
   btn.textContent=me?('👤 '+me.name):t('acct_btn');
@@ -2579,6 +2613,7 @@ function onAccount(){
   if(me){ nk.value=me.name; nk.disabled=true; } else { nk.disabled=false; if(!nk.value) nk.value=store('fl_nick')||''; }
   const line=$('acctLine'); line.replaceChildren();
   if(me){
+    if(me.level) line.append(xpBar(me.level,true));
     line.append(el('span','note',t('acct_in',{x:me.name})));
     if(me.daily&&me.daily.streak) line.append(el('span','chip','🔥 '+t('streak_days',{n:me.daily.streak})));
     const b=el('button','btn small',t('my_profile')); b.type='button'; b.addEventListener('click',()=>Profile.open(me.name)); line.append(b);
@@ -2624,6 +2659,7 @@ const Profile=(function(){
     const mine=API.me&&API.me.key===p.key; if(mine) API.me=p;
     $('prAv').textContent=initials(p.name); $('prName').textContent=p.name;
     $('prSince').textContent=t('pr_since',{d:new Date(p.created).toLocaleDateString(LANG)});
+    const xb=$('prXp'); xb.replaceChildren(); xb.hidden=!p.level||!!p.guest; if(p.level&&!p.guest) xb.append(xpBar(p.level)), xb.append(el('p','note',t('xp_rules')));
     const sb=$('prStreak'); sb.replaceChildren();
     const d=p.daily||{streak:0,best:0}, active=d.last&&(d.last===parisDate()||d.last===parisDate(new Date(Date.now()-86400000)));
     sb.append(el('span','f',active&&d.streak?'🔥':'🪵'));
