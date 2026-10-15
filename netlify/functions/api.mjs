@@ -7,13 +7,13 @@ import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
 import { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, ALL_LETTERS, parisDate, dailyLetter } from "../lib/game.mjs";
 
-export const config = { path: "/api/*" };
+export const config = { path: ["/api/*", "/diag"] };
 
 // Seule l'empreinte du code administrateur est ici ; le code lui-même n'est jamais publié.
 const ADMIN_HASH = "c76e68b02e609ff7a876ca4494004f82c95ce464f96248aa15aac152315ebdd5";
 const PER = 30000, DAILY_MS = 180000, ABC_PEN = 15000;
 const store = () => getStore({ name: "footletter", consistency: "strong" });
-const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
+const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store", "x-robots-tag": "noindex" } });
 const fail = (code, status = 400) => json({ error: code }, status);
 const getJSON = async (st, key) => { try { return (await st.get(key, { type: "json" })) || null; } catch (_) { return null; } };
 const putJSON = (st, key, val) => st.setJSON(key, val);
@@ -377,7 +377,8 @@ async function route(req, path, st) {
 }
 
 export default async (req) => {
-  const path = new URL(req.url).pathname.replace(/^\/api\/?/, "").replace(/\/$/, "");
+  const pn = new URL(req.url).pathname;
+  const path = pn === "/diag" ? "health" : pn.replace(/^\/api\/?/, "").replace(/\/$/, "");
   try { return await route(req, path, store()); }
   catch (e) { console.error(e); try { await store().setJSON("log/" + Date.now() + "-" + rnd(4), { k: "error", path, msg: String(e && e.stack || e).slice(0, 400), t: Date.now() }); } catch (_) { } return fail("server", 500); }
 };
