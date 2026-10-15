@@ -288,14 +288,14 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 .seo-text details{border-top:1px solid rgba(255,255,255,.08);padding:8px 0} .seo-text summary{cursor:pointer;font-weight:700;color:var(--chalk)}
 .seo-text details p{margin:6px 0 0}
 /* chat en partie */
-body.has-chat main{padding-bottom:84px}
-.chat-btn{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;border:2px solid transparent;font-size:24px;cursor:pointer;color:var(--chalk);
+body.has-chat main{padding-bottom:150px}
+.chat-btn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;width:56px;height:56px;border-radius:50%;border:2px solid transparent;font-size:24px;cursor:pointer;color:var(--chalk);
   background:linear-gradient(#1b4535,#1b4535) padding-box,var(--gold) border-box;box-shadow:0 10px 26px rgba(0,0,0,.4)}
 .chat-n{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#ef5b4c;color:#fff;font:700 12px/22px var(--f-body,sans-serif)}
-.chat-peek{position:fixed;right:84px;bottom:22px;z-index:60;max-width:min(60vw,320px);padding:9px 13px;border-radius:14px 14px 4px 14px;background:#0f2f22;border:1px solid rgba(255,255,255,.12);font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.35);animation:peek .25s both}
+.chat-peek{position:fixed;right:84px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:60;max-width:min(60vw,320px);padding:9px 13px;border-radius:14px 14px 4px 14px;background:#0f2f22;border:1px solid rgba(255,255,255,.12);font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.35);animation:peek .25s both}
 .chat-peek b{color:#f7c948;margin-right:6px}
 @keyframes peek{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.chat-box{position:fixed;right:16px;bottom:84px;z-index:61;width:min(360px,calc(100vw - 32px));height:min(440px,58vh);display:flex;flex-direction:column;border-radius:20px;overflow:hidden;
+.chat-box{position:fixed;right:16px;bottom:calc(152px + env(safe-area-inset-bottom));z-index:61;width:min(360px,calc(100vw - 32px));height:min(420px,calc(100vh - 220px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;
   background:linear-gradient(#123528,#123528) padding-box,var(--gold) border-box;border:2px solid transparent;box-shadow:0 18px 50px rgba(0,0,0,.5)}
 .chat-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 8px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
 .chat-head b{font-family:var(--f-display);font-size:20px;letter-spacing:.05em;text-transform:uppercase}
@@ -304,6 +304,9 @@ body.has-chat main{padding-bottom:84px}
 .chat-list li.me{align-self:flex-end;background:#2c6b4c;border-radius:14px 14px 4px 14px}
 .chat-list li b{display:block;font-size:12px;letter-spacing:.02em}
 .chat-list li.empty{align-self:center;background:none;color:var(--chalk-3);text-align:center}
+.chat-list li .rep{float:right;margin:-2px -4px 0 8px;border:0;background:none;color:var(--chalk-3);font-size:12px;cursor:pointer;padding:2px 4px;border-radius:6px}
+.chat-list li .rep:hover{color:#ff9f68;background:rgba(0,0,0,.2)} .chat-list li .rep.done{color:#ff9f68;cursor:default}
+.chat-list li.sys{align-self:center;background:rgba(239,91,76,.18);color:#ffc2b8;font-size:13px;text-align:center}
 .chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,.08)}
 .chat-form .input{flex:1;min-width:0;padding:10px 12px}
 /* compte & profil */
@@ -438,7 +441,7 @@ body.has-chat main{padding-bottom:84px}
     </section>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.6</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.7</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -774,6 +777,7 @@ body.has-chat main{padding-bottom:84px}
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ chat_report:'Signaler ce joueur', chat_reported:'Signalement envoyé. À 3 signalements, le joueur ne peut plus écrire.', chat_muted:'{x} a été signalé par 3 joueurs : il ne peut plus écrire.', chat_muted_me:'Tu as été signalé par 3 joueurs : tu ne peux plus écrire dans ce salon.',
  guest_note:'Tu joues sans compte : ton score entre quand même au classement avec ton pseudo. Crée un compte pour garder tes stats sur tous tes appareils.', ad_guests:'Joueurs sans compte', chat:'Chat', chat_ph:'Écris un message…', chat_send:'Envoyer', chat_empty:'Personne n\'a encore écrit. Lance la discussion !', chat_slow:'Doucement : un message par seconde.',
  new_host:'{x} est le nouvel hôte : la partie continue.', new_host_me:'L\'hôte est parti : tu es le nouvel hôte, la partie continue.',
  b_online_tab:'En ligne', b_online:'Victoires en ligne · classement mondial', v_wins:'{n} V', v_wins_1:'{n} V', v_online:'{p} matchs · {r} % · {pts} pts', st_on_p:'Matchs en ligne', st_on_w:'Victoires en ligne', st_on_r:'% de victoires', st_on_pod:'Podiums en ligne', st_on_pts:'Points en ligne', online_note:'Matchs « Entre amis » en ligne à 2 joueurs ou plus, avec ou sans compte. Mis à jour après chaque match.', host_closed:'L\'hôte a quitté : le salon est fermé.',
@@ -829,6 +833,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ chat_report:'Report this player', chat_reported:'Report sent. After 3 reports, the player can no longer write.', chat_muted:'{x} was reported by 3 players and can no longer write.', chat_muted_me:'You were reported by 3 players: you can no longer write in this room.',
  guest_note:'You are playing without an account: your score still goes on the leaderboard under your nickname. Create an account to keep your stats on all your devices.', ad_guests:'Players without account', chat:'Chat', chat_ph:'Write a message…', chat_send:'Send', chat_empty:'No messages yet. Start the chat!', chat_slow:'Easy: one message per second.',
  new_host:'{x} is the new host: the game goes on.', new_host_me:'The host left: you are the new host, the game goes on.',
  b_online_tab:'Online', b_online:'Online wins · world ranking', v_wins:'{n} W', v_wins_1:'{n} W', v_online:'{p} games · {r}% · {pts} pts', st_on_p:'Online games', st_on_w:'Online wins', st_on_r:'Win rate', st_on_pod:'Online podiums', st_on_pts:'Online points', online_note:'Online “With friends” games with 2 or more players, with or without an account. Updated after every game.', host_closed:'The host left: the room is closed.',
@@ -884,6 +889,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ chat_report:'Spieler melden', chat_reported:'Meldung gesendet. Nach 3 Meldungen kann der Spieler nicht mehr schreiben.', chat_muted:'{x} wurde von 3 Spielern gemeldet und kann nicht mehr schreiben.', chat_muted_me:'Du wurdest von 3 Spielern gemeldet: Du kannst in diesem Raum nicht mehr schreiben.',
  guest_note:'Du spielst ohne Konto: Dein Ergebnis kommt trotzdem mit deinem Spielernamen in die Rangliste. Erstelle ein Konto, um deine Statistiken auf allen Geräten zu behalten.', ad_guests:'Spieler ohne Konto', chat:'Chat', chat_ph:'Nachricht schreiben…', chat_send:'Senden', chat_empty:'Noch keine Nachrichten. Starte den Chat!', chat_slow:'Langsam: eine Nachricht pro Sekunde.',
  new_host:'{x} ist der neue Host: Das Spiel geht weiter.', new_host_me:'Der Host ist gegangen: Du bist der neue Host, das Spiel geht weiter.',
  b_online_tab:'Online', b_online:'Online-Siege · Weltrangliste', v_wins:'{n} S', v_wins_1:'{n} S', v_online:'{p} Spiele · {r} % · {pts} Pkt.', st_on_p:'Online-Spiele', st_on_w:'Online-Siege', st_on_r:'Siegquote', st_on_pod:'Online-Podien', st_on_pts:'Online-Punkte', online_note:'Online-Spiele „Mit Freunden“ ab 2 Spielern, mit oder ohne Konto. Nach jedem Spiel aktualisiert.', host_closed:'Der Host ist gegangen: Der Raum ist geschlossen.',
@@ -2009,19 +2015,36 @@ async function becomeHost(code,g,oldHost){
 /* ---- Chat du salon : un fil de messages partagé par tous les joueurs du salon ---- */
 const Chat=(function(){
   let code=null, h=null, seen=new Set(), msgs=[], open=false, unread=0, last=0, peekT=null;
+  // signalements : 3 joueurs différents signalent quelqu'un -> il ne peut plus écrire dans ce salon
+  const NEED=3; let reps=new Map(), muted=new Set(), mine=new Set();
+  function onReport(target,by){
+    if(!target||!by||target===by) return;
+    let set=reps.get(target); if(!set){ set=new Set(); reps.set(target,set); }
+    if(set.has(by)) return; set.add(by);
+    if(set.size>=NEED&&!muted.has(target)){
+      muted.add(target);
+      const who=(msgs.find(m=>m.f===target)||{}).n||'?';
+      msgs.push({i:'sys'+rid(6),sys:1,t:target===S.me?t('chat_muted_me'):t('chat_muted',{x:who})});
+      if(target===S.me) toast(t('chat_muted_me'),'red');
+    }
+    render();
+  }
+  function report(m){ if(!code||!m.f||m.f===S.me||mine.has(m.f)) return; mine.add(m.f); Hub.pub(topic(),JSON.stringify({r:1,tg:m.f,by:S.me||'',i:rid(10)})); onReport(m.f,S.me); toast(t('chat_reported')); }
   const topic=()=>ROOT+'room/'+code+'/chat';
   const colorOf=n=>{ let x=0; for(const ch of String(n)) x=(x*31+ch.charCodeAt(0))>>>0; return COLORS[x%COLORS.length]; };
   function add(m){
     if(seen.has(m.i)) return; seen.add(m.i);
+    if(muted.has(m.f)) return;
     msgs.push(m); if(msgs.length>120) msgs.shift();
     const mine=m.f===S.me;
     if(!open&&!mine){ unread++; peek(m); beep('tick'); }
     render();
   }
   function start(c){
-    if(code===c&&h) return; stop(); code=c; msgs=[]; seen=new Set(); unread=0;
+    if(code===c&&h) return; stop(); code=c; msgs=[]; seen=new Set(); unread=0; reps=new Map(); muted=new Set(); mine=new Set();
     h=Hub.sub(topic(),(tp,txt)=>{
       if(tp!==topic()) return; let m; try{ m=JSON.parse(txt); }catch(_){ return; }
+      if(m&&m.r===1&&typeof m.i==='string'){ if(seen.has(m.i)) return; seen.add(m.i); onReport(String(m.tg||'').slice(0,20),String(m.by||'').slice(0,20)); return; }
       if(!m||typeof m.i!=='string'||typeof m.t!=='string'||!m.t.trim()) return;
       add({i:m.i.slice(0,16),n:cleanNick(m.n),f:String(m.f||'').slice(0,20),t:m.t.slice(0,200),ts:+m.ts||Date.now()});
     });
@@ -2030,6 +2053,7 @@ const Chat=(function(){
   function stop(){ if(h){ try{ h.off(); }catch(_){ } } h=null; code=null; open=false; unread=0; render(); }
   function send(text){
     text=String(text||'').replace(/\s+/g,' ').trim().slice(0,200); if(!text||!code) return false;
+    if(muted.has(S.me)){ toast(t('chat_muted_me'),'red'); return false; }
     if(Date.now()-last<900){ toast(t('chat_slow')); return false; } last=Date.now();
     const m={i:rid(10),n:myNick(),f:S.me||'',t:text,ts:Date.now()};
     Hub.pub(topic(),JSON.stringify(m)); add(m); return true;
@@ -2046,7 +2070,14 @@ const Chat=(function(){
     const ul=$('chatList'), atBottom=ul.scrollHeight-ul.scrollTop-ul.clientHeight<40;
     ul.replaceChildren();
     if(!msgs.length) ul.append(el('li','empty',t('chat_empty')));
-    msgs.forEach(m=>{ const li=el('li',m.f===S.me?'me':null); const b=el('b',null,m.n); b.style.color=colorOf(m.n); li.append(b,document.createTextNode(m.t)); ul.append(li); });
+    msgs.forEach(m=>{
+      if(m.sys){ ul.append(el('li','sys',m.t)); return; }
+      if(muted.has(m.f)) return;
+      const li=el('li',m.f===S.me?'me':null); const b=el('b',null,m.n); b.style.color=colorOf(m.n);
+      if(m.f&&m.f!==S.me){ const n=(reps.get(m.f)||new Set()).size, done=mine.has(m.f); const r=el('button','rep'+(done?' done':''),done?'⚑ '+n+'/'+NEED:'⚑'); r.type='button'; r.title=t('chat_report'); r.setAttribute('aria-label',t('chat_report')); if(!done) r.addEventListener('click',()=>report(m)); li.append(r); }
+      li.append(b,document.createTextNode(m.t)); ul.append(li);
+    });
+    const me=muted.has(S.me); $('chatIn').disabled=me; $('chatIn').placeholder=me?t('chat_muted_me'):t('chat_ph');
     if(atBottom||ul.dataset.n!==String(msgs.length)) ul.scrollTop=ul.scrollHeight; ul.dataset.n=String(msgs.length);
   }
   $('chatBtn').addEventListener('click',()=>{ open=!open; if(open){ unread=0; $('chatPeek').hidden=true; } render(); if(open) setTimeout(()=>{ try{ $('chatIn').focus({preventScroll:true}); }catch(_){ } },50); });
