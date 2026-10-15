@@ -419,7 +419,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
     </section>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.3</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.4</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -748,6 +748,7 @@ form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:99
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ new_host:'{x} est le nouvel hôte : la partie continue.', new_host_me:'L\'hôte est parti : tu es le nouvel hôte, la partie continue.',
  b_online_tab:'En ligne', b_online:'Victoires en ligne · classement mondial', v_wins:'{n} V', v_wins_1:'{n} V', v_online:'{p} matchs · {r} % · {pts} pts', st_on_p:'Matchs en ligne', st_on_w:'Victoires en ligne', st_on_r:'% de victoires', st_on_pod:'Podiums en ligne', st_on_pts:'Points en ligne', online_note:'Matchs « Entre amis » en ligne à 2 joueurs ou plus. Connecte-toi à un compte pour y apparaître.', host_closed:'L\'hôte a quitté : le salon est fermé.',
  share_img:'Image', img_saved:'Image enregistrée : publie-la en story !', beat:'Tu fais mieux que {p} % des joueurs du jour', seo_by_letter:'Footballeurs par lettre :',
  inst_btn:'Installer l\'appli', inst_title:'Installer FOOT LETTERS', inst_ios1:'Touche le bouton Partager (le carré avec une flèche vers le haut) en bas de Safari.', inst_ios2:'Choisis « Sur l\'écran d\'accueil ».', inst_ios3:'Touche « Ajouter » : l\'icône FOOT LETTERS apparaît avec tes applis.', inst_ok:'Compris', inst_done:'FOOT LETTERS est installé !',
@@ -801,6 +802,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ new_host:'{x} is the new host: the game goes on.', new_host_me:'The host left: you are the new host, the game goes on.',
  b_online_tab:'Online', b_online:'Online wins · world ranking', v_wins:'{n} W', v_wins_1:'{n} W', v_online:'{p} games · {r}% · {pts} pts', st_on_p:'Online games', st_on_w:'Online wins', st_on_r:'Win rate', st_on_pod:'Online podiums', st_on_pts:'Online points', online_note:'Online “With friends” games with 2 or more players. Log in to an account to appear here.', host_closed:'The host left: the room is closed.',
  share_img:'Image', img_saved:'Image saved: post it as a story!', beat:'You beat {p}% of today\'s players', seo_by_letter:'Footballers by letter:',
  inst_btn:'Install app', inst_title:'Install FOOT LETTERS', inst_ios1:'Tap the Share button (the square with an up arrow) at the bottom of Safari.', inst_ios2:'Choose “Add to Home Screen”.', inst_ios3:'Tap “Add”: the FOOT LETTERS icon appears with your apps.', inst_ok:'Got it', inst_done:'FOOT LETTERS is installed!',
@@ -854,6 +856,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ new_host:'{x} ist der neue Host: Das Spiel geht weiter.', new_host_me:'Der Host ist gegangen: Du bist der neue Host, das Spiel geht weiter.',
  b_online_tab:'Online', b_online:'Online-Siege · Weltrangliste', v_wins:'{n} S', v_wins_1:'{n} S', v_online:'{p} Spiele · {r} % · {pts} Pkt.', st_on_p:'Online-Spiele', st_on_w:'Online-Siege', st_on_r:'Siegquote', st_on_pod:'Online-Podien', st_on_pts:'Online-Punkte', online_note:'Online-Spiele „Mit Freunden“ ab 2 Spielern. Melde dich an, um hier zu erscheinen.', host_closed:'Der Host ist gegangen: Der Raum ist geschlossen.',
  share_img:'Bild', img_saved:'Bild gespeichert: Teile es als Story!', beat:'Du bist besser als {p} % der heutigen Spieler', seo_by_letter:'Fußballer nach Buchstabe:',
  inst_btn:'App installieren', inst_title:'FOOT LETTERS installieren', inst_ios1:'Tippe unten in Safari auf Teilen (das Quadrat mit dem Pfeil nach oben).', inst_ios2:'Wähle „Zum Home-Bildschirm“.', inst_ios3:'Tippe auf „Hinzufügen“: Das FOOT-LETTER-Symbol erscheint bei deinen Apps.', inst_ok:'Verstanden', inst_done:'FOOT LETTERS ist installiert!',
@@ -1255,9 +1258,9 @@ const Net=(function(){
       leave:()=>{ if(!r.dead){ r.dead=true; r.timers.forEach(x=>clearInterval(x)); close(); r.offs.forEach(f=>f()); } }
     };
   }
-  async function host(code){
+  async function host(code,opt){
     if(!(await Hub.ready(9000))) throw {type:'network'};
-    const base=ROOT+'room/'+code, r=mk(); r.myId='h'+rid(9);
+    const base=ROOT+'room/'+code, r=mk(); r.myId=(opt&&opt.id)||('h'+rid(9));
     const pres=new Map([[r.myId,{}]]), seen=new Map();
     const broadcast=()=>{ const list=[...pres.entries()].map(([peer,presence])=>({peer,presence})); Hub.pub(base+'/down',JSON.stringify({t:'peers',list})); applyList(r,list); };
     const h=Hub.sub(base+'/up/+',(tp,txt)=>{
@@ -1274,13 +1277,19 @@ const Net=(function(){
         if(before!==js) broadcast();
       }
     });
-    r.offs.push(h.off, Hub.onChange(()=>{ if(Hub.count()) broadcast(); }));
+    // un autre hôte a pris le relais (on était parti trop longtemps) : on s'efface
+    const hd=Hub.sub(base+'/down',(tp,txt)=>{
+      if(r.dead) return; let m; try{ m=JSON.parse(txt); }catch(_){ return; }
+      if(m&&m.t==='peers'&&Array.isArray(m.list)&&m.list.some(x=>x&&x.peer!==r.myId&&x.presence&&x.presence.r==='h')&&!m.list.some(x=>x&&x.peer===r.myId)) fail(r,'replaced');
+    });
+    r.offs.push(h.off, hd.off, Hub.onChange(()=>{ if(Hub.count()) broadcast(); }));
     r.timers.push(setInterval(()=>{ const now=Date.now(); seen.forEach((x,id)=>{ if(now-x>25000){ seen.delete(id); pres.delete(id); } }); broadcast(); },2000));
     return api(r,()=>{ pres.set(r.myId,JSON.parse(JSON.stringify(r.own))); broadcast(); },()=>{ Hub.pub(base+'/down','{"t":"end"}'); });
   }
-  async function join(code){
+  async function join(code,opt){
     if(!(await Hub.ready(9000))) throw {type:'network'};
-    const base=ROOT+'room/'+code, r=mk(); r.myId=rid(10);
+    const base=ROOT+'room/'+code, r=mk(); r.myId=(opt&&opt.id)||rid(10);
+    const wait=(opt&&opt.wait)||9000;
     const send=()=>Hub.pub(base+'/up/'+r.myId,JSON.stringify({t:'p',p:r.own}));
     return new Promise((res,rej)=>{
       let found=false,lastHost=0,ended=false;
@@ -1291,6 +1300,7 @@ const Net=(function(){
         if(m.t==='peers'&&Array.isArray(m.list)){
           if(ended) return;
           if(found&&!m.list.some(x=>x&&x.presence&&x.presence.r==='h')) return;
+          if(opt&&opt.not&&m.list.some(x=>x&&x.peer===opt.not&&x.presence&&x.presence.r==='h')) return;
           lastHost=Date.now();
           if(!found){
             found=true; clearInterval(iv); clearTimeout(to);
@@ -1303,7 +1313,7 @@ const Net=(function(){
       r.offs.push(h.off, Hub.onChange(()=>{ if(Hub.count()&&found) send(); }));
       h.ready.then(send);
       const iv=setInterval(send,1200);
-      const to=setTimeout(()=>{ if(found) return; clearInterval(iv); h.off(); rej({type:Hub.count()?'no-host':'network'}); },9000);
+      const to=setTimeout(()=>{ if(found) return; clearInterval(iv); h.off(); rej({type:Hub.count()?'no-host':'network'}); },wait);
     });
   }
   return {host,join};
@@ -1395,7 +1405,7 @@ function makeEngine(publish){
   }
   function startRound(){
     const g=e.g;
-    g.letter=pickLetter(); e.usedL.push(g.letter.toLowerCase());
+    g.letter=pickLetter(); e.usedL.push(g.letter.toLowerCase()); g.ul=e.usedL.slice();
     g.chosen=g.round===1&&e.cfg.letter!=='?'?1:0;
     g.al={}; g.sc={}; g.yc={}; g.miss={}; g.rt={};
     g.order.forEach(id=>{ g.al[id]=g.gone[id]?0:1; g.sc[id]=0; g.yc[id]=0; g.miss[id]=0; g.rt[id]=0; });
@@ -1442,6 +1452,23 @@ function makeEngine(publish){
     const now=Date.now(); if(now-(e.lastFoul[pid]||0)<2500) return; e.lastFoul[pid]=now;
     g.yc[pid]=(g.yc[pid]||0)+1;
     if(g.yc[pid]>=2) elim(pid,'yy'); else g.ev={k:(g.ev?.k||0)+1,p:pid,w:'yellow'};
+    pub();
+  };
+  // reprise par un nouvel hôte : on repart de l'état publié par l'ancien
+  e.adopt=(g0,oldHost)=>{
+    const g=JSON.parse(JSON.stringify(g0));
+    e.g=g; e.cfg={...e.cfg,...(g.cfg||{})};
+    e.usedL=(g.ul&&g.ul.slice())||(g.letter?[g.letter.toLowerCase()]:[]);
+    e.keys=new Set();
+    (g.log||[]).forEach(x=>{ const r=checkLocal(String(x[1]),g.letter,new Set()); if(r.st==='ok') r.keys.forEach(k=>e.keys.add(k)); else e.keys.add('f:'+norm(String(x[1]))); });
+    clearInterval(e.timer); clearTimeout(e.dt);
+    if(g.phase==='play'||g.phase==='draw'){
+      g.check=null; g.pend=null; g.paused=0; g.phase='play';
+      e.deadline=Date.now()+Math.max(5000,g.rem||TMS());
+      e.timer=setInterval(()=>{ const x=e.g; if(!x) return; if(x.phase==='play'&&!x.paused&&Date.now()>=e.deadline){ elim(x.cur,'time'); pub(); } },150);
+    }
+    g.ev={k:(g.ev?.k||0)+1,p:oldHost,w:'left'};
+    if(oldHost&&g.order&&g.order.includes(oldHost)){ g.gone=g.gone||{}; g.gone[oldHost]=1; if(g.al&&g.al[oldHost]&&g.phase==='play'){ g.al[oldHost]=0; g.elim.push(oldHost); if(g.cur===oldHost) advance(); else checkEnd(); } }
     pub();
   };
   e.stop=()=>{ clearInterval(e.timer); clearTimeout(e.dt); };
@@ -1895,6 +1922,48 @@ Hub.onChange(renderNet);
 })();
 function netErr(e){ return e&&e.type==='no-host'?t('err_nohost'):t('err_net'); }
 function randCode(){ const a='abcdefghjkmnpqrstuvwxyz'; let s=''; for(let i=0;i<4;i++) s+=a[Math.floor(Math.random()*a.length)]; return s; }
+function hostPublisher(){ return g=>{ S.g=JSON.parse(JSON.stringify(g)); S.nr&&S.nr.presence({r:'h',nick:myNick(),g:S.g}); renderGame(S.g); }; }
+// L'hôte est parti : un joueur encore présent reprend le salon, la partie continue.
+async function migrateHost(){
+  if(S.migrating||S.mode!=='online'||S.isHost) return;
+  S.migrating=true;
+  const code=S.code, oldHost=S.hostPeer, g=S.g, me=S.me;
+  const present=new Set((S.lastPeers||[]).map(p=>p.peer)); present.add(me);
+  let cands=[];
+  if(g&&g.order) cands=g.order.filter(id=>id!==oldHost&&present.has(id)&&!(g.gone||{})[id]);
+  [...present].filter(id=>id!==oldHost&&!cands.includes(id)).sort().forEach(id=>cands.push(id));
+  if(!cands.includes(me)) cands.push(me);
+  if(S.nr){ try{ S.nr.leave(); }catch(_){ } S.nr=null; }
+  for(const c of cands){
+    if(S.mode!=='online'||S.code!==code) break;
+    if(c===me){ await becomeHost(code,g,oldHost); S.migrating=false; return; }
+    try{
+      const nr=await Net.join(code,{id:me,not:oldHost,wait:4500+cands.indexOf(c)*1500});
+      if(S.mode!=='online'||S.code!==code){ nr.leave(); break; }
+      S.nr=nr; S.hostPeer=null; S.lastV=-1;
+      nr.onPeers(onRoomPeers,onRoomError);
+      nr.presence({r:'p',nick:myNick(),sub:{n:S.subN}});
+      S.migrating=false; renderNet(); return;
+    }catch(_){ }
+  }
+  S.migrating=false;
+  toast(t('host_left')); leaveOnline(); show('home');
+}
+async function becomeHost(code,g,oldHost){
+  try{ S.nr=await Net.host(code,{id:S.me}); }catch(e){ toast(t('host_left')); leaveOnline(); show('home'); return; }
+  S.isHost=true; S.hostPeer=S.me; S.seen={}; S.reSeen={};
+  if(g&&g.cfg){ S.cfg=Object.assign({},S.cfg,g.cfg); }
+  S.engine=makeEngine(hostPublisher());
+  S.engine.setCfg(S.cfg);
+  S.nr.onPeers(onRoomPeers,onRoomError);
+  S.nr.presence({r:'h',nick:myNick()});
+  if(g&&g.order&&g.phase!=='lobby'){
+    S.engine.adopt(g,oldHost);
+    // les joueurs qui ne sont pas revenus après la reprise sont considérés partis
+    setTimeout(()=>{ if(!S.isHost||!S.engine||!S.nr) return; const here=new Set(S.nr.peers().map(p=>p.peer)); (S.engine.g&&S.engine.g.order||[]).forEach(id=>{ if(!here.has(id)) S.engine.leftMatch(id); }); },12000);
+  } else { S.engine.lobby(); renderLobby(); }
+  toast(t('new_host_me')); renderNet();
+}
 async function createRoom(){
   if(!requireNick()) return;
   leaveOnline();
@@ -1903,7 +1972,7 @@ async function createRoom(){
   try{ S.nr=await Net.host(code); }catch(e){ $('mFriends').disabled=false; toast(netErr(e)); return; }
   $('mFriends').disabled=false; $('toast').hidden=true;
   S.mode='online'; S.isHost=true; S.code=code; S.seen={}; S.reSeen={}; resetView();
-  S.engine=makeEngine(g=>{ S.g=JSON.parse(JSON.stringify(g)); S.nr&&S.nr.presence({r:'h',nick:myNick(),g:S.g}); renderGame(S.g); });
+  S.engine=makeEngine(hostPublisher());
   S.engine.setCfg(S.cfg);
   S.nr.onPeers(onRoomPeers,onRoomError);
   S.nr.presence({r:'h',nick:myNick()});
@@ -1924,9 +1993,18 @@ async function joinRoom(code){
   S.nr.presence({r:'p',nick:myNick()});
   renderLobby(); renderNet();
 }
-function onRoomError(e){ toast(e&&e.message==='host-left'?t('host_closed'):t('host_left')); leaveOnline(); try{ history.replaceState(null,'',location.pathname+location.search); }catch(_){ } renderDailyBadge(); show('home'); }
+function onRoomError(e){
+  const why=e&&e.message;
+  if(S.mode==='online'&&!S.isHost&&(why==='host-left'||why==='host-timeout')){ migrateHost(); return; }
+  if(S.mode==='online'&&S.isHost&&why==='replaced'){ S.isHost=false; if(S.engine) S.engine.stop(); S.engine=null; rejoinAsGuest(); return; }
+  toast(t('host_left')); leaveOnline(); try{ history.replaceState(null,'',location.pathname+location.search); }catch(_){ } renderDailyBadge(); show('home'); }
+async function rejoinAsGuest(){
+  const code=S.code;
+  try{ const nr=await Net.join(code,{id:S.me}); S.nr=nr; S.hostPeer=null; S.lastV=-1; nr.onPeers(onRoomPeers,onRoomError); nr.presence({r:'p',nick:myNick()}); renderNet(); }
+  catch(_){ toast(t('host_left')); leaveOnline(); show('home'); }
+}
 function onRoomPeers(ch){
-  const peers=ch.peers;
+  const peers=ch.peers; S.lastPeers=peers.map(p=>({peer:p.peer}));
   const meP=peers.find(p=>p.sameTab); if(meP) S.me=meP.peer;
   handleReactions(peers);
   if(S.isHost){
@@ -1946,6 +2024,7 @@ function onRoomPeers(ch){
   } else {
     const host=peers.find(p=>p.presence&&p.presence.r==='h'&&!p.sameTab);
     if(host){
+      if(S.hostPeer&&S.hostPeer!==host.peer) toast(t('new_host',{x:cleanNick(host.presence.nick)}));
       S.hostPeer=host.peer;
       const g=host.presence.g;
       if(g&&typeof g==='object'&&g.v!==S.lastV){
