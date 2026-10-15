@@ -5,8 +5,9 @@ repo = root.parent
 html = (root / "index.template.html").read_text(encoding="utf8")
 players = (root / "players.txt").read_text(encoding="utf8")
 import hashlib
-BUILD = hashlib.sha1((html + players).encode("utf8")).hexdigest()[:10]
-(repo / "index.html").write_text(html.replace("/*PLAYERS*/", players).replace("__BUILD__", BUILD), encoding="utf8")
+BUILD = hashlib.sha1((html + players + (root / "stars.txt").read_text(encoding="utf8")).encode("utf8")).hexdigest()[:10]
+stars = (root / "stars.txt").read_text(encoding="utf8").strip()
+(repo / "index.html").write_text(html.replace("/*PLAYERS*/", players).replace("__BUILD__", BUILD).replace("__STARS__", stars.replace("\\","").replace("'","\\'")), encoding="utf8")
 (repo / "version.json").write_text('{"v":"' + BUILD + '"}\n', encoding="utf8")
 
 def seg(tag):

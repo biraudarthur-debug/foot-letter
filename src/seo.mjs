@@ -53,7 +53,7 @@ const qfaq = [
 const qld = [{"@context":"https://schema.org","@type":"FAQPage","mainEntity":qfaq.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))},
   {"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","url":"https://footletters.com/","genre":["Quiz","Football"],"inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}];
 writeFileSync(new URL('index.html', qdir), head('Quiz foot gratuit en ligne : teste ta culture foot | FOOT LETTERS',
-  'Quiz foot gratuit : une lettre, un chrono, cite un maximum de footballeurs. Lettre du jour, défis, quiz foot entre amis en ligne et classements mondiaux.', '/quiz-foot/') +
+  'Quiz foot gratuit : une lettre, un chrono, cite un maximum de footballeurs. Lettre du jour, duels contre un bot, quiz foot entre amis en ligne et classements mondiaux.', '/quiz-foot/') +
 `<h1>Quiz foot : le jeu de culture foot gratuit</h1>
 <p><strong>FOOT LETTERS</strong> est un quiz foot en ligne, simple et addictif : une lettre tombe, et tu dois citer un maximum de footballeurs dont le <strong>nom de famille</strong> commence par cette lettre. Pas de QCM, pas de questions pièges : juste ta mémoire du foot contre le chrono.</p>
 <a class="cta" href="/">Lancer le quiz foot →</a>
@@ -64,7 +64,7 @@ writeFileSync(new URL('index.html', qdir), head('Quiz foot gratuit en ligne : te
 <li><strong>Lettre du jour</strong> : la même lettre pour tout le monde, 3 minutes, un seul essai et un classement du jour. Partage ta grille de résultat comme sur Wordle.</li>
 <li><strong>Quiz foot entre amis</strong> : un salon en ligne avec un code, chacun joue sur son téléphone. Manches, points (3, 2, 1) et classement mondial des victoires.</li>
 <li><strong>Jouer ici</strong> : à plusieurs sur un même téléphone, on se passe l'appareil.</li>
-<li><strong>Défi</strong> : annonce combien de joueurs tu vas trouver, puis tiens parole avec 30 secondes par nom.</li>
+<li><strong>Contre le bot</strong> : choisis ta lettre et le niveau du robot (facile, moyen, difficile), puis citez des joueurs chacun votre tour. Le premier qui sèche perd.</li>
 <li><strong>Tour de l'alphabet</strong> : un footballeur pour chaque lettre de A à Z, le plus vite possible, avec 3 jokers.</li>
 <li><strong>Solo</strong> : entraîne-toi, débloque des badges et fais grimper ta série de jours.</li>
 </ul>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Quiz foot gratuit · FOOT LETTERS, le jeu de culture foot</title>
-<meta name="description" content="Quiz foot gratuit en ligne : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. Lettre du jour, défis, quiz foot entre amis et classements mondiaux.">
+<meta name="description" content="Quiz foot gratuit en ligne : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. Lettre du jour, duels contre un bot, quiz foot entre amis et classements mondiaux.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://footletters.com/">
@@ -14,11 +14,11 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="FOOT LETTERS · le quiz foot du jour">
-<meta name="twitter:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
+<meta name="twitter:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, duels contre un bot et parties entre amis.">
 <meta name="twitter:image" content="https://footletters.com/og.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","url":"https://footletters.com/","image":"https://footletters.com/og.png","alternateName":["Foot Letters","Quiz foot FOOT LETTERS"],"keywords":"quiz foot, quiz football, jeu de foot en ligne, culture foot, quiz foot entre amis, quiz foot gratuit","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"sameAs":["https://www.tiktok.com/@footletters.off"]}</script>
 <meta property="og:title" content="FOOT LETTERS · le quiz foot du jour">
-<meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, défis et parties entre amis.">
+<meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, duels contre un bot et parties entre amis.">
 <meta name="theme-color" content="#0f4a2b">
 <link rel="manifest" href="/manifest.webmanifest">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5be1bb81-ef5d-42ba-a5bc-366e25d7735c"></script>
@@ -421,7 +421,7 @@ body.has-chat main{padding-bottom:150px}
         <button class="mode" id="mJoin" type="button" style="--mc:#4ea3e8"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg></span><strong data-i18n="m_join"></strong><span class="d" data-i18n="m_join_d"></span></button>
         <button class="mode" id="mLocal" type="button" style="--mc:#2fb36b"><span class="k" data-i18n="k_local"></span><span class="ic" style="background:var(--go)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></svg></span><strong data-i18n="m_local"></strong><span class="d" data-i18n="m_local_d"></span></button>
         <button class="mode" id="mDaily" type="button" style="--mc:#f08a4b"><span class="k" data-i18n="k_daily"></span><span class="ic" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><strong data-i18n="m_daily"></strong><span class="d" data-i18n="m_daily_d"></span><span class="badge" id="dailyBadge" hidden></span></button>
-        <button class="mode" id="mDefi" type="button" style="--mc:#f06aa8"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><strong data-i18n="m_defi"></strong><span class="d" data-i18n="m_defi_d"></span></button>
+        <button class="mode" id="mBot" type="button" style="--mc:#f06aa8"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><strong data-i18n="m_bot"></strong><span class="d" data-i18n="m_bot_d"></span></button>
         <button class="mode" id="mAbc" type="button" style="--mc:#9a7bf0"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l3.5-11L10 18M4.2 14.5h4.6"/><path d="M14 7h6l-6 11h6"/></svg></span><strong data-i18n="m_abc"></strong><span class="d" data-i18n="m_abc_d"></span></button>
       </div>
       <form class="row" id="joinForm" hidden>
@@ -446,14 +446,14 @@ body.has-chat main{padding-bottom:150px}
     <p class="note" style="margin-top:12px" id="dbNote"></p>
     <section class="seo-text" id="seoText" lang="fr">
       <h2>Le quiz foot gratuit pour tester ta culture foot</h2>
-      <p>FOOT LETTERS est un <strong>quiz foot</strong> en ligne : une lettre tombe et tu as quelques secondes pour citer des footballeurs dont le nom commence par cette lettre. Joue en solo, relève la <strong>lettre du jour</strong> face à tout le monde, lance un défi, fais le tour de l'alphabet ou organise un <strong>quiz foot entre amis</strong> en ligne. Gratuit, sans inscription obligatoire.</p>
+      <p>FOOT LETTERS est un <strong>quiz foot</strong> en ligne : une lettre tombe et tu as quelques secondes pour citer des footballeurs dont le nom commence par cette lettre. Joue en solo, relève la <strong>lettre du jour</strong> face à tout le monde, affronte le bot, fais le tour de l'alphabet ou organise un <strong>quiz foot entre amis</strong> en ligne. Gratuit, sans inscription obligatoire.</p>
       <p><a href="/quiz-foot/">Tout savoir sur le quiz foot</a> · <a href="/joueurs/">Réviser : les footballeurs de A à Z</a></p>
       <details><summary>C'est quoi FOOT LETTERS ?</summary><p>Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono.</p></details><details><summary>Le quiz foot est-il gratuit ?</summary><p>Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli.</p></details><details><summary>Peut-on jouer au quiz foot entre amis ?</summary><p>Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial.</p></details><details><summary>Quels joueurs sont acceptés ?</summary><p>Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct.</p></details><details><summary>Comment marche la lettre du jour ?</summary><p>Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager.</p></details>
     </section>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
     <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
     <p style="margin-top:14px"><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v10.15</p>
+    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v11</p>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -613,6 +613,13 @@ body.has-chat main{padding-bottom:150px}
           <div class="bigletter" id="introLetter">?</div>
           <div class="actions"><button class="btn small ghost" id="rerollBtn" type="button" data-i18n="reroll"></button></div>
         </div>
+        <div id="botWrap" hidden>
+          <div class="label" style="text-align:center" data-i18n="bot_level"></div>
+          <div class="seg" id="botDiff" style="display:flex;justify-content:center;margin:6px auto 4px;width:max-content;max-width:100%"><button type="button" data-d="e" data-i18n="bot_e"></button><button type="button" data-d="m" data-i18n="bot_m"></button><button type="button" data-d="h" data-i18n="bot_h"></button></div>
+          <p class="note" id="botDiffNote" style="text-align:center;margin:4px 0 10px"></p>
+          <div class="label" style="text-align:center" data-i18n="bot_pick"></div>
+          <div class="letters" id="botLetters" style="justify-content:center"></div>
+        </div>
         <div id="betWrap" hidden>
           <div class="label" style="text-align:center" data-i18n="bet"></div>
           <div class="stepper"><button type="button" id="betMinus" aria-label="-1">−</button><output id="betVal">10</output><button type="button" id="betPlus" aria-label="+1">+</button></div>
@@ -759,7 +766,7 @@ body.has-chat main{padding-bottom:150px}
     <section class="panel" style="margin-top:14px">
       <div class="row" style="justify-content:space-between;align-items:center">
         <div class="seg" id="bTabs">
-          <button type="button" data-tab="daily" data-i18n="m_daily"></button><button type="button" data-tab="defi" data-i18n="m_defi"></button><button type="button" data-tab="abc" data-i18n="m_abc"></button><button type="button" data-tab="online" data-i18n="b_online_tab"></button><button type="button" data-tab="xp" data-i18n="b_xp_tab"></button>
+          <button type="button" data-tab="daily" data-i18n="m_daily"></button><button type="button" data-tab="bot" data-i18n="m_bot"></button><button type="button" data-tab="abc" data-i18n="m_abc"></button><button type="button" data-tab="online" data-i18n="b_online_tab"></button><button type="button" data-tab="xp" data-i18n="b_xp_tab"></button>
         </div>
         <button class="btn small" id="bRefresh" type="button" data-i18n="refresh"></button>
       </div>
@@ -4697,6 +4704,7 @@ Merih Demiral
 /* ================= TEXTES (FR / EN / DE) ================= */
 const I18N={
 fr:{
+ m_bot:'Contre le bot', m_bot_d:'Choisis ta lettre et le niveau du robot, puis citez des joueurs chacun votre tour. Le premier qui sèche perd.', bot_intro:'Toi et le bot citez des joueurs chacun votre tour, sur la même lettre, sans doublon. Tu as 30 secondes par tour. Le premier qui sèche a perdu.', bot_go:'Affronter le bot', bot_level:'Niveau du bot', bot_pick:'Choisis ta lettre', bot_e:'Facile', bot_m:'Moyen', bot_h:'Difficile', bot_e_d:'Ne connaît que les stars, répond lentement et sèche vite. Points ×1.', bot_m_d:'Connaît les stars et les joueurs courants, plus rapide. Points ×2.', bot_h_d:'Connaît toute la base, répond vite et sèche rarement. Points ×3.', bot_board:'Contre le bot · lettre {L}', b_bot:'Contre le bot · lettre {L}', bot_your_turn:'à toi', bot_thinking:'le bot réfléchit…', bot_fail:'Le bot sèche !', bot_name:'Bot', prog_bot:'Toi {a} · Bot {b}', res_bot_ok:'Victoire contre le bot !', res_bot_ko:'Le bot gagne', res_bot_sub:'Toi {a} – Bot {b} · lettre {L} · {p} pts', bot_win_s:'victoire', bot_loss_s:'défaite', rule_bot:'Points = tes noms × le multiplicateur du niveau (Facile ×1, Moyen ×2, Difficile ×3), +10 × le multiplicateur en cas de victoire. Le niveau joué est indiqué sous chaque score.', st_bot:'Victoires bot (F / M / D)', b_defi10:'Pas mal !', bd_defi10:'Battre le bot Moyen', b_defi20:'Plus fort que la machine', bd_defi20:'Battre le bot Difficile',
  upd_later:'Nouvelle version disponible : elle s\'installera à la fin de la partie.', upd_done:'FOOT LETTERS est à jour ✓', live_note:'● Mise à jour automatique toutes les 15 secondes.', b_daily_past:'Lettre du jour {L}', b_xp_tab:'Niveaux', b_xp:'Classement général · niveaux', today:'Aujourd\'hui', rule_daily:'Une ligne par joueur et par jour : ton score du jour. Utilise ◀ ▶ pour voir les jours précédents.', rule_defi:'Seuls les défis réussis entrent au classement de la lettre : la plus grosse annonce tenue.', rule_abc:'Seuls les tours de l\'alphabet terminés (A à Z) entrent au classement, au meilleur temps.', rule_xp:'Tous les comptes, classés par expérience totale. Mis à jour toutes les minutes.',
  lv_n:'Niveau {n}', xp_of:'{a} / {b} XP', lv_up:'Niveau {n} !', lv_remp:'Remplaçant', lv_titu:'Titulaire', lv_capt:'Capitaine', lv_inter:'International', lv_ballon:'Ballon d\'or', lv_legend:'Légende', xp_rules:'XP : 10 par joueur cité, 20 par partie, 50 par victoire entre amis, 15 par podium en ligne, 10 par jour de ta meilleure série, 100 par badge.', tiktok:'Suis-nous sur TikTok',
  chat_report:'Signaler ce joueur', chat_reported:'Signalement envoyé. À 3 signalements, le joueur ne peut plus écrire.', chat_muted:'{x} a été signalé par 3 joueurs : il ne peut plus écrire.', chat_muted_me:'Tu as été signalé par 3 joueurs : tu ne peux plus écrire dans ce salon.',
@@ -4711,7 +4719,7 @@ fr:{
  pr_title:'Profil', pr_since:'Membre depuis le {d}', pr_badges:'Badges', streak_days:'{n} jours de suite', streak_days_1:'{n} jour de suite', streak_best:'Record : {n}', streak_none:'Joue la lettre du jour pour lancer ta série',
  st_games:'Parties', st_wins:'Victoires entre amis', st_names:'Joueurs cités', st_daily:'Record lettre du jour', st_defi:'Plus gros défi', st_abc:'Meilleur alphabet', st_letters:'Lettres explorées', fav_player:'Joueur le plus cité : {x} ({n} fois)', fav_letter:'Lettre préférée : {x}',
  badge_new:'Nouveau badge', unranked_note:'Hors classement cette fois : serveur injoignable.', unranked_now:'Serveur injoignable : partie hors classement.', server_checked:'vérifié par le serveur : {n} valides', daily_done_short:'Tu as déjà joué la lettre du jour.',
- b_kickoff:'Coup d\'envoi', bd_kickoff:'Jouer sa première partie', b_ten_minute:'Éclair', bd_ten_minute:'10 joueurs en moins d\'une minute (lettre du jour)', b_daily20:'Buteur du jour', bd_daily20:'20 joueurs à la lettre du jour', b_streak3:'Régulier', bd_streak3:'3 jours de suite', b_streak7:'Une semaine', bd_streak7:'7 jours de suite', b_streak30:'Un mois', bd_streak30:'30 jours de suite', b_defi10:'Parole tenue', bd_defi10:'Réussir un défi de 10', b_defi20:'Monstre', bd_defi20:'Réussir un défi de 20', b_abc_clean:'Sans filet', bd_abc_clean:'Alphabet sans joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet en moins de 3 min', b_win1:'Première victoire', bd_win1:'Gagner un match entre amis', b_win10:'Patron', bd_win10:'10 victoires entre amis', b_century:'Centurion', bd_century:'100 joueurs cités', b_legend:'Encyclopédie', bd_legend:'500 joueurs cités', b_polyglot:'Globe-trotter', bd_polyglot:'Des joueurs sur 20 lettres différentes',
+ b_kickoff:'Coup d\'envoi', bd_kickoff:'Jouer sa première partie', b_ten_minute:'Éclair', bd_ten_minute:'10 joueurs en moins d\'une minute (lettre du jour)', b_daily20:'Buteur du jour', bd_daily20:'20 joueurs à la lettre du jour', b_streak3:'Régulier', bd_streak3:'3 jours de suite', b_streak7:'Une semaine', bd_streak7:'7 jours de suite', b_streak30:'Un mois', bd_streak30:'30 jours de suite', b_abc_clean:'Sans filet', bd_abc_clean:'Alphabet sans joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet en moins de 3 min', b_win1:'Première victoire', bd_win1:'Gagner un match entre amis', b_win10:'Patron', bd_win10:'10 victoires entre amis', b_century:'Centurion', bd_century:'100 joueurs cités', b_legend:'Encyclopédie', bd_legend:'500 joueurs cités', b_polyglot:'Globe-trotter', bd_polyglot:'Des joueurs sur 20 lettres différentes',
  home:'Accueil', sound_on:'Son : on', sound_off:'Son : off',
  hero_lede:'Le quiz foot où une lettre tombe : citez un footballeur dont le <b>nom de famille</b> commence par cette lettre. Entre amis, en solo ou chaque jour face au monde entier.',
  nick_label:'Ton pseudo', nick_ph:'Ex. Zizou10',
@@ -4755,6 +4763,7 @@ fr:{
  need_nick:'Choisis un pseudo d\'abord.', code_len:'Le code fait 4 lettres.', open_room:'Ouverture du salon…', search_room:'Recherche du salon {c}…', err_nohost:'Aucune partie ouverte avec ce code. Vérifie les 4 lettres et que l\'hôte est dans le salon.', err_net:'Impossible de joindre les serveurs depuis ce réseau. Essaie en 4G ou un autre wifi.', host_left:'L\'hôte a quitté ou la connexion est perdue.', chip_on:'● En ligne', chip_re:'○ Reconnexion…', rules_chip:'{t} · {k}', tries_k:'{n} essais', tries_k_1:'1 essai', tries_inf:'essais illimités'
 },
 en:{
+ m_bot:'Vs the bot', m_bot_d:'Pick your letter and the bot level, then take turns naming players. First one stuck loses.', bot_intro:'You and the bot take turns naming players on the same letter, no repeats. You have 30 seconds per turn. First one stuck loses.', bot_go:'Face the bot', bot_level:'Bot level', bot_pick:'Pick your letter', bot_e:'Easy', bot_m:'Medium', bot_h:'Hard', bot_e_d:'Only knows the stars, answers slowly and gets stuck early. Points ×1.', bot_m_d:'Knows the stars and common players, faster. Points ×2.', bot_h_d:'Knows the whole database, answers fast and rarely gets stuck. Points ×3.', bot_board:'Vs the bot · letter {L}', b_bot:'Vs the bot · letter {L}', bot_your_turn:'your turn', bot_thinking:'the bot is thinking…', bot_fail:'The bot is stuck!', bot_name:'Bot', prog_bot:'You {a} · Bot {b}', res_bot_ok:'You beat the bot!', res_bot_ko:'The bot wins', res_bot_sub:'You {a} – Bot {b} · letter {L} · {p} pts', bot_win_s:'win', bot_loss_s:'loss', rule_bot:'Points = your names × the level multiplier (Easy ×1, Medium ×2, Hard ×3), +10 × the multiplier for a win. The level played is shown under each score.', st_bot:'Bot wins (E / M / H)', b_defi10:'Not bad!', bd_defi10:'Beat the Medium bot', b_defi20:'Beat the machine', bd_defi20:'Beat the Hard bot',
  upd_later:'New version available: it will install after this game.', upd_done:'FOOT LETTERS is up to date ✓', live_note:'● Updates automatically every 15 seconds.', b_daily_past:'Daily letter {L}', b_xp_tab:'Levels', b_xp:'Overall ranking · levels', today:'Today', rule_daily:'One row per player per day: your score of the day. Use ◀ ▶ to see previous days.', rule_defi:'Only successful challenges are ranked for the letter: the biggest call you hit.', rule_abc:'Only completed alphabet runs (A to Z) are ranked, by best time.', rule_xp:'All accounts, ranked by total experience. Updated every minute.',
  lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Substitute', lv_titu:'Starter', lv_capt:'Captain', lv_inter:'International', lv_ballon:'Ballon d\'Or', lv_legend:'Legend', xp_rules:'XP: 10 per player named, 20 per game, 50 per win with friends, 15 per online podium, 10 per day of your best streak, 100 per badge.', tiktok:'Follow us on TikTok',
  chat_report:'Report this player', chat_reported:'Report sent. After 3 reports, the player can no longer write.', chat_muted:'{x} was reported by 3 players and can no longer write.', chat_muted_me:'You were reported by 3 players: you can no longer write in this room.',
@@ -4769,7 +4778,7 @@ en:{
  pr_title:'Profile', pr_since:'Member since {d}', pr_badges:'Badges', streak_days:'{n} days in a row', streak_days_1:'{n} day in a row', streak_best:'Best: {n}', streak_none:'Play the daily letter to start your streak',
  st_games:'Games', st_wins:'Wins with friends', st_names:'Players named', st_daily:'Best daily letter', st_defi:'Biggest challenge', st_abc:'Best alphabet', st_letters:'Letters explored', fav_player:'Most named: {x} ({n} times)', fav_letter:'Favourite letter: {x}',
  badge_new:'New badge', unranked_note:'Not ranked this time: server unreachable.', unranked_now:'Server unreachable: unranked game.', server_checked:'server-checked: {n} valid', daily_done_short:'You already played today\'s letter.',
- b_kickoff:'Kick-off', bd_kickoff:'Play your first game', b_ten_minute:'Lightning', bd_ten_minute:'10 players in under a minute (daily letter)', b_daily20:'Daily scorer', bd_daily20:'20 players on the daily letter', b_streak3:'Regular', bd_streak3:'3 days in a row', b_streak7:'One week', bd_streak7:'7 days in a row', b_streak30:'One month', bd_streak30:'30 days in a row', b_defi10:'Word kept', bd_defi10:'Hit a challenge of 10', b_defi20:'Monster', bd_defi20:'Hit a challenge of 20', b_abc_clean:'No safety net', bd_abc_clean:'Alphabet with no joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in under 3 min', b_win1:'First win', bd_win1:'Win a match with friends', b_win10:'The boss', bd_win10:'10 wins with friends', b_century:'Centurion', bd_century:'100 players named', b_legend:'Encyclopedia', bd_legend:'500 players named', b_polyglot:'Globetrotter', bd_polyglot:'Players on 20 different letters',
+ b_kickoff:'Kick-off', bd_kickoff:'Play your first game', b_ten_minute:'Lightning', bd_ten_minute:'10 players in under a minute (daily letter)', b_daily20:'Daily scorer', bd_daily20:'20 players on the daily letter', b_streak3:'Regular', bd_streak3:'3 days in a row', b_streak7:'One week', bd_streak7:'7 days in a row', b_streak30:'One month', bd_streak30:'30 days in a row', b_abc_clean:'No safety net', bd_abc_clean:'Alphabet with no joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in under 3 min', b_win1:'First win', bd_win1:'Win a match with friends', b_win10:'The boss', bd_win10:'10 wins with friends', b_century:'Centurion', bd_century:'100 players named', b_legend:'Encyclopedia', bd_legend:'500 players named', b_polyglot:'Globetrotter', bd_polyglot:'Players on 20 different letters',
  home:'Home', sound_on:'Sound: on', sound_off:'Sound: off',
  hero_lede:'A letter drops. Name a footballer whose <b>surname</b> starts with it. With friends, solo, or every day against the whole world.',
  nick_label:'Your nickname', nick_ph:'e.g. Zizou10',
@@ -4813,6 +4822,7 @@ en:{
  need_nick:'Pick a nickname first.', code_len:'The code has 4 letters.', open_room:'Opening the room…', search_room:'Looking for room {c}…', err_nohost:'No open game with this code. Check the 4 letters and that the host is in the room.', err_net:'Can\'t reach the servers from this network. Try mobile data or another wifi.', host_left:'The host left or the connection was lost.', chip_on:'● Online', chip_re:'○ Reconnecting…', rules_chip:'{t} · {k}', tries_k:'{n} tries', tries_k_1:'1 try', tries_inf:'unlimited tries'
 },
 de:{
+ m_bot:'Gegen den Bot', m_bot_d:'Wähle deinen Buchstaben und das Bot-Level, dann nennt ihr abwechselnd Spieler. Wer zuerst nichts mehr weiß, verliert.', bot_intro:'Du und der Bot nennt abwechselnd Spieler zum selben Buchstaben, ohne Wiederholung. Du hast 30 Sekunden pro Zug. Wer zuerst nichts mehr weiß, verliert.', bot_go:'Gegen den Bot spielen', bot_level:'Bot-Level', bot_pick:'Wähle deinen Buchstaben', bot_e:'Leicht', bot_m:'Mittel', bot_h:'Schwer', bot_e_d:'Kennt nur die Stars, antwortet langsam und gibt früh auf. Punkte ×1.', bot_m_d:'Kennt Stars und bekannte Spieler, schneller. Punkte ×2.', bot_h_d:'Kennt die ganze Datenbank, antwortet schnell und gibt selten auf. Punkte ×3.', bot_board:'Gegen den Bot · Buchstabe {L}', b_bot:'Gegen den Bot · Buchstabe {L}', bot_your_turn:'du bist dran', bot_thinking:'der Bot überlegt…', bot_fail:'Der Bot weiß nichts mehr!', bot_name:'Bot', prog_bot:'Du {a} · Bot {b}', res_bot_ok:'Sieg gegen den Bot!', res_bot_ko:'Der Bot gewinnt', res_bot_sub:'Du {a} – Bot {b} · Buchstabe {L} · {p} Pkt.', bot_win_s:'Sieg', bot_loss_s:'Niederlage', rule_bot:'Punkte = deine Namen × Level-Faktor (Leicht ×1, Mittel ×2, Schwer ×3), +10 × Faktor bei einem Sieg. Das gespielte Level steht unter jedem Ergebnis.', st_bot:'Bot-Siege (L / M / S)', b_defi10:'Nicht schlecht!', bd_defi10:'Den mittleren Bot schlagen', b_defi20:'Stärker als die Maschine', bd_defi20:'Den schweren Bot schlagen',
  upd_later:'Neue Version verfügbar: Sie wird nach dem Spiel installiert.', upd_done:'FOOT LETTERS ist aktuell ✓', live_note:'● Aktualisiert sich automatisch alle 15 Sekunden.', b_daily_past:'Buchstabe des Tages {L}', b_xp_tab:'Level', b_xp:'Gesamtrangliste · Level', today:'Heute', rule_daily:'Eine Zeile pro Spieler und Tag: dein Tagesergebnis. Mit ◀ ▶ siehst du frühere Tage.', rule_defi:'Nur geschaffte Challenges kommen in die Rangliste des Buchstabens: die größte gehaltene Ansage.', rule_abc:'Nur beendete Alphabet-Runden (A bis Z) kommen in die Rangliste, nach Bestzeit.', rule_xp:'Alle Konten, nach Gesamterfahrung sortiert. Jede Minute aktualisiert.',
  lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Ersatzspieler', lv_titu:'Stammspieler', lv_capt:'Kapitän', lv_inter:'Nationalspieler', lv_ballon:'Ballon d\'Or', lv_legend:'Legende', xp_rules:'XP: 10 pro genanntem Spieler, 20 pro Spiel, 50 pro Sieg mit Freunden, 15 pro Online-Podium, 10 pro Tag deiner besten Serie, 100 pro Abzeichen.', tiktok:'Folge uns auf TikTok',
  chat_report:'Spieler melden', chat_reported:'Meldung gesendet. Nach 3 Meldungen kann der Spieler nicht mehr schreiben.', chat_muted:'{x} wurde von 3 Spielern gemeldet und kann nicht mehr schreiben.', chat_muted_me:'Du wurdest von 3 Spielern gemeldet: Du kannst in diesem Raum nicht mehr schreiben.',
@@ -4827,7 +4837,7 @@ de:{
  pr_title:'Profil', pr_since:'Mitglied seit {d}', pr_badges:'Abzeichen', streak_days:'{n} Tage in Folge', streak_days_1:'{n} Tag in Folge', streak_best:'Rekord: {n}', streak_none:'Spiel den Buchstaben des Tages, um deine Serie zu starten',
  st_games:'Spiele', st_wins:'Siege mit Freunden', st_names:'Genannte Spieler', st_daily:'Rekord Tagesbuchstabe', st_defi:'Größte Challenge', st_abc:'Bestes Alphabet', st_letters:'Erkundete Buchstaben', fav_player:'Meistgenannt: {x} ({n}-mal)', fav_letter:'Lieblingsbuchstabe: {x}',
  badge_new:'Neues Abzeichen', unranked_note:'Diesmal nicht gewertet: Server nicht erreichbar.', unranked_now:'Server nicht erreichbar: Spiel ohne Wertung.', server_checked:'vom Server geprüft: {n} gültig', daily_done_short:'Du hast den Buchstaben des Tages schon gespielt.',
- b_kickoff:'Anstoß', bd_kickoff:'Dein erstes Spiel', b_ten_minute:'Blitz', bd_ten_minute:'10 Spieler in unter einer Minute (Tagesbuchstabe)', b_daily20:'Tagestorschütze', bd_daily20:'20 Spieler beim Tagesbuchstaben', b_streak3:'Stammspieler', bd_streak3:'3 Tage in Folge', b_streak7:'Eine Woche', bd_streak7:'7 Tage in Folge', b_streak30:'Ein Monat', bd_streak30:'30 Tage in Folge', b_defi10:'Wort gehalten', bd_defi10:'Challenge mit 10 geschafft', b_defi20:'Monster', bd_defi20:'Challenge mit 20 geschafft', b_abc_clean:'Ohne Netz', bd_abc_clean:'Alphabet ohne Joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in unter 3 Min.', b_win1:'Erster Sieg', bd_win1:'Ein Spiel mit Freunden gewinnen', b_win10:'Der Boss', bd_win10:'10 Siege mit Freunden', b_century:'Centurion', bd_century:'100 Spieler genannt', b_legend:'Lexikon', bd_legend:'500 Spieler genannt', b_polyglot:'Weltenbummler', bd_polyglot:'Spieler auf 20 verschiedenen Buchstaben',
+ b_kickoff:'Anstoß', bd_kickoff:'Dein erstes Spiel', b_ten_minute:'Blitz', bd_ten_minute:'10 Spieler in unter einer Minute (Tagesbuchstabe)', b_daily20:'Tagestorschütze', bd_daily20:'20 Spieler beim Tagesbuchstaben', b_streak3:'Stammspieler', bd_streak3:'3 Tage in Folge', b_streak7:'Eine Woche', bd_streak7:'7 Tage in Folge', b_streak30:'Ein Monat', bd_streak30:'30 Tage in Folge', b_abc_clean:'Ohne Netz', bd_abc_clean:'Alphabet ohne Joker', b_abc_fast:'Sprint', bd_abc_fast:'Alphabet in unter 3 Min.', b_win1:'Erster Sieg', bd_win1:'Ein Spiel mit Freunden gewinnen', b_win10:'Der Boss', bd_win10:'10 Siege mit Freunden', b_century:'Centurion', bd_century:'100 Spieler genannt', b_legend:'Lexikon', bd_legend:'500 Spieler genannt', b_polyglot:'Weltenbummler', bd_polyglot:'Spieler auf 20 verschiedenen Buchstaben',
  home:'Start', sound_on:'Ton: an', sound_off:'Ton: aus',
  hero_lede:'Ein Buchstabe fällt. Nenne einen Fußballer, dessen <b>Nachname</b> damit beginnt. Mit Freunden, solo oder jeden Tag gegen die ganze Welt.',
  nick_label:'Dein Spielername', nick_ph:'z. B. Zizou10',
@@ -5787,17 +5797,17 @@ async function shareCard(run){
   x.textAlign='center'; x.fillStyle='#f1f6ef';
   x.font='900 76px '+D; x.fillText('FOOT LETTERS',W/2,190);
   x.fillStyle=gold; x.font='800 44px '+D;
-  const head=run.mode==='daily'?(t('m_daily')+' #'+dailyNum(run.date)).toUpperCase():run.mode==='defi'?t('m_defi').toUpperCase():t('m_abc').toUpperCase();
+  const head=run.mode==='daily'?(t('m_daily')+' #'+dailyNum(run.date)).toUpperCase():run.mode==='bot'?(t('m_bot')+' · '+t('bot_'+run.diff)).toUpperCase():t('m_abc').toUpperCase();
   x.fillText(head,W/2,258);
   x.lineWidth=12; x.strokeStyle='#f1f6ef'; x.beginPath(); x.arc(W/2,500,180,0,Math.PI*2); x.stroke();
   x.fillStyle='#f1f6ef'; x.font='900 '+(run.mode==='abc'?150:260)+'px '+D; x.textBaseline='middle'; x.fillText(run.mode==='abc'?'A→Z':run.letter,W/2,510); x.textBaseline='alphabetic';
   const n=run.found.length;
-  const big=run.mode==='daily'?t('res_daily',{n}):run.mode==='defi'?(n+' / '+run.bet):(run.ok?fmtDur(run.total+run.pen):t('res_abc_ko'));
+  const big=run.mode==='daily'?t('res_daily',{n}):run.mode==='bot'?(n+' – '+run.bot.length):(run.ok?fmtDur(run.total+run.pen):t('res_abc_ko'));
   x.font='900 112px '+D; x.fillStyle=run.mode==='daily'||run.ok?'#f1f6ef':'#ff7a6b'; x.fillText(big.toUpperCase(),W/2,820);
   if(run.mode==='daily'){
     const sl=dailySlices(run.found), s=112, gap=22, tot=sl.length*s+(sl.length-1)*gap; let X=(W-tot)/2;
     sl.forEach(v=>{ rr(X,880,s,s,22); x.fillStyle=v>=3?'#5fd38d':v>=1?'#f7c948':'#2a3e34'; x.fill(); x.fillStyle=v?'#0a1f16':'rgba(241,246,239,.4)'; x.font='900 54px '+D; x.fillText(String(v),X+s/2,880+s/2+19); X+=s+gap; });
-  } else if(run.mode==='defi'){ x.font='800 54px '+D; x.fillStyle=run.ok?'#6be39a':'#ff7a6b'; x.fillText(run.ok?t('res_defi_ok').toUpperCase():t('res_defi_ko').toUpperCase(),W/2,940); }
+  } else if(run.mode==='bot'){ x.font='800 54px '+D; x.fillStyle=run.ok?'#6be39a':'#ff7a6b'; x.fillText(run.ok?t('res_bot_ok').toUpperCase():t('res_bot_ko').toUpperCase(),W/2,940); }
   else { x.font='600 40px '+B; x.fillStyle='rgba(241,246,239,.8)'; x.fillText(t('res_abc_sub',{n:run.marks.filter(m=>m==='ok').length,j:3-run.jokers}),W/2,930); }
   const lines=[];
   if(run.pct!=null) lines.push(t('beat',{p:run.pct}));
@@ -6174,6 +6184,7 @@ function fillBoard(ul,list,k,meName,opts){
     const v=el('span','v');
     if(k==='daily'){ v.textContent=e.s; v.append(el('small',null,fmtDur(e.t))); }
     else if(k==='defi'){ v.textContent=e.s; v.append(el('small',null,fmtDur(e.t))); }
+    else if(k==='bot'){ v.textContent=t('pts',{n:e.s}); v.append(el('small',null,t('bot_'+(e.df||'m'))+' · '+(e.w?t('bot_win_s'):t('bot_loss_s'))+' · '+e.nm+'–'+e.bt)); }
     else if(k==='xp'){ v.textContent=t('lv_n',{n:e.lvl}); v.append(el('small',null,e.s.toLocaleString(LANG)+' XP')); }
     else if(k==='online'){ v.textContent=t('v_wins',{n:e.s}); v.append(el('small',null,t('v_online',{p:e.p,r:Math.round(100*e.s/Math.max(1,e.p)),pts:e.pts}))); }
     else { v.textContent=fmtDur(e.t); v.append(el('small',null,t('v_jokers',{n:e.s}))); }
@@ -6181,6 +6192,25 @@ function fillBoard(ul,list,k,meName,opts){
   });
 }
 
+/* ---- Bot : niveaux ----
+   Facile : ne connaît que des stars (liste de joueurs très connus), lent, abandonne vite.
+   Moyen  : stars + joueurs courants de la base, plus rapide, tient plus longtemps.
+   Difficile : toute la base, rapide, très rarement à court d'idées.
+   À chaque tour, le bot peut sécher : risque de départ + hausse à chaque nom qu'il a déjà donné. */
+const STARS=new Set('Messi|Ronaldo|Mbappé|Neymar|Haaland|Benzema|Zidane|Henry|Pelé|Maradona|Ronaldinho|Kaká|Modrić|Lewandowski|Salah|Mané|Griezmann|Pogba|Kanté|Varane|Lloris|Giroud|Dembélé|Hernandez|Pavard|Koundé|Tchouaméni|Camavinga|Maignan|Saliba|Upamecano|Rabiot|Thuram|Coman|Kolo Muani|Platini|Papin|Cantona|Deschamps|Desailly|Thuram|Barthez|Petit|Trezeguet|Pirès|Vieira|Makélélé|Ribéry|Nasri|Matuidi|Evra|Sagna|Abidal|Malouda|Anelka|Wiltord|Djorkaeff|Blanc|Lizarazu|Sagnol|Gallas|Valbuena|Lacazette|Martial|Mendy|Hakimi|Marquinhos|Verratti|Cavani|Ibrahimović|Di María|Thiago Silva|Beckham|Rooney|Gerrard|Lampard|Scholes|Giggs|Owen|Shearer|Terry|Ferdinand|Cole|Kane|Sterling|Rashford|Foden|Bellingham|Saka|Rice|Grealish|Alexander-Arnold|Van Dijk|Robben|Van Persie|Sneijder|Seedorf|Kluivert|Bergkamp|Cruyff|Van Basten|Gullit|Rijkaard|De Jong|Depay|Frenkie|Xavi|Iniesta|Puyol|Piqué|Ramos|Casillas|Busquets|Villa|Torres|Fàbregas|Alonso|Pedri|Gavi|Yamal|Morata|Raúl|Rodri|Carvajal|Buffon|Pirlo|Totti|Del Piero|Maldini|Baggio|Cannavaro|Nesta|Inzaghi|Vieri|Gattuso|Chiellini|Bonucci|Donnarumma|Insigne|Kroos|Müller|Neuer|Schweinsteiger|Lahm|Ballack|Klose|Kahn|Beckenbauer|Matthäus|Klinsmann|Götze|Özil|Reus|Hummels|Musiala|Wirtz|Kimmich|Sané|Gündoğan|Havertz|Rüdiger|Courtois|Hazard|De Bruyne|Lukaku|Kompany|Vertonghen|Alderweireld|Doku|Mertens|Ronaldo Nazário|Rivaldo|Romário|Roberto Carlos|Cafu|Vinícius|Rodrygo|Casemiro|Alisson|Ederson|Fabinho|Firmino|Coutinho|Militão|Raphinha|Richarlison|Marcelo|Dani Alves|Batistuta|Agüero|Tévez|Riquelme|Zanetti|Mascherano|Higuaín|Dybala|Lautaro|Álvarez|Mac Allister|Suárez|Forlán|Valverde|Godín|Falcao|James|Valderrama|Sánchez|Vidal|Drogba|Eto\'o|Weah|Okocha|Yaya Touré|Kolo Touré|Essien|Mahrez|Ziyech|Hakimi|Osimhen|Koulibaly|Aubameyang|Son|Nakata|Park|Kagawa|Mitoma|Kubo|Kvaratskhelia|Shevchenko|Nedvěd|Hagi|Stoichkov|Figo|Rui Costa|Deco|Pepe|Bernardo Silva|Bruno Fernandes|João Félix|Rafael Leão|Cancelo|Dias|Ibrahimović|Larsson|Ødegaard|Eriksen|Schmeichel|Laudrup|Lewandowski|Szczęsny|Džeko|Pjanić|Vidić|Ivanović|Matić|Mitrović|Vlahović|Mandžukić|Rakitić|Perišić|Kovačić|Gvardiol|Šuker|Yashin|Arshavin|Puskás|Eusébio|Di Stéfano|Gento|Kempes|Zico|Sócrates|Garrincha|Cruijff|Zoff|Rossi|Baresi|Matthaus|Gascoigne|Lineker|Keane|Vardy|Kanté|Silva|Mount|Sancho|Walker|Stones|Pickford|Trippier|Maguire|Shaw|Henderson|Milner|Salah|Núñez|Jota|Díaz|Gakpo|Szoboszlai|Odegaard|Martinelli|Jesus|Havertz|Palmer|Enzo|Caicedo|Mudryk|Sterling|Højlund|Garnacho|Onana|Casemiro|Mainoo|Vinicius|Valverde|Güler|Endrick|Mbappe|Lamine Yamal|Lewandowski|Ter Stegen|Araújo|Koundé|Olmo|Griezmann|Oblak|Simeone|Morata|Osimhen|Kvaratskhelia|Lukaku|Lautaro|Barella|Calhanoglu|Leão|Pulisic|Theo Hernandez|Maignan|Vlahovic|Chiesa|Dybala|Immobile|Zaïre-Emery|Barcola|Doué|Kolo Muani|Ramos|Asensio|Fofana|Guendouzi|Clauss|Gouiri|Cherki|Lacazette|Ben Yedder|Payet|Ndombele|Aouar|Tolisso'.split('|').map(x=>norm(x)).filter(Boolean));
+const BOT={
+  e:{delay:[5500,10000],fail0:0.10,step:0.06,coef:1},
+  m:{delay:[3500,7500],fail0:0.05,step:0.035,coef:2},
+  h:{delay:[2000,4500],fail0:0.02,step:0.02,coef:3}
+};
+function botPool(L,d){
+  const cand=[]; P.forEach((p,i)=>{ if(CUSTOM_INFO[norm(p.name)]) return; if(checkLocal(p.name,L,new Set()).st==='ok') cand.push({p,i}); });
+  const star=cand.filter(c=>STARS.has(norm(p2s(c.p)))||STARS.has(norm(c.p.name))||(c.p.sur&&STARS.has(c.p.sur)));
+  if(d==='h') return cand.map(c=>c.p);
+  if(d==='m'){ const s=new Set(star.map(c=>c.p)); cand.slice(0,70).forEach(c=>s.add(c.p)); return [...s]; }
+  const out=star.map(c=>c.p); for(const c of cand){ if(out.length>=6) break; if(!out.includes(c.p)) out.push(c.p); } return out;
+}
+function p2s(p){ const tk=p.name.split(' '); return tk.length>1?tk.slice(1).join(' '):p.name; }
 const Solo=(function(){
   let R=null, tick=null;
   const M={};
@@ -6189,13 +6219,13 @@ const Solo=(function(){
   function curLetter(){ return R.mode==='abc'?R.letters[R.i]:R.letter; }
   function setHeader(){
     $('soloMode').textContent=t('m_'+R.mode);
-    $('soloInfo').textContent=R.mode==='daily'?parisDate():R.mode==='defi'?t('letter')+' '+(R.letter||'?'):('A → Z · '+R.letters.length);
+    $('soloInfo').textContent=R.mode==='daily'?parisDate():R.mode==='bot'?t('letter')+' '+(R.letter||'?')+' · '+t('bot_'+R.diff):('A → Z · '+R.letters.length);
   }
   function intro(mode){
     stop();
-    R={mode,found:[],keys:new Set(),pend:0,y:0,started:false,over:false,bet:lsGet('fl_bet')||10};
+    R={mode,found:[],keys:new Set(),pend:0,y:0,started:false,over:false,bet:lsGet('fl_bet')||10,diff:lsGet('fl_botd')||'m',bot:[],turn:'me'};
     if(mode==='daily'){ R.date=parisDate(); R.letter=dailyLetter(R.date); }
-    if(mode==='defi'){ R.letter=DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)].toUpperCase(); }
+    if(mode==='bot'){ R.letter=(lsGet('fl_botl')||DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)]).toUpperCase(); }
     if(mode==='abc'){ R.letters=ALL_LETTERS.map(x=>x.toUpperCase()); R.i=0; R.jokers=3; R.pen=0; R.marks=[]; }
     show('solo');
     $('soloIntro').hidden=false; $('soloPlay').hidden=true; $('soloEnd').hidden=true;
@@ -6206,10 +6236,10 @@ const Solo=(function(){
     const m=R.mode;
     $('introTitle').textContent=t('m_'+m);
     $('introText').textContent=t(m+'_intro');
-    $('introLetterWrap').hidden=m!=='defi'; $('betWrap').hidden=m!=='defi'; $('abcPreview').hidden=m!=='abc';
+    $('introLetterWrap').hidden=m!=='bot'; $('betWrap').hidden=true; $('botWrap').hidden=m!=='bot'; $('abcPreview').hidden=m!=='abc';
     $('introNote').textContent='';
     $('soloGo').textContent=t(m+'_go'); $('soloGo').disabled=false;
-    if(m==='defi'){ $('introLetter').textContent=R.letter; $('betVal').textContent=R.bet; renderPresets(); }
+    if(m==='bot'){ $('introLetter').textContent=R.letter; renderBotPick(); }
     if(m==='abc'){ const s=$('abcPreview'); s.replaceChildren(); R.letters.forEach(l=>s.append(el('span',null,l))); }
     if(m==='daily'){
       const st=dailyState();
@@ -6219,8 +6249,15 @@ const Solo=(function(){
     if(!API.me&&!$('soloGo').disabled) $('introNote').textContent=t('guest_note');
     loadBoard($('introBoard'),$('introBoardTitle'));
   }
-  function boardKey(){ return R.mode==='daily'?R.date:R.mode==='defi'?R.letter.toLowerCase():'all'; }
-  function boardTitle(){ const st=dailyState(); return R.mode==='daily'?t('daily_board')+' · '+(st&&st.done?R.letter:t('hidden_letter')):R.mode==='defi'?t('defi_board',{L:R.letter}):t('abc_board'); }
+  function boardKey(){ return R.mode==='daily'?R.date:R.mode==='bot'?R.letter.toLowerCase():'all'; }
+  function boardTitle(){ const st=dailyState(); return R.mode==='daily'?t('daily_board')+' · '+(st&&st.done?R.letter:t('hidden_letter')):R.mode==='bot'?t('bot_board',{L:R.letter}):t('abc_board'); }
+  function renderBotPick(){
+    document.querySelectorAll('#botDiff button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.d===R.diff)));
+    $('botDiffNote').textContent=t('bot_'+R.diff+'_d');
+    const g=$('botLetters'); if(!g.children.length){ DRAW_LETTERS.forEach(l=>{ const b=el('button',null,l.toUpperCase()); b.type='button'; b.dataset.l=l.toUpperCase(); b.addEventListener('click',()=>{ if(!R||R.started) return; R.letter=b.dataset.l; lsSet('fl_botl',R.letter); $('introLetter').textContent=R.letter; setHeader(); renderBotPick(); loadBoard($('introBoard'),$('introBoardTitle')); }); g.append(b); }); }
+    [...g.children].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===R.letter)));
+  }
+  $('botDiff').addEventListener('click',ev=>{ const b=ev.target.closest('button[data-d]'); if(!b||!R||R.started) return; R.diff=b.dataset.d; lsSet('fl_botd',R.diff); setHeader(); renderBotPick(); });
   async function loadBoard(ul,title,silent){
     title.textContent=boardTitle();
     if(!silent) ul.replaceChildren(el('li','empty','…'));
@@ -6232,30 +6269,30 @@ const Solo=(function(){
   function renderPresets(){ const b=$('betPresets'); b.replaceChildren(); [5,10,15,20,30].forEach(v=>{ const x=el('button','btn small'+(R.bet===v?' primary':''),String(v)); x.type='button'; x.addEventListener('click',()=>{ R.bet=v; $('betVal').textContent=v; renderPresets(); }); b.append(x); }); }
   $('betMinus').addEventListener('click',()=>{ if(!R) return; R.bet=Math.max(1,R.bet-1); $('betVal').textContent=R.bet; renderPresets(); });
   $('betPlus').addEventListener('click',()=>{ if(!R) return; R.bet=Math.min(99,R.bet+1); $('betVal').textContent=R.bet; renderPresets(); });
-  $('rerollBtn').addEventListener('click',()=>{ if(!R||R.started) return; let l; do{ l=DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)].toUpperCase(); }while(l===R.letter&&DRAW_LETTERS.length>1); R.letter=l; rollLetter($('introLetter'),l,false); setHeader(); loadBoard($('introBoard'),$('introBoardTitle')); });
+  $('rerollBtn').addEventListener('click',()=>{ if(!R||R.started) return; let l; do{ l=DRAW_LETTERS[Math.floor(Math.random()*DRAW_LETTERS.length)].toUpperCase(); }while(l===R.letter&&DRAW_LETTERS.length>1); R.letter=l; lsSet('fl_botl',l); rollLetter($('introLetter'),l,false); setHeader(); if(R.mode==='bot') renderBotPick(); loadBoard($('introBoard'),$('introBoardTitle')); });
   $('soloGo').addEventListener('click',async()=>{
     if(!R||R.started||R.starting) return; if(!requireNick()) return;
     R.run=null;
     if(API.me||await API.ensure()){
       R.starting=true; $('soloGo').disabled=true;
-      try{ const d=await API.call('run/start',{mode:R.mode,letter:(R.letter||'').toLowerCase(),bet:R.bet}); R.run=d.run; if(R.mode==='daily'&&d.letter) R.letter=d.letter; if(R.mode==='daily'){ API.today={st:1}; API.date=parisDate(); } }
+      try{ const d=await API.call('run/start',{mode:R.mode,letter:(R.letter||'').toLowerCase(),bet:R.bet,diff:R.diff}); R.run=d.run; if(R.mode==='daily'&&d.letter) R.letter=d.letter; if(R.mode==='daily'){ API.today={st:1}; API.date=parisDate(); } }
       catch(e){ R.starting=false; $('soloGo').disabled=false; if(e.code==='already'){ API.today=API.today||{st:1}; API.refresh().then(()=>{ if(R&&!R.started) renderIntro(); }); toast(t('daily_done_short')); return; } if(e.status===401){ if(API.tok) API.logout(); else { API.gtok=null; API.gme=null; } } toast(t('unranked_now')); }
       R.starting=false;
     }
     start();
   });
   $('soloBack').addEventListener('click',goHome);
-  $('sQuit').addEventListener('click',()=>{ if(!active()) return; if(R.mode==='daily') finish(true,'stop'); else finish(false,'quit'); });
+  $('sQuit').addEventListener('click',()=>{ if(!active()) return; if(R.mode==='daily') finish(true,'stop'); else if(R.mode==='bot'){ if(R.turn==='me') finish(false,'stuck'); } else finish(false,'quit'); });
   $('sJoker').addEventListener('click',()=>{ if(active()&&R.mode==='abc'&&R.jokers>0&&!R.pend) useJoker(); });
 
   function start(){
     R.started=true; R.nick=myNick(); track('partie_solo',{mode:R.mode,compte:API.me?'oui':'non'});
-    if(R.mode==='defi') lsSet('fl_bet',R.bet);
+    if(R.mode==='bot'){ R.pool=botPool(R.letter,R.diff); R.turn='me'; }
     if(R.mode==='daily') lsSet('fl_d5_'+R.date,{s:'start'});
     $('soloIntro').hidden=true; $('soloPlay').hidden=false; $('soloEnd').hidden=true;
     $('sFeed').replaceChildren(el('li','empty',t('none_yet'))); $('sCount').textContent='0';
     $('sFeedback').textContent=''; $('sPending').textContent=''; $('sAnswer').value='';
-    $('sStrip').hidden=R.mode!=='abc'; $('sJoker').hidden=R.mode!=='abc';
+    $('sStrip').hidden=R.mode!=='abc'; $('sJoker').hidden=R.mode!=='abc'; $('sQuit').textContent=t(R.mode==='bot'?'give_up':'abandon');
     $('sAnswer').disabled=true; $('sSend').disabled=true;
     Object.keys(RING).forEach(k=>{ if(k==='s') delete RING[k]; });
     renderProgress();
@@ -6269,12 +6306,30 @@ const Solo=(function(){
     };
     beep('whistle');
     if(R.mode==='abc'){ $('sLetter').textContent=L; go(); }
-    else rollLetter($('sLetter'),L,R.mode==='defi',go);
+    else rollLetter($('sLetter'),L,R.mode==='bot',go);
+  }
+  function botTurn(){
+    R.turn='bot'; R.deadline=Infinity; $('sAnswer').disabled=true; $('sSend').disabled=true; renderProgress();
+    const cfg=BOT[R.diff], run=R, wait=cfg.delay[0]+Math.random()*(cfg.delay[1]-cfg.delay[0]);
+    setTimeout(()=>{
+      if(R!==run||R.over) return;
+      const risk=Math.min(0.9,cfg.fail0+cfg.step*R.bot.length);
+      const free=R.pool.filter(p=>checkLocal(p.name,R.letter,R.keys).st==='ok');
+      if(!free.length||Math.random()<risk){ $('sFeedback').className='feedback ok'; $('sFeedback').textContent='🤖 '+t('bot_fail'); return finish(true,'botfail'); }
+      const p=free[Math.floor(Math.random()*free.length)], r=checkLocal(p.name,R.letter,R.keys);
+      r.keys.forEach(k=>R.keys.add(k)); R.bot.push({name:r.display,ms:Date.now()-R.t0});
+      beep('tick'); $('sFeedback').className='feedback'; $('sFeedback').textContent='🤖 '+r.display;
+      const fd=$('sFeed'); fd.prepend(feedRow(r.display,'🤖 '+t('bot_name'),'#9fb3a8',true));
+      showSticker($('sStage'),r.display,'🤖',null);
+      R.turn='me'; R.deadline=Date.now()+PER; delete RING.s;
+      $('sAnswer').disabled=false; $('sSend').disabled=false; try{ $('sAnswer').focus({preventScroll:true}); }catch(_){ }
+      renderProgress();
+    },wait);
   }
   function renderProgress(){
     const p=$('sProgress');
     if(R.mode==='daily') p.textContent=t('prog_daily',{n:R.found.length});
-    else if(R.mode==='defi') p.textContent=t('prog_defi',{f:R.found.length,t:R.bet});
+    else if(R.mode==='bot'){ p.textContent=t('prog_bot',{a:R.found.length,b:R.bot.length})+' · '+(R.turn==='me'?t('bot_your_turn'):t('bot_thinking')); }
     else{
       p.textContent=t('prog_abc',{i:Math.min(R.i,R.letters.length),n:R.letters.length});
       const s=$('sStrip'); s.replaceChildren();
@@ -6291,7 +6346,7 @@ const Solo=(function(){
     if(R.pend>0){ if(!R.waitUntil) R.waitUntil=now+6000; if(now<R.waitUntil) return; }
     R.waitUntil=0;
     if(R.mode==='daily') return finish(true);
-    if(R.mode==='defi') return finish(false);
+    if(R.mode==='bot'){ if(R.turn!=='me') return; return finish(false,'time'); }
     if(R.jokers>0) return useJoker();
     finish(false);
   }
@@ -6316,7 +6371,7 @@ const Solo=(function(){
     const fd=$('sFeed'); if(R.found.length===1) fd.replaceChildren();
     fd.prepend(feedRow(display,(R.mode==='abc'?L+' · ':'')+fmtDur(ms),null,true));
     showSticker($('sStage'),display,'+1',null);
-    if(R.mode==='defi'){ R.deadline=Date.now()+PER; delete RING.s; if(R.found.length>=R.bet){ renderProgress(); return finish(true); } }
+    if(R.mode==='bot'){ botTurn(); return; }
     if(R.mode==='abc'){ R.marks[R.i]='ok'; R.i++; renderProgress(); return nextAbc(); }
     renderProgress();
   }
@@ -6324,6 +6379,7 @@ const Solo=(function(){
   $('sForm').addEventListener('submit',ev=>{
     ev.preventDefault();
     if(!active()||!R.t0) return;
+    if(R.mode==='bot'&&R.turn!=='me') return;
     const txt=$('sAnswer').value.trim(); if(!txt) return;
     const L=curLetter();
     if(R.mode==='abc'&&R.pend) return;
@@ -6360,7 +6416,7 @@ const Solo=(function(){
     $('sAnswer').disabled=true; $('sSend').disabled=true;
     const run=R, n=run.found.length, total=Date.now()-(run.t0||Date.now());
     const ranked=!!run.run&&!run.dq&&why!=='quit';
-    run.total=total; run.ok=ok; run.why=why; run.lvBefore=API.me&&API.me.level&&API.me.level.lvl; run.entry=ranked&&(run.mode==='daily'||ok);
+    run.total=total; run.ok=ok; run.why=why; run.lvBefore=API.me&&API.me.level&&API.me.level.lvl; run.entry=ranked&&(run.mode==='daily'||run.mode==='bot'||ok);
     if(run.mode==='daily') lsSet('fl_d5_'+run.date,{s:'done',done:1,n:run.dq||why==='quit'?0:n,list:run.found.map(x=>x.name)});
     if(ok){ beep('win'); confetti(); } else beep('whistle');
     show('solo'); $('soloIntro').hidden=true; $('soloPlay').hidden=true; $('soloEnd').hidden=false;
@@ -6375,8 +6431,9 @@ const Solo=(function(){
       if(!ranked) answers=[];
       else if(run.mode==='abc') answers=run.letters.map((L,i)=>{ if(run.marks[i]==='skip') return {L,joker:1}; const f=run.found.find(x=>x.L===L); return f?{v:f.typed||f.name,d:f.name,L,ms:f.ms}:null; }).filter(Boolean);
       else answers=run.found.map(f=>({v:f.typed||f.name,d:f.name,ms:f.ms}));
+      if(run.mode==='bot'){ run.extra={bot:run.bot.length,win:!!ok,diff:run.diff}; }
       try{
-        const d=await API.save('run/finish',{run:run.run,answers,dur:run.total});
+        const d=await API.save('run/finish',Object.assign({run:run.run,answers,dur:run.total},run.extra||{}));
         const before=API.me&&API.me.level&&API.me.level.xp;
         API.take(d.profile); if(run.mode==='daily'){ API.today={s:d.score}; API.date=parisDate(); }
         if(API.me&&!API.me.guest&&API.me.level&&before!=null){ run.xpGain=API.me.level.xp-before; run.lvUp=API.me.level.lvl>(run.lvBefore||API.me.level.lvl); }
@@ -6417,9 +6474,9 @@ const Solo=(function(){
     setHeader();
     if(run.dq){ $('eLabel').textContent=t('dq_label'); $('eTitle').textContent=t('dq'); $('eTitle').style.color='var(--red)'; }
     else if(run.mode==='daily'){ $('eLabel').textContent=t('m_daily'); $('eTitle').textContent=t('res_daily',{n}); $('eTitle').style.color=''; }
-    else if(run.mode==='defi'){ $('eLabel').textContent=t('m_defi'); $('eTitle').textContent=run.ok?t('res_defi_ok'):t('res_defi_ko'); $('eTitle').style.color=run.ok?'var(--go)':'var(--red)'; }
+    else if(run.mode==='bot'){ $('eLabel').textContent=t('m_bot')+' · '+t('bot_'+run.diff); $('eTitle').textContent=run.ok?t('res_bot_ok'):t('res_bot_ko'); $('eTitle').style.color=run.ok?'var(--go)':'var(--red)'; }
     else { $('eLabel').textContent=run.ok?t('res_abc_label'):t('m_abc'); $('eTitle').textContent=run.ok?fmtDur(run.total+run.pen):t('res_abc_ko'); $('eTitle').style.color=run.ok?'var(--go)':'var(--red)'; }
-    $('eSub').textContent=run.mode==='daily'?t('res_daily_sub',{L:run.letter,d:run.date}):run.mode==='defi'?t('res_defi_sub',{f:n,t:run.bet,L:run.letter}):t('res_abc_sub',{n:run.marks.filter(x=>x==='ok').length,j:3-run.jokers});
+    $('eSub').textContent=run.mode==='daily'?t('res_daily_sub',{L:run.letter,d:run.date}):run.mode==='bot'?t('res_bot_sub',{a:n,b:run.bot.length,L:run.letter,p:n*BOT[run.diff].coef+(run.ok?10*BOT[run.diff].coef:0)}):t('res_abc_sub',{n:run.marks.filter(x=>x==='ok').length,j:3-run.jokers});
     $('eAgain').hidden=run.mode==='daily';
     $('eShare').hidden=!!run.dq; $('eShareImg').hidden=!!run.dq;
     const wb=$('eWordle'); wb.hidden=run.mode!=='daily'||!!run.dq;
@@ -6440,7 +6497,7 @@ const Solo=(function(){
       const streak=API.who()&&API.who().daily&&API.who().daily.streak;
       return ['FOOT LETTERS #'+dailyNum(R.date)+' ⚽', t('m_daily')+' : '+R.letter, dailySlices(R.found).map(sliceEmoji).join('')+' '+t('res_daily',{n}), streak?'🔥 '+t('streak_days',{n:streak}):'', url].filter(Boolean).join('\n');
     }
-    if(R.mode==='defi') return ['FOOT LETTERS · '+t('m_defi')+' '+R.letter+' 🎯', n+' / '+R.bet+(R.ok?' ✅':' ❌'), url].join('\n');
+    if(R.mode==='bot') return ['FOOT LETTERS · 🤖 '+t('m_bot')+' ('+t('bot_'+R.diff)+') · '+R.letter, (R.ok?t('res_bot_ok'):t('res_bot_ko'))+' · '+n+' – '+R.bot.length, url].join('\n');
     return ['FOOT LETTERS · '+t('m_abc')+' 🔤', R.ok?fmtDur(R.total+R.pen)+' ⏱️':t('res_abc_ko'), url].join('\n');
   }
   $('eShare').addEventListener('click',()=>{ if(!R) return; track('partage',{type:'texte',mode:R.mode}); const txt=shareText(); if(navigator.share) navigator.share({text:txt}).catch(()=>{}); else copy(txt,t('copied')); });
@@ -6457,6 +6514,7 @@ const Solo=(function(){
   function frame(){
     if(!R||!R.started||R.over||!R.t0||$('soloPlay').hidden) return;
     const total=R.mode==='daily'?DAILY_MS:PER;
+    if(R.mode==='bot'&&R.turn==='bot'){ drawRing('s',total,total,false); $('sClock').textContent='🤖'; return; }
     drawRing('s',Math.max(0,R.deadline-Date.now()),total,false);
   }
   function stop(){ clearInterval(tick); tick=null; if(R&&R.started&&!R.over&&R.mode==='daily') lsSet('fl_d5_'+R.date,{s:'start'}); if(R) R.over=true; }
@@ -6464,7 +6522,7 @@ const Solo=(function(){
   return {intro,active,foul,frame,stop:()=>{ if(R&&R.started&&!R.over){ R.over=true; clearInterval(tick); } R=null; },refresh};
 })();
 $('mDaily').addEventListener('click',()=>Solo.intro('daily'));
-$('mDefi').addEventListener('click',()=>Solo.intro('defi'));
+$('mBot').addEventListener('click',()=>Solo.intro('bot'));
 $('mAbc').addEventListener('click',()=>Solo.intro('abc'));
 
 /* ================= CLASSEMENTS ================= */
@@ -6476,7 +6534,7 @@ const Boards=(function(){
     if(!silent){ loading=true; render(); }
     if(tab==='daily'){ day=day||parisDate(); const r=await LB.read('daily',day); data.daily=r; }
     else if(tab==='xp'){ data.xp=await LB.read('xp','all'); }
-    else if(tab==='defi'){ const all=await LB.readAll('defi'); data.defi=all; if(!letter){ const ks=all?Object.keys(all).filter(k=>all[k].length):[]; letter=ks.length?ks.sort((a,b)=>all[b].length-all[a].length)[0]:'m'; } }
+    else if(tab==='bot'){ const all=await LB.readAll('bot'); data.bot=all; if(!letter){ const ks=all?Object.keys(all).filter(k=>all[k].length):[]; letter=ks.length?ks.sort((a,b)=>all[b].length-all[a].length)[0]:'m'; } }
     else if(tab==='online'){ data.online=await LB.read('online','all'); }
     else { data.abc=await LB.read('abc','all'); }
     loading=false; render();
@@ -6484,18 +6542,18 @@ const Boards=(function(){
   function render(){
     document.querySelectorAll('#bTabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab===tab)));
     const ul=$('bList'), title=$('bTitle'), lt=$('bLetters');
-    lt.hidden=tab!=='defi'; $('bOnNote').hidden=tab!=='online';
+    lt.hidden=tab!=='bot'; $('bOnNote').hidden=tab!=='online';
     $('bDays').hidden=tab!=='daily'; if(tab==='daily'){ day=day||parisDate(); $('bDay').textContent=day===parisDate()?t('today'):new Date(day+'T12:00:00Z').toLocaleDateString(LANG,{day:'numeric',month:'short'}); $('bNext').disabled=day>=parisDate(); }
-    const rule={defi:'rule_defi',abc:'rule_abc',xp:'rule_xp',daily:'rule_daily'}[tab]; $('bRule').hidden=!rule; if(rule) $('bRule').textContent=t(rule);
-    if(tab==='defi'){
+    const rule={bot:'rule_bot',abc:'rule_abc',xp:'rule_xp',daily:'rule_daily'}[tab]; $('bRule').hidden=!rule; if(rule) $('bRule').textContent=t(rule);
+    if(tab==='bot'){
       lt.replaceChildren();
-      const all=data.defi||{};
+      const all=data.bot||{};
       DRAW_LETTERS.forEach(l=>{ const b=el('button',null,l.toUpperCase()); b.type='button'; b.setAttribute('aria-pressed',String(l===letter)); if(all[l]&&all[l].length) b.style.boxShadow='inset 0 -3px 0 var(--go)'; b.addEventListener('click',()=>{ letter=l; render(); }); lt.append(b); });
     }
     if(loading){ title.textContent=''; ul.replaceChildren(el('li','empty','…')); return; }
     const me=myNick();
     if(tab==='daily'){ const st=dailyState(), past=day&&day<parisDate(); title.textContent=t(past?'b_daily_past':'b_daily',{L:past||(st&&st.done)?dailyLetter(day||parisDate()):t('hidden_letter')})+' · '+(day||parisDate()); const r=data.daily; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'daily',me); }
-    else if(tab==='defi'){ title.textContent=t('b_defi',{L:(letter||'m').toUpperCase()}); if(!data.defi){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,data.defi[letter]||[],'defi',me); }
+    else if(tab==='bot'){ title.textContent=t('b_bot',{L:(letter||'m').toUpperCase()}); if(!data.bot){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,data.bot[letter]||[],'bot',me); }
     else if(tab==='xp'){ title.textContent=t('b_xp'); const r=data.xp; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'xp',me); }
     else if(tab==='online'){ title.textContent=t('b_online'); const r=data.online; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'online',me); }
     else { title.textContent=t('b_abc'); const r=data.abc; if(!r||r.off&&!r.list.length){ ul.replaceChildren(el('li','empty',t('board_off'))); return; } fillBoard(ul,r.list,'abc',me); }
@@ -6589,7 +6647,7 @@ const Profile=(function(){
     const tx=el('div'); tx.append(el('b',null,active&&d.streak?t('streak_days',{n:d.streak}):t('streak_none'))); tx.append(el('span',null,t('streak_best',{n:d.best||0}))); sb.append(tx);
     const s=p.stats, tl=$('prTiles'); tl.replaceChildren();
     const tile=(v,l)=>{ const x=el('div','tile'); x.append(el('b',null,String(v)),el('span',null,l)); tl.append(x); };
-    tile(s.total,t('st_games')); tile(s.wins,t('st_wins')); tile(s.names,t('st_names')); tile(s.bestDaily||'–',t('st_daily')); tile(s.bestDefi||'–',t('st_defi')); tile(s.bestAbc?fmtDur(s.bestAbc):'–',t('st_abc')); tile((s.letterCount||0)+'/26',t('st_letters'));
+    tile(s.total,t('st_games')); tile(s.wins,t('st_wins')); tile(s.names,t('st_names')); tile(s.bestDaily||'–',t('st_daily')); const bw=(s.bot&&s.bot.w)||{}; tile((bw.e||0)+' / '+(bw.m||0)+' / '+(bw.h||0),t('st_bot')); tile(s.bestAbc?fmtDur(s.bestAbc):'–',t('st_abc')); tile((s.letterCount||0)+'/26',t('st_letters'));
     const o=s.online||{p:0,w:0,pts:0,podium:0}; tile(o.p,t('st_on_p')); tile(o.w,t('st_on_w')); tile(o.p?Math.round(100*o.w/o.p)+' %':'–',t('st_on_r')); tile(o.podium||0,t('st_on_pod')); tile(o.pts||0,t('st_on_pts'));
     const fav=[]; if(s.topPlayer) fav.push(t('fav_player',{x:s.topPlayer.k,n:s.topPlayer.n})); if(s.topLetter) fav.push(t('fav_letter',{x:s.topLetter.k.toUpperCase()}));
     $('prFav').textContent=fav.join(' · ');
@@ -6663,7 +6721,7 @@ Hub.start();
 applyI18n();
 /* Mise à jour automatique : dès qu'une nouvelle version est en ligne, la page se recharge
    toute seule, mais jamais au milieu d'une partie (elle attend le retour à l'accueil). */
-const BUILD='98cd1024de';
+const BUILD='49aa2cb037';
 const Updater=(function(){
   let pending=false, told=false;
   function busy(){

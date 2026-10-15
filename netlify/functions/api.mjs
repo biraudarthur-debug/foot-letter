@@ -28,7 +28,7 @@ const hashPass = (pass, salt) => crypto.scryptSync(String(pass), salt, 32).toStr
 function newUser(name) {
   return { key: userKey(name), name, created: Date.now(), stats: blankStats(), badges: {}, daily: { last: null, streak: 0, best: 0 }, done: {}, runs: [] };
 }
-function blankStats() { return { games: { daily: 0, defi: 0, abc: 0, friends: 0 }, wins: 0, names: 0, bestDaily: 0, bestDefi: 0, bestAbc: 0, bestMinute: 0, abcClean: false, letters: {}, players: {}, online: { p: 0, w: 0, pts: 0, names: 0, podium: 0 } }; }
+function blankStats() { return { games: { daily: 0, defi: 0, abc: 0, friends: 0, bot: 0 }, wins: 0, names: 0, bestDaily: 0, bestDefi: 0, bestAbc: 0, bestMinute: 0, abcClean: false, letters: {}, players: {}, online: { p: 0, w: 0, pts: 0, names: 0, podium: 0 } }; }
 function fixUser(u) {
   u.stats = Object.assign(blankStats(), u.stats || {});
   u.stats.online = Object.assign({ p: 0, w: 0, pts: 0, names: 0, podium: 0 }, u.stats.online || {});
@@ -52,7 +52,7 @@ function publicProfile(u) {
   return { name: u.name, key: u.key, guest: !!u.guest, created: u.created, level: xpOf(u), badges: u.badges, daily: u.daily,
     stats: { games: s.games, total: Object.values(s.games).reduce((a, b) => a + b, 0), wins: s.wins, names: s.names,
       bestDaily: s.bestDaily, bestDefi: s.bestDefi, bestAbc: s.bestAbc, topPlayer: top(s.players), topLetter: top(s.letters),
-      letterCount: Object.keys(s.letters || {}).length, online: s.online } };
+      letterCount: Object.keys(s.letters || {}).length, online: s.online, bot: s.bot || null } };
 }
 async function saveUser(st, u) {
   const p = u.stats.players; const ks = Object.keys(p);
@@ -89,7 +89,8 @@ const BADGE_RULES = {
   ten_minute: (u) => u.stats.bestMinute >= 10,
   daily20: (u) => u.stats.bestDaily >= 20,
   streak3: (u) => u.daily.best >= 3, streak7: (u) => u.daily.best >= 7, streak30: (u) => u.daily.best >= 30,
-  defi10: (u) => u.stats.bestDefi >= 10, defi20: (u) => u.stats.bestDefi >= 20,
+  defi10: (u) => u.stats.bestDefi >= 10 || !!(u.stats.bot && (u.stats.bot.w.m || u.stats.bot.w.h)),
+  defi20: (u) => u.stats.bestDefi >= 20 || !!(u.stats.bot && u.stats.bot.w.h),
   abc_clean: (u) => !!u.stats.abcClean, abc_fast: (u) => u.stats.bestAbc > 0 && u.stats.bestAbc < 180000,
   win1: (u) => u.stats.wins >= 1, win10: (u) => u.stats.wins >= 10,
   century: (u) => u.stats.names >= 100, legend: (u) => u.stats.names >= 500,
@@ -101,6 +102,7 @@ function award(u) { const nb = []; for (const [id, ok] of Object.entries(BADGE_R
 const CMP = {
   daily: (a, b) => b.s - a.s || a.t - b.t || a.d - b.d,
   defi: (a, b) => b.s - a.s || a.t - b.t || a.d - b.d,
+  bot: (a, b) => b.s - a.s || b.w - a.w || a.t - b.t || a.d - b.d,
   abc: (a, b) => a.t - b.t || a.s - b.s || a.d - b.d,
   // victoires en ligne : victoires, puis % de victoires, puis points
   online: (a, b) => b.s - a.s || (b.s / Math.max(1, b.p)) - (a.s / Math.max(1, a.p)) || b.pts - a.pts || a.d - b.d,
@@ -123,6 +125,13 @@ async function boardRead(st, kind, key) {
   const best = new Map();
   [...rows, ...(await legacyBoard(st, kind, key))].forEach((e) => { if (!e || !e.u) return; const c = best.get(e.u); if (!c || CMP[kind](e, c) < 0) best.set(e.u, e); });
   return [...best.values()].sort(CMP[kind]).slice(0, 100);
+}
+async function letterMap(st, kind) {
+  const keys = await listKeys(st, "entry/" + kind + "/");
+  const letters = new Set(keys.map((k) => k.split("/")[2]));
+  const out = {};
+  await Promise.all([...letters].map(async (l) => { out[l] = await boardRead(st, kind, l); }));
+  return out;
 }
 async function defiMap(st) {
   const keys = await listKeys(st, "entry/defi/");
@@ -252,6 +261,7 @@ async function route(req, path, st) {
   }
   if (path === "board") {
     const kind = url.searchParams.get("kind"), key = String(url.searchParams.get("key") || "").toLowerCase();
+    if (kind === "bot") return json(key ? { list: /^[a-z]$/.test(key) ? await boardRead(st, "bot", key) : [] } : { map: await letterMap(st, "bot") });
     if (kind === "defi") return json(key ? { list: /^[a-z]$/.test(key) ? await boardRead(st, "defi", key) : [] } : { map: await defiMap(st) });
     if (kind === "daily" && /^\d{4}-\d{2}-\d{2}$/.test(key)) return json({ list: await boardRead(st, "daily", key) });
     if (kind === "abc") { await restoreAbc(st); return json({ list: await boardRead(st, "abc", "all") }); }
@@ -318,6 +328,10 @@ async function route(req, path, st) {
       const l = String(body.letter || "").toLowerCase(), bet = Math.round(+body.bet);
       if (!DRAW_LETTERS.includes(l) || !(bet >= 1 && bet <= 99)) return fail("bad_run");
       letter = l.toUpperCase(); run = { m: "defi", u: u.key, L: letter, b: bet, t0: now };
+    } else if (mode === "bot") {
+      const l = String(body.letter || "").toLowerCase(), df = String(body.diff || "");
+      if (!DRAW_LETTERS.includes(l) || !["e", "m", "h"].includes(df)) return fail("bad_run");
+      letter = l.toUpperCase(); run = { m: "bot", u: u.key, L: letter, df, t0: now };
     } else if (mode === "abc") {
       run = { m: "abc", u: u.key, t0: now };
     } else return fail("bad_run");
@@ -357,6 +371,18 @@ async function route(req, path, st) {
       oks = res.filter((r) => r.ok);
       ok = oks.length >= run.b; key = run.L.toLowerCase();
       if (ok) { u.stats.bestDefi = Math.max(u.stats.bestDefi, run.b); entry = { u: u.key, n: u.name, s: run.b, t: dur, d: now }; }
+    } else if (run.m === "bot") {
+      // duel contre le bot : le joueur commence, chacun son tour (30 s pour le joueur, quelques secondes pour le bot)
+      const COEF = { e: 1, m: 2, h: 3 }[run.df] || 1, bot = Math.max(0, Math.min(200, Math.round(+body.bot || 0)));
+      const sent = answers.slice(0, 200);
+      const okTime = elapsed <= (sent.length + bot + 2) * (PER + 12000);
+      const res = okTime ? await validateSeq(sent, () => run.L) : [];
+      oks = res.filter((r) => r.ok);
+      // victoire : le bot a séché après la dernière réponse du joueur (donc un nom de moins que lui)
+      ok = body.win === true && okTime && bot === sent.length - 1 && oks.length === sent.length;
+      const pts = oks.length * COEF + (ok ? 10 * COEF : 0); key = run.L.toLowerCase();
+      u.stats.bot = u.stats.bot || { p: 0, w: { e: 0, m: 0, h: 0 } }; u.stats.bot.p++; if (ok) u.stats.bot.w[run.df] = (u.stats.bot.w[run.df] || 0) + 1;
+      if (okTime && (oks.length > 0 || ok)) entry = { u: u.key, n: u.name, s: pts, w: ok ? 1 : 0, df: run.df, nm: oks.length, bt: bot, t: dur, d: now };
     } else {
       const okTime = elapsed <= ALL_LETTERS.length * PER + 30000;
       const items = answers.filter((a) => !a.joker && a.L).slice(0, 26);
@@ -368,7 +394,7 @@ async function route(req, path, st) {
       const t = dur + jokers * ABC_PEN; key = "all";
       if (ok) { u.stats.bestAbc = u.stats.bestAbc ? Math.min(u.stats.bestAbc, t) : t; if (jokers === 0) u.stats.abcClean = true; entry = { u: u.key, n: u.name, s: jokers, t, d: now }; }
     }
-    u.stats.games[run.m]++;
+    u.stats.games[run.m] = (u.stats.games[run.m] || 0) + 1;
     countNames(u, oks);
     const newBadges = award(u);
     await saveUser(st, u);
