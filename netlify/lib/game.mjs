@@ -7,7 +7,7 @@ function fetchJSON(url, ms){
 }
 
 /* ================= BASE DE JOUEURS ================= */
-const MAX_PLAYERS=10;
+const MAX_PLAYERS=20;
 const PARTICLES=new Set(['van','von','de','da','di','del','della','der','den','dos','das','do','du','la','le','el','al','ten','ter','mac','dal','degli']);
 function norm(s){
   return String(s).toLowerCase()
