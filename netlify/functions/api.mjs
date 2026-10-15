@@ -331,8 +331,11 @@ async function route(req, path, st) {
     if (!run || run.u !== u.key) return fail("bad_run");
     if (run.result) return json(run.result);
 
-    run.used = Date.now(); await putJSON(st, "run/" + id, run);
-    const now = Date.now(), elapsed = now - run.t0;
+    run.used = run.used || Date.now(); await putJSON(st, "run/" + id, run);
+    const now = Date.now(), elapsed = run.used - run.t0;
+    // temps affiché par le jeu (chrono lancé à l'apparition de la lettre) ; le serveur vérifie qu'il est
+    // plausible : jamais plus long que son propre chrono, et au plus 12 s de moins (animation + réseau)
+    const cd = +body.dur, dur = Number.isFinite(cd) && cd > 0 ? Math.round(Math.min(elapsed, Math.max(cd, elapsed - 12000))) : elapsed;
     const answers = Array.isArray(body.answers) ? body.answers.slice(0, 120) : [];
     let entry = null, key, ok = true, oks = [];
 
@@ -353,7 +356,7 @@ async function route(req, path, st) {
       const res = okTime ? await validateSeq(answers.slice(0, run.b + 5), () => run.L) : [];
       oks = res.filter((r) => r.ok);
       ok = oks.length >= run.b; key = run.L.toLowerCase();
-      if (ok) { u.stats.bestDefi = Math.max(u.stats.bestDefi, run.b); entry = { u: u.key, n: u.name, s: run.b, t: elapsed, d: now }; }
+      if (ok) { u.stats.bestDefi = Math.max(u.stats.bestDefi, run.b); entry = { u: u.key, n: u.name, s: run.b, t: dur, d: now }; }
     } else {
       const okTime = elapsed <= ALL_LETTERS.length * PER + 30000;
       const items = answers.filter((a) => !a.joker && a.L).slice(0, 26);
@@ -362,7 +365,7 @@ async function route(req, path, st) {
       oks = res.filter((r) => r.ok);
       const covered = new Set([...oks.map((o) => o.L.toLowerCase()), ...answers.filter((a) => a.joker).map((a) => String(a.L).toLowerCase())]);
       ok = okTime && jokers <= 3 && ALL_LETTERS.every((l) => covered.has(l));
-      const t = elapsed + jokers * ABC_PEN; key = "all";
+      const t = dur + jokers * ABC_PEN; key = "all";
       if (ok) { u.stats.bestAbc = u.stats.bestAbc ? Math.min(u.stats.bestAbc, t) : t; if (jokers === 0) u.stats.abcClean = true; entry = { u: u.key, n: u.name, s: jokers, t, d: now }; }
     }
     u.stats.games[run.m]++;
