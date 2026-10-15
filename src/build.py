@@ -4,7 +4,10 @@ root = pathlib.Path(__file__).resolve().parent
 repo = root.parent
 html = (root / "index.template.html").read_text(encoding="utf8")
 players = (root / "players.txt").read_text(encoding="utf8")
-(repo / "index.html").write_text(html.replace("/*PLAYERS*/", players), encoding="utf8")
+import hashlib
+BUILD = hashlib.sha1((html + players).encode("utf8")).hexdigest()[:10]
+(repo / "index.html").write_text(html.replace("/*PLAYERS*/", players).replace("__BUILD__", BUILD), encoding="utf8")
+(repo / "version.json").write_text('{"v":"' + BUILD + '"}\n', encoding="utf8")
 
 def seg(tag):
     m = re.search(r"/\*<" + tag + r">\*/(.*?)/\*</" + tag + r">\*/", html, re.S)

@@ -134,6 +134,20 @@ async function defiMap(st) {
   return out;
 }
 
+// Rattrapage unique : tours de l'alphabet allés jusqu'au bout (25 lettres validées sur 26) mais
+// refusés à cause de l'ancienne vérification du nom affiché (corrigée en v10.13). Temps = temps mesuré par le serveur.
+async function restoreAbc(st) {
+  if (await getJSON(st, "meta/restore-abc-1")) return;
+  await putJSON(st, "meta/restore-abc-1", { t: Date.now() });
+  const keys = await listKeys(st, "run/");
+  const runs = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter((r) => r && r.m === "abc" && r.used && r.result && !r.result.ok && r.result.score >= 25 && !r.answers);
+  for (const r of runs) {
+    const u = await loadUser(st, r.u); if (!u) continue;
+    await entryPut(st, "abc", "all", { u: u.key, n: u.name, s: 0, t: r.used - r.t0, d: r.used, fix: 1 });
+    if (!u.stats.bestAbc || u.stats.bestAbc > r.used - r.t0) { u.stats.bestAbc = r.used - r.t0; await saveUser(st, u); }
+  }
+}
+
 /* ---------- vérification des réponses ---------- */
 // Vérifie chaque réponse. Les noms hors base sont recherchés sur Wikidata avec un budget de temps :
 // si le serveur n'obtient pas de réponse nette (réseau lent, limite de requêtes), on garde le verdict
@@ -240,7 +254,7 @@ async function route(req, path, st) {
     const kind = url.searchParams.get("kind"), key = String(url.searchParams.get("key") || "").toLowerCase();
     if (kind === "defi") return json(key ? { list: /^[a-z]$/.test(key) ? await boardRead(st, "defi", key) : [] } : { map: await defiMap(st) });
     if (kind === "daily" && /^\d{4}-\d{2}-\d{2}$/.test(key)) return json({ list: await boardRead(st, "daily", key) });
-    if (kind === "abc") return json({ list: await boardRead(st, "abc", "all") });
+    if (kind === "abc") { await restoreAbc(st); return json({ list: await boardRead(st, "abc", "all") }); }
     if (kind === "online") return json({ list: await boardRead(st, "online", "all") });
     if (kind === "xp") {
       const c = await getJSON(st, "cache/xp");
