@@ -14,6 +14,17 @@ function norm(s){
     .replace(/ø/g,'o').replace(/æ/g,'ae').replace(/œ/g,'oe').replace(/ß/g,'ss').replace(/ł/g,'l').replace(/đ/g,'d').replace(/ı/g,'i').replace(/ð/g,'d').replace(/þ/g,'th')
     .normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 }
+// Pseudos interdits : noms trompeurs (exacts) et insultes (contenues dans le pseudo).
+const NICK_RESERVED=new Set(['invalide','invalid','invalido','ungultig','admin','administrateur','administrator','moderateur','moderator','modo','mod','bot','robot','ia','ai','anonyme','anonymous','anonym','anon','null','undefined','nan','system','systeme','serveur','server','footletters','footletter','joueur','player','spieler','guest','invite','gast','erreur','error','fehler','supprime','deleted','banni','banned']);
+const NICK_SUB=['connard','connasse','salope','encule','niquetamere','batard','couille','merde','pedophile','hitler','fuck','bitch','asshole','nigger','nigga','bougnoul','youpin','schlampe','hurensohn','fotze','wichser','arschloch'];
+const NICK_WORD=new Set(['pute','putes','fdp','ntm','nique','pd','pede','pedo','nazi','shit','negro','negre','con','conne']);
+function badNick(s){
+  const leet=x=>x.replace(/0/g,'o').replace(/1/g,'i').replace(/3/g,'e').replace(/4/g,'a').replace(/5/g,'s').replace(/7/g,'t');
+  const words=norm(s).split(' ').filter(Boolean), k=words.join(''), l=leet(k);
+  if([k,l,l.replace(/\d+$/,''),k.replace(/\d+$/,'')].some(x=>NICK_RESERVED.has(x))) return true;
+  if(NICK_SUB.some(w=>l.includes(w))) return true;
+  return NICK_WORD.has(k)||NICK_WORD.has(l)||words.some(w=>NICK_WORD.has(w)||NICK_WORD.has(leet(w)));
+}
 const P=[], IDX=new Map(), FIRST=new Set();
 (function build(){
   const raw=RAW_PLAYERS, seen=new Set();
@@ -156,4 +167,4 @@ async function resolveRemote(text,letter,used){
   return {st:'ok',display,keys};
 }
 
-export { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };
+export { norm, badNick, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, DAILY_LETTERS, ALL_LETTERS, parisDate, dailyLetter, P };

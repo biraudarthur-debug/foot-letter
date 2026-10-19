@@ -5,7 +5,7 @@
 // pour qu'aucune écriture n'en écrase une autre.
 import { getStore } from "@netlify/blobs";
 import crypto from "node:crypto";
-import { norm, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, ALL_LETTERS, parisDate, dailyLetter } from "../lib/game.mjs";
+import { norm, badNick, titleCase, checkLocal, nameLetters, fullNameLetters, resolveRemote, DRAW_LETTERS, ALL_LETTERS, parisDate, dailyLetter } from "../lib/game.mjs";
 
 export const config = { path: ["/api/*", "/diag"] };
 
@@ -23,7 +23,11 @@ async function listKeys(st, prefix) { const r = await st.list({ prefix }); retur
 /* ---------- comptes et sessions ---------- */
 const userKey = (name) => norm(name).replace(/ /g, "_");
 const cleanName = (n) => String(n || "").replace(/\s+/g, " ").trim();
-const validName = (n) => /^[\p{L}\p{N} _.\-]{2,18}$/u.test(n) && userKey(n).length >= 2;
+const validName = (n) => /^[\p{L}\p{N} _.\-]{2,18}$/u.test(n) && userKey(n).length >= 2 && !badNick(n);
+// nom de remplacement stable pour un pseudo interdit (même joueur → même nom)
+const stableName = (key) => "Joueur " + crypto.createHash("sha1").update(String(key)).digest("hex").slice(0, 3).toUpperCase();
+const shownName = (u, n) => (n && !badNick(n) ? n : stableName(u));
+const cleanRows = (list) => list.map((e) => (e && e.n && badNick(e.n) ? { ...e, n: stableName(e.u) } : e));
 const hashPass = (pass, salt) => crypto.scryptSync(String(pass), salt, 32).toString("hex");
 function newUser(name) {
   return { key: userKey(name), name, created: Date.now(), stats: blankStats(), badges: {}, daily: { last: null, streak: 0, best: 0 }, done: {}, runs: [] };
@@ -124,7 +128,7 @@ async function boardRead(st, kind, key) {
   const rows = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter(Boolean);
   const best = new Map();
   [...rows, ...(await legacyBoard(st, kind, key))].forEach((e) => { if (!e || !e.u) return; const c = best.get(e.u); if (!c || CMP[kind](e, c) < 0) best.set(e.u, e); });
-  return [...best.values()].sort(CMP[kind]).slice(0, 100);
+  return cleanRows([...best.values()].sort(CMP[kind]).slice(0, 100));
 }
 async function letterMap(st, kind) {
   const keys = await listKeys(st, "entry/" + kind + "/");
@@ -226,10 +230,11 @@ async function route(req, path, st) {
   // joueur sans compte : profil invité (pseudo libre), classé comme les autres
   if (path === "guest") {
     let name = cleanName(String(body.name || "").replace(/[^\p{L}\p{N} _.\-]/gu, "")).slice(0, 18);
-    if (!validName(name)) name = "Joueur " + rnd(3).toUpperCase();
     const cur = await authUser(req, st);
+    const gkey = cur && cur.guest ? cur.key : "g~" + rnd(14).toLowerCase();
+    if (!validName(name)) name = cur && cur.guest && validName(cur.name) ? cur.name : stableName(gkey);
     if (cur && cur.guest) { if (cur.name !== name) { cur.name = name; await saveUser(st, cur); } await putJSON(st, "seen/" + cur.key, { t: Date.now() }); return json({ token: null, profile: publicProfile(cur) }); }
-    const u = newUser(name); u.key = "g~" + rnd(14).toLowerCase(); u.guest = true;
+    const u = newUser(name); u.key = gkey; u.guest = true;
     await saveUser(st, u);
     await putJSON(st, "seen/" + u.key, { t: Date.now() });
     return json({ token: await newSession(st, u.key), profile: publicProfile(u) });
@@ -271,7 +276,7 @@ async function route(req, path, st) {
       if (c && Date.now() - c.t < 60000) return json({ list: c.list });
       const keys = (await listKeys(st, "user/")).slice(0, 2000);
       const users = (await Promise.all(keys.map((k) => getJSON(st, k)))).filter((x) => x && !x.guest).map(fixUser);
-      const list = users.map((x) => { const l = xpOf(x); return { u: x.key, n: x.name, s: l.xp, lvl: l.lvl, d: x.created || 0 }; }).filter((e) => e.s > 0).sort((a, b) => b.s - a.s || a.d - b.d).slice(0, 100);
+      const list = users.map((x) => { const l = xpOf(x); return { u: x.key, n: shownName(x.key, x.name), s: l.xp, lvl: l.lvl, d: x.created || 0 }; }).filter((e) => e.s > 0).sort((a, b) => b.s - a.s || a.d - b.d).slice(0, 100);
       await putJSON(st, "cache/xp", { t: Date.now(), list });
       return json({ list });
     }
