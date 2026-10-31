@@ -19,7 +19,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"FOOT LETTERS","url":"https://footletters.com/","image":"https://footletters.com/og.png","alternateName":["Foot Letters","Quiz foot FOOT LETTERS"],"keywords":"quiz foot, quiz football, jeu de foot en ligne, culture foot, quiz foot entre amis, quiz foot gratuit","description":"Jeu de culture football : cite un maximum de footballeurs dont le nom commence par une lettre tirée au hasard. Lettre du jour, défis, tour de l'alphabet, parties en ligne entre amis.","genre":["Quiz","Sport","Football"],"gamePlatform":["Web","Android","iOS"],"applicationCategory":"Game","operatingSystem":"Any","inLanguage":["fr","en","de"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"sameAs":["https://www.tiktok.com/@footletters.off"]}</script>
 <meta property="og:title" content="FOOT LETTERS · le quiz foot du jour">
 <meta property="og:description" content="Une lettre, un chrono : combien de footballeurs peux-tu citer ? Lettre du jour, duels contre un bot et parties entre amis.">
-<meta name="theme-color" content="#0f4a2b">
+<meta name="theme-color" content="#e7eee3">
 <link rel="manifest" href="/manifest.webmanifest">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5be1bb81-ef5d-42ba-a5bc-366e25d7735c"></script>
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -32,369 +32,432 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.wikidata.org">
 <link rel="preconnect" href="https://upload.wikimedia.org">
 <link rel="preconnect" href="https://flagcdn.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&display=swap"></noscript>
+<link rel="preload" href="/fonts/jost.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/fonts/bodoni-moda.woff" as="font" type="font/woff" crossorigin>
 <style>
-/* Terrain la nuit, version arrondie : surfaces pleines aux angles doux, pastilles colorées par mode, la lettre reste la star au centre. */
+@font-face{font-family:"Bodoni Moda";src:url(/fonts/bodoni-moda.woff) format("woff");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(/fonts/bodoni-moda-italic.woff) format("woff");font-weight:400 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Jost";src:url(/fonts/jost.woff) format("woff");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Parisienne";src:url(/fonts/parisienne.woff) format("woff");font-weight:400;font-style:normal;font-display:swap}
+/* Club-house : pelouse tondue en bandes claires, encre vert anglais, laiton. Bodoni Moda pour les titres, Jost pour l'interface. */
 :root{
-  color-scheme: dark;
-  --bg:#0b3a22; --bg-2:#0d4127; --card:#0a3a22; --shadow:0 18px 50px rgba(0,25,12,.45); --card-2:#144635; --sunk:#0b2c20;
-  --chalk:#f1f6ef; --chalk-2:rgba(241,246,239,.72); --chalk-3:rgba(241,246,239,.4); --line:rgba(241,246,239,.11);
-  --yellow:#f7c948; --red:#ef5b4c; --go:#5fd38d; --blue:#7cc4ff; --orange:#ff9f68; --purple:#b99cff; --pink:#ff86bd;
-  --ink:#0a1f16; --paper:#f7f3e8; --on-chalk:#0a1f16; --warn:#f7c948; --surface:#1b4535;
-  --r-lg:24px; --r:16px; --r-sm:12px;
-  --f-display:"Big Shoulders Display","Oswald","Impact","Arial Narrow",sans-serif;
-  --f-body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  color-scheme: light;
+  --lawn-a:#e7eee3; --lawn-b:#dfe8db; --paper:#fbfcf9; --sunk:#eff3ec; --rule:rgba(23,58,41,.13);
+  --ink:#173a29; --ink-2:#4d6658; --ink-3:#8b9d92; --brass:#a77a32; --brass-soft:#ecdcb8;
+  --ok:#2e7a4d; --bad:#b0443a; --warn:#9a6a1c;
+  /* noms historiques utilisés par le code */
+  --bg:var(--lawn-a); --chalk:var(--ink); --chalk-2:var(--ink-2); --chalk-3:var(--ink-3); --line:var(--rule);
+  --card:var(--paper); --card-2:#e6ede2; --surface:var(--paper); --on-chalk:var(--paper);
+  --yellow:#e4c983; --red:var(--bad); --go:var(--ok); --blue:#5f86a8; --orange:#c27a45; --purple:#7d6aa8; --pink:#b5607f;
+  --shadow:0 1px 2px rgba(23,58,41,.06),0 12px 32px -12px rgba(23,58,41,.18);
+  --r-lg:22px; --r:16px; --r-sm:12px;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-body:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --f-script:"Parisienne","Snell Roundhand",cursive;
+  --gold:linear-gradient(135deg,#e9d3a0,#a77a32);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;min-height:100vh;background:var(--bg);color:var(--chalk);font-family:var(--f-body);font-size:15px;line-height:1.45;
-  
-  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;min-height:100vh;background:var(--lawn-a);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;font-weight:400;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-font-smoothing:antialiased}
+/* pelouse tondue : bandes verticales très douces */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;transform:translateZ(0);contain:strict;
+  background:repeating-linear-gradient(90deg,var(--lawn-a) 0 120px,var(--lawn-b) 120px 240px)}
 img{max-width:100%}
 button,input,select{font:inherit;color:inherit}
 button{-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;transform:translateZ(0);will-change:transform;contain:strict;background:
-  repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 80px, rgba(0,0,0,.05) 80px 160px),
-  radial-gradient(38% 34% at 12% 10%, rgba(61,255,127,.46), transparent 72%),
-  radial-gradient(42% 38% at 88% 18%, rgba(120,255,90,.32), transparent 72%),
-  radial-gradient(48% 42% at 28% 88%, rgba(0,255,150,.36), transparent 72%),
-  radial-gradient(40% 40% at 92% 92%, rgba(61,255,127,.32), transparent 72%),
-  radial-gradient(30% 28% at 55% 50%, rgba(120,255,110,.16), transparent 75%),
-  linear-gradient(160deg,#105231,#0a3a22)}
-.hero h1,.hero p.lede{text-shadow:0 2px 18px rgba(0,30,12,.45)}
-.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:16px 48px;display:flex;flex-direction:column;gap:20px}
-.label{font-family:var(--f-display);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12.5px;color:var(--chalk-2)}
-.h2{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,6vw,44px);margin:0;text-transform:uppercase;line-height:.95;letter-spacing:.01em;text-wrap:balance}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.brand{font-family:var(--f-display);font-weight:900;font-size:24px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:9px;background:none;border:0;padding:4px 6px 4px 0;cursor:pointer;border-radius:12px}
-.brand i{display:inline-grid;place-items:center;width:30px;height:30px;border:2px solid var(--chalk);border-radius:50%;background:none;color:var(--chalk);font-style:normal;font-size:16px;line-height:1}
-.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:13px;color:var(--chalk-2);background:var(--card)}
-.chip b{color:var(--chalk);font-family:var(--f-display);letter-spacing:.1em;font-size:15px}
-.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--sunk);padding:4px;border-radius:999px}
-.seg button{border:0;background:transparent;border-radius:999px;padding:6px 13px;cursor:pointer;font-family:var(--f-display);font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--chalk-2);transition:background .15s,color .15s}
-.seg button[aria-pressed="true"]{background:var(--chalk);color:var(--on-chalk)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:14px 56px;display:flex;flex-direction:column;gap:22px}
+.label{font-family:var(--f-body);font-weight:500;font-size:14px;color:var(--ink-2);letter-spacing:.01em}
+.h2{font-family:var(--f-display);font-weight:500;font-size:clamp(30px,5vw,42px);margin:0;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+
+/* barre du haut */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:4px;background:none;border:0;padding:4px 2px;cursor:pointer;color:var(--ink);line-height:1}
+.brand .w1{font-family:var(--f-display);font-weight:600;font-size:23px;letter-spacing:.14em;text-transform:uppercase}
+.brand .w2{font-family:var(--f-script);font-size:30px;color:var(--brass);margin-left:2px;transform:translateY(3px)}
+.tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:13.5px;color:var(--ink-2);background:var(--paper);box-shadow:inset 0 0 0 1px var(--rule)}
+.chip b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;flex-wrap:wrap;gap:2px;background:var(--paper);padding:3px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--rule)}
+.seg button{border:0;background:transparent;border-radius:999px;padding:6px 13px;cursor:pointer;font-weight:500;font-size:14px;color:var(--ink-2);transition:background .15s,color .15s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .seg button:disabled{cursor:default}
-.seg button:not([aria-pressed="true"]):not(:disabled):hover{color:var(--chalk)}
-.iconbtn{border:0;background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--chalk-2);cursor:pointer}
+.seg button:not([aria-pressed="true"]):not(:disabled):hover{color:var(--ink)}
+.iconbtn{border:0;background:transparent;border-radius:999px;padding:7px 12px;font-size:14px;color:var(--ink-2);cursor:pointer;font-weight:500}
+.iconbtn:hover{color:var(--ink);background:rgba(255,255,255,.6)}
+.iconbtn.hot{background:var(--ink);color:var(--paper)}
+
+/* boutons et champs */
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
 .row > .field{flex:1 1 200px;min-width:0}
-.btn{appearance:none;border:0;background:var(--card-2);color:var(--chalk);padding:13px 24px;border-radius:999px;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:17px;cursor:pointer;transition:transform .12s,background .15s,filter .15s;box-shadow:inset 0 0 0 2px var(--line)}
-.btn:hover:not(:disabled){filter:brightness(1.12)}
-.btn:active:not(:disabled){transform:scale(.97)}
-.btn.primary{background:var(--yellow);color:var(--ink);box-shadow:0 6px 0 #b8901f}
-.btn.primary:active:not(:disabled){transform:translateY(3px);box-shadow:0 3px 0 #b8901f}
-.btn.ghost{background:transparent;color:var(--chalk-2)}
-.btn.small{padding:8px 15px;font-size:14px}
+.btn{appearance:none;border:0;background:var(--paper);color:var(--ink);padding:13px 24px;border-radius:999px;font-weight:500;font-size:16px;letter-spacing:.01em;cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--rule);transition:background .15s,box-shadow .15s,transform .12s}
+.btn:hover:not(:disabled){box-shadow:inset 0 0 0 1px var(--ink-3)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn.primary{background:var(--ink);color:var(--paper);box-shadow:none}
+.btn.primary:hover:not(:disabled){background:#21503a}
+.btn.ghost{background:transparent;box-shadow:none;color:var(--ink-2)}
+.btn.ghost:hover:not(:disabled){color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.btn.small{padding:8px 16px;font-size:14.5px}
+.btn.big{padding:17px 34px;font-size:17px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .field{display:flex;flex-direction:column;gap:6px}
-.input{background:var(--sunk);border:2px solid transparent;border-radius:var(--r-sm);padding:12px 15px;font-size:16px;width:100%;transition:border-color .15s}
-.input:focus{border-color:var(--chalk-3);outline:none}
-.input::placeholder{color:var(--chalk-3)}
-.note{font-size:13px;color:var(--chalk-2);margin:0}
-.note.warn{color:var(--warn)} .note.ok{color:var(--go)}
-.panel,.stage,.rules li{
-  --chalk:#eef4ec; --chalk-2:rgba(238,244,236,.75); --chalk-3:rgba(238,244,236,.45); --line:rgba(238,244,236,.12);
-  --sunk:#14372a; --card:#14372a; --card-2:#245541; --on-chalk:#10281d; --go:#6be39a; --red:#ff7a6b; --warn:#f7c948;
-  color:var(--chalk);
-}
-.panel{--pc:#e8b21f;background:var(--surface);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:0 0 0 3px var(--pc),var(--shadow)}
-.panel.flat{--pc:#9a7bf0}
-.two>.panel:nth-child(2){--pc:#4ea3e8}
-.side .panel:first-child{--pc:#4ea3e8} .side .panel:last-child{--pc:#f08a4b}
+.input{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r-sm);padding:12px 15px;font-size:16px;width:100%;transition:border-color .15s,box-shadow .15s}
+.input:focus{border-color:var(--ink-3);outline:none;box-shadow:0 0 0 4px rgba(167,122,50,.14)}
+.input::placeholder{color:var(--ink-3)}
+.input:disabled{background:var(--sunk);color:var(--ink-2)}
+.note{font-size:14px;color:var(--ink-2);margin:0}
+.note.warn{color:var(--warn)} .note.ok{color:var(--ok)}
 
-/* accueil */
-.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;padding-block:12px 0}
-.hero h1{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.84;margin:0;font-size:clamp(64px,12vw,138px);letter-spacing:.01em}
-.hero h1 span{display:block;color:transparent;-webkit-text-stroke:2px var(--chalk)}
-.hero p.lede{font-size:17.5px;max-width:46ch;color:var(--chalk-2);margin:16px 0 0;text-wrap:pretty}
-.hero p.lede b{color:var(--chalk)}
-.pitchmark{position:relative;aspect-ratio:1;width:min(300px,100%);justify-self:center}
-.pitchmark .circle{position:absolute;inset:0;border:2px solid var(--chalk-3);border-radius:50%}
-.pitchmark .half{position:absolute;left:-40%;right:-40%;top:50%;border-top:2px solid var(--line)}
-.pitchmark .demo{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:min(42vw,160px);line-height:1;transition:opacity .2s}
-.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.mode{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;padding:16px;border:0;border-radius:var(--r);background:#205040;color:var(--chalk);cursor:pointer;transition:transform .15s,box-shadow .15s;min-width:0;box-shadow:inset 0 0 0 2px var(--mc,var(--line))}
-.mode:hover:not(:disabled){transform:translateY(-3px);box-shadow:inset 0 0 0 3px var(--mc,var(--line)),0 8px 18px rgba(0,0,0,.12)}
-.mode:active:not(:disabled){transform:scale(.98)}
+/* surfaces */
+.panel{background:var(--paper);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:var(--shadow)}
+.panel.flat{background:rgba(251,252,249,.72);box-shadow:inset 0 0 0 1px var(--rule)}
+
+/* ===== ACCUEIL ===== */
+.today{position:relative;overflow-x:clip;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 56px;align-items:center;padding:28px 0 18px;min-height:min(78vh,720px)}
+.today-copy{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.today-kicker{font-family:var(--f-script);font-size:34px;color:var(--brass);line-height:1;margin:0}
+.today-h{font-family:var(--f-display);font-weight:500;font-size:clamp(40px,4.7vw,64px);line-height:1;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.today-lede{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:44ch;margin:0;text-wrap:pretty}
+.today-lede b{color:var(--ink);font-weight:500}
+.today-cta{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.today-state{font-size:14.5px;color:var(--ink-2)}
+.today-state b{color:var(--ink);font-weight:600}
+/* le rond central : la lettre (ou le mystère) du jour */
+.today-pitch{position:relative;justify-self:center;width:min(460px,100%);aspect-ratio:1}
+.today-pitch svg{position:absolute;inset:-14%;width:128%;height:128%;overflow:visible}
+.today-pitch svg line,.today-pitch svg circle{fill:none;stroke:#fff;stroke-width:2.2}
+.today-pitch svg .spot{fill:#fff;stroke:none}
+.today-disc{position:absolute;inset:9%;border-radius:50%;background:var(--paper);box-shadow:0 30px 70px -30px rgba(23,58,41,.45),inset 0 0 0 1px var(--rule);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center}
+.today-num{font-size:14px;font-weight:500;color:var(--ink-2);letter-spacing:.02em}
+.today-letter{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(150px,22vw,250px);line-height:.92;color:var(--ink);margin-top:-6px}
+.today-letter.q{color:var(--brass)}
+.today-sub{font-size:14px;color:var(--ink-2);max-width:22ch;line-height:1.4}
+.today-next{font-variant-numeric:tabular-nums;font-weight:500;color:var(--ink)}
+
+/* pseudo / compte */
+.whois{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:16px 28px;align-items:end;background:var(--paper);border-radius:var(--r-lg);padding:20px 24px;box-shadow:var(--shadow)}
+.acct{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
+.acct .note{flex:1 1 240px}
+
+/* la carte des jeux */
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-top:34px}
+.sec-head p{margin:0;color:var(--ink-2);max-width:52ch}
+.carte{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.course{background:var(--paper);border-radius:var(--r-lg);padding:8px 26px 14px;box-shadow:var(--shadow)}
+.course h3{font-family:var(--f-script);font-weight:400;font-size:38px;color:var(--brass);margin:12px 0 0;line-height:1.1}
+.course > p{margin:0 0 6px;color:var(--ink-2);font-size:14.5px}
+.modes{display:flex;flex-direction:column}
+.mode{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;align-items:center;text-align:left;padding:18px 0;border:0;border-top:1px solid var(--rule);background:none;color:var(--ink);cursor:pointer;width:100%}
+.mode:first-child{border-top:0}
+.mode .m-name{font-family:var(--f-display);font-weight:500;font-size:25px;line-height:1.1;letter-spacing:-.005em}
+.mode .m-desc{grid-column:1;color:var(--ink-2);font-size:14.5px;line-height:1.45}
+.mode .m-meta{grid-column:1;font-size:13px;color:var(--ink-3)}
+.mode .m-go{grid-column:2;grid-row:1 / span 3;align-self:center;font-size:14px;font-weight:500;padding:9px 16px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--rule);white-space:nowrap;transition:background .15s,color .15s}
+.mode:hover .m-go,.mode:focus-visible .m-go{background:var(--ink);color:var(--paper);box-shadow:none}
 .mode:disabled{opacity:.45;cursor:not-allowed}
-.mode .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--ink);margin-bottom:4px}
-.mode .ic svg{width:24px;height:24px}
-.mode strong{font-family:var(--f-display);font-weight:900;font-size:23px;text-transform:uppercase;letter-spacing:.03em;line-height:1}
-.mode span.d{color:var(--chalk-2);font-size:13.5px}
-.mode .k{position:absolute;top:16px;right:14px;font-family:var(--f-display);font-weight:800;letter-spacing:.12em;font-size:11px;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--sunk);color:var(--chalk-2)}
-.mode .badge{align-self:flex-start;margin-top:4px;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--warn);font-weight:600}
-.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
-.rules li{background:var(--surface);border-radius:var(--r);padding:12px 14px;font-size:13.5px;color:var(--chalk-2);box-shadow:inset 0 4px 0 var(--rc,#e8b21f)}
-.rules li:nth-child(2){--rc:#4ea3e8} .rules li:nth-child(3){--rc:#2fb36b} .rules li:nth-child(4){--rc:#cc3a2c}
-.rules li b{display:block;color:var(--chalk);font-family:var(--f-display);font-size:19px;letter-spacing:.03em;text-transform:uppercase}
+.mode .badge{grid-column:1;justify-self:start;margin-top:4px;font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--brass-soft);color:#5d4210;font-weight:500}
+#joinForm{padding:0 0 16px}
+
+/* règles */
+.regles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:0;list-style:none;background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+.regles li{padding:22px 22px 24px;border-left:1px solid var(--rule);font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.regles li:first-child{border-left:0}
+.regles li b{display:block;font-family:var(--f-display);font-weight:500;font-size:22px;color:var(--ink);margin-bottom:6px;line-height:1.15}
+
+/* en tête aujourd'hui */
+.top-today{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px 40px;align-items:start;background:var(--ink);color:#eef3ec;border-radius:var(--r-lg);padding:30px;box-shadow:var(--shadow)}
+.top-today .h2{color:#fbfcf9}
+.top-today p{color:rgba(238,243,236,.72);margin:10px 0 18px}
+.top-today .btn{background:#fbfcf9;color:var(--ink)}
+.podlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.podlist li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:12px 0;border-top:1px solid rgba(238,243,236,.14)}
+.podlist li:first-child{border-top:0}
+.podlist .rk{font-family:var(--f-display);font-style:italic;font-size:26px;color:#e3c98d;line-height:1}
+.podlist .n{font-size:17px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.podlist .v{font-variant-numeric:tabular-nums;color:rgba(238,243,236,.8);font-size:15px}
+.podlist .empty{display:block;color:rgba(238,243,236,.6);border:0}
+
+/* pied de page */
+.foot{margin-top:30px;padding-top:26px;border-top:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px 48px;font-size:14px;color:var(--ink-2)}
+.foot-side{display:flex;flex-direction:column;gap:16px}
 .netbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .leds{display:flex;gap:5px}
-.led{width:9px;height:9px;border-radius:50%;background:var(--chalk-3)}
-.led.on{background:var(--go);box-shadow:0 0 8px var(--go)} .led.off{background:var(--red)}
+.led{width:8px;height:8px;border-radius:50%;background:var(--ink-3)}
+.led.on{background:var(--ok)} .led.off{background:var(--bad)}
+.seo-links{display:flex;flex-direction:column;gap:8px}
+#seoLetters{display:flex;flex-wrap:wrap;gap:4px;min-width:0;max-width:100%}
+.seo-links a{color:var(--ink-2);text-decoration:none;width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:rgba(251,252,249,.7);font-size:13.5px}
+.seo-links a:hover{color:var(--ink);background:var(--paper)}
+.seo-text{font-size:14.5px;line-height:1.65;color:var(--ink-2)}
+.seo-text h2{font-family:var(--f-display);font-weight:500;font-size:26px;color:var(--ink);margin:0 0 10px;line-height:1.15}
+.seo-text p{margin:0 0 10px;max-width:68ch} .seo-text a{color:var(--ink);text-underline-offset:3px;text-decoration-color:var(--brass)}
+.seo-text details{border-top:1px solid var(--rule);padding:10px 0} .seo-text summary{cursor:pointer;font-weight:500;color:var(--ink)}
+.seo-text details p{margin:6px 0 0}
+.social{display:flex;gap:8px;flex-wrap:wrap}
+.tiktok{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:500;font-size:14px;border:0}
+.tiktok svg{width:17px;height:17px}
+.shareSite{cursor:pointer;font:inherit;font-weight:500;font-size:14px;background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.vers{font-size:12.5px;color:var(--ink-3)}
 
-/* réglages */
-.settings{display:flex;flex-direction:column;gap:14px}
-.letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:6px}
-.letters button{aspect-ratio:1;border:0;background:var(--sunk);border-radius:10px;font-family:var(--f-display);font-weight:900;font-size:18px;cursor:pointer}
-.letters button[aria-pressed="true"]{background:var(--yellow);color:var(--ink)}
+/* ===== réglages ===== */
+.settings{display:flex;flex-direction:column;gap:16px}
+.letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.letters button{aspect-ratio:1;border:0;background:var(--sunk);border-radius:10px;font-family:var(--f-display);font-weight:500;font-size:19px;cursor:pointer;color:var(--ink)}
+.letters button:hover:not(:disabled){box-shadow:inset 0 0 0 1px var(--ink-3)}
+.letters button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .letters button:disabled{cursor:default}
 
-/* salon */
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
-.code-big{font-family:var(--f-display);font-weight:900;font-size:clamp(56px,12vw,92px);letter-spacing:.14em;line-height:1}
-.roster{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.roster li{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r-sm);background:var(--sunk)}
-.dot{width:12px;height:12px;border-radius:50%;flex:none}
-.roster .tag{margin-left:auto;font-size:11.5px;color:var(--chalk-2);font-family:var(--f-display);letter-spacing:.12em;text-transform:uppercase}
+/* ===== salon ===== */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.code-big{font-family:var(--f-display);font-weight:500;font-size:clamp(60px,12vw,96px);letter-spacing:.16em;line-height:1}
+.roster{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.roster li{display:flex;align-items:center;gap:12px;padding:12px 2px;border-top:1px solid var(--rule)}
+.roster li:first-child{border-top:0}
+.dot{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(23,58,41,.25)}
+.roster .tag{margin-left:auto;font-size:12.5px;color:var(--ink-2)}
 .local-names{display:flex;flex-direction:column;gap:8px}
 .local-names .r{display:flex;gap:8px}
 
-/* partie */
-.game{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
-.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--surface);border-radius:var(--r-lg);padding:22px 16px;box-shadow:0 0 0 3px #0b0f0d,var(--shadow);min-width:0}
+/* ===== partie ===== */
+.game{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;align-items:start}
+.stage{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;background:var(--paper);border-radius:var(--r-lg);padding:26px 18px;box-shadow:var(--shadow);min-width:0}
 .ring{position:relative;width:min(300px,74vw);aspect-ratio:1;max-width:100%}
 .ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.ring .track{fill:none;stroke:var(--line);stroke-width:5}
-.ring .prog{fill:none;stroke:var(--chalk);stroke-width:7;stroke-linecap:round;transition:stroke .3s}
-.ring.warn .prog{stroke:var(--yellow)} .ring.danger .prog{stroke:var(--red)} .ring.paused .prog{stroke:var(--chalk-3)}
+.ring .track{fill:none;stroke:var(--sunk);stroke-width:3}
+.ring .prog{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;transition:stroke .3s}
+.ring.warn .prog{stroke:var(--brass)} .ring.danger .prog{stroke:var(--bad)} .ring.paused .prog{stroke:var(--ink-3)}
 .ring .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.letter{font-family:var(--f-display);font-weight:900;font-size:min(40vw,156px);line-height:.9}
-.letter.roll{color:var(--chalk-2)}
-.clock{font-family:var(--f-display);font-weight:800;font-size:28px;letter-spacing:.08em;font-variant-numeric:tabular-nums}
-.ring.danger .clock{color:var(--red);animation:pulse 1s infinite}
+.letter{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:min(40vw,150px);line-height:.95}
+.letter.roll{color:var(--ink-3)}
+.clock{font-weight:500;font-size:24px;letter-spacing:.04em;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.ring.danger .clock{color:var(--bad);animation:pulse 1s infinite}
 @keyframes pulse{50%{opacity:.45}}
 .tries{display:flex;gap:6px;justify-content:center;min-height:12px}
-.tries i{width:11px;height:11px;border-radius:50%;background:var(--sunk);box-shadow:inset 0 0 0 2px var(--chalk-3)}
-.tries i.used{background:var(--red);box-shadow:none}
+.tries i{width:10px;height:10px;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-3)}
+.tries i.used{background:var(--bad);box-shadow:none}
 .turn{text-align:center;display:flex;flex-direction:column;gap:2px}
-.turn .who{font-family:var(--f-display);font-weight:900;font-size:clamp(28px,6vw,40px);text-transform:uppercase;letter-spacing:.03em;line-height:1}
-.turn .sub{color:var(--chalk-2);font-size:14px;min-height:1.4em}
+.turn .who{font-family:var(--f-display);font-weight:500;font-size:clamp(28px,5.4vw,38px);line-height:1.1}
+.turn .sub{color:var(--ink-2);font-size:14.5px;min-height:1.4em}
 form.answer{width:100%;max-width:520px;display:flex;gap:8px}
-form.answer .input{font-size:18px;padding:14px 18px;min-width:0;border-radius:999px}
+form.answer .input{font-size:18px;padding:14px 20px;min-width:0;border-radius:999px}
 .feedback{min-height:22px;font-size:15px;text-align:center;max-width:520px}
-.feedback.ok{color:var(--go);font-weight:600} .feedback.bad{color:var(--warn);font-weight:600}
+.feedback.ok{color:var(--ok);font-weight:500} .feedback.bad{color:var(--warn);font-weight:500}
 .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.decide{width:100%;max-width:520px;background:var(--sunk);border-radius:var(--r);padding:10px 14px;display:flex;flex-direction:column;gap:10px;text-align:center}
-.streak{display:inline-block;margin-left:8px;font-size:18px;color:#d2601a}
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+.decide{width:100%;max-width:520px;background:var(--sunk);border-radius:var(--r);padding:12px 16px;display:flex;flex-direction:column;gap:10px;text-align:center}
 .decide p{margin:0}
+.streak{display:inline-block;margin-left:8px;font-size:18px;color:var(--orange)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
 .reacts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
 .reacts button{width:42px;height:42px;border-radius:50%;border:0;background:var(--sunk);font-size:20px;cursor:pointer;transition:transform .1s}
 .reacts button:active{transform:scale(.88)}
 .floaters{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:var(--r-lg)}
 .floater{position:absolute;bottom:18%;font-size:30px;animation:rise 2.2s ease-out forwards;display:flex;flex-direction:column;align-items:center;will-change:transform,opacity}
-.floater small{font-size:11px;font-family:var(--f-display);letter-spacing:.1em;text-transform:uppercase;background:var(--sunk);padding:1px 7px;border-radius:999px}
+.floater small{font-size:11.5px;background:var(--paper);padding:1px 8px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--rule)}
 @keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1;transform:translateY(-20px) scale(1)}100%{transform:translateY(-240px);opacity:0}}
-.fair{font-size:12px;color:var(--chalk-3);text-align:center}
+.fair{font-size:12.5px;color:var(--ink-3);text-align:center;margin:0}
 
 /* vignette joueur */
-.sticker{position:absolute;top:26px;left:50%;width:210px;max-width:78%;margin-left:-105px;background:#fff;color:var(--ink);border-radius:18px;padding:10px 10px 12px;box-shadow:0 0 0 3px #14281e,0 20px 50px rgba(0,0,0,.35);z-index:5;animation:pop .4s cubic-bezier(.2,1.5,.4,1) both;text-align:center;will-change:transform,opacity;transform:rotate(-3deg)}
+.sticker{position:absolute;top:26px;left:50%;width:210px;max-width:78%;margin-left:-105px;background:var(--paper);color:var(--ink);border-radius:18px;padding:10px 10px 14px;box-shadow:0 24px 60px -20px rgba(23,58,41,.45),inset 0 0 0 1px var(--rule);z-index:5;animation:pop .4s cubic-bezier(.2,1.4,.4,1) both;text-align:center;will-change:transform,opacity;transform:rotate(-2deg)}
 @media (max-width:420px){.sticker{margin-left:0;left:11%}}
 .sticker.out{animation:popout .28s ease-in forwards}
-@keyframes pop{from{transform:rotate(-12deg) scale(.5);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
-@keyframes popout{to{transform:rotate(6deg) scale(.7);opacity:0}}
-.sticker .ph{width:100%;aspect-ratio:1/1.05;border-radius:12px;background:linear-gradient(160deg,#1d5a3f,#0c3324);display:grid;place-items:center;overflow:hidden}
+@keyframes pop{from{transform:rotate(-8deg) scale(.6);opacity:0}to{transform:rotate(-2deg) scale(1);opacity:1}}
+@keyframes popout{to{transform:rotate(4deg) scale(.8);opacity:0}}
+.sticker .ph{width:100%;aspect-ratio:1/1.05;border-radius:12px;background:var(--sunk);display:grid;place-items:center;overflow:hidden}
 .sticker .ph img{width:100%;height:100%;object-fit:cover;object-position:top}
-.sticker .nm{font-family:var(--f-display);font-weight:900;font-size:23px;text-transform:uppercase;line-height:1;margin-top:8px;overflow-wrap:anywhere}
-.sticker .meta{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12.5px;margin-top:5px;color:#3b4a40;flex-wrap:wrap;line-height:1.3}
-.sticker .by{position:absolute;top:-10px;right:-10px;color:var(--ink);font-family:var(--f-display);font-weight:900;padding:4px 10px;border-radius:999px;font-size:14px;transform:rotate(8deg)}
-.flag{width:21px;height:15px;border-radius:3px;object-fit:cover;flex:none;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.sticker .nm{font-family:var(--f-display);font-weight:500;font-size:22px;line-height:1.05;margin-top:8px;overflow-wrap:anywhere}
+.sticker .meta{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12.5px;margin-top:5px;color:var(--ink-2);flex-wrap:wrap;line-height:1.3}
+.sticker .by{position:absolute;top:-10px;right:-10px;color:var(--ink);font-weight:500;padding:4px 10px;border-radius:999px;font-size:13px;transform:rotate(6deg)}
+.flag{width:21px;height:15px;border-radius:3px;object-fit:cover;flex:none;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
 .jersey{width:58%;height:58%}
 
-.side{display:flex;flex-direction:column;gap:16px;min-width:0}
-.players{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.players li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:9px 14px;border-radius:var(--r-sm);background:var(--sunk);transition:background .2s,box-shadow .2s}
-.players li.cur{box-shadow:inset 0 0 0 2px var(--chalk)}
+.side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.players{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.players li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:10px 6px;border-top:1px solid var(--rule);transition:background .2s}
+.players li:first-child{border-top:0}
+.players li.cur{background:var(--sunk);border-radius:var(--r-sm);border-top-color:transparent}
 .players li.out{opacity:.45}
 .players .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.players .nm small{color:var(--chalk-2);margin-left:6px}
-.players .sc{font-family:var(--f-display);font-weight:900;font-size:22px;font-variant-numeric:tabular-nums;min-width:1.4em;text-align:right}
+.players .nm small{color:var(--ink-2);margin-left:6px}
+.players .sc{font-family:var(--f-display);font-weight:500;font-size:22px;font-variant-numeric:tabular-nums;min-width:1.4em;text-align:right}
 .cards{display:flex;gap:4px;align-items:center}
-.card{width:11px;height:15px;border-radius:3px;flex:none;display:inline-block}
-.card.r{background:var(--red)} .card.y{background:var(--yellow)}
-.feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;max-height:380px;overflow:auto;contain:content}
-.feed li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line);font-size:14px}
+.card{width:10px;height:14px;border-radius:2px;flex:none;display:inline-block}
+.card.r{background:var(--bad)} .card.y{background:#e2b93b}
+.feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;max-height:380px;overflow:auto;contain:content}
+.feed li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;padding:8px 2px;border-bottom:1px solid var(--rule);font-size:14.5px;position:relative}
 .feed li:last-child{border-bottom:0}
-.av{width:36px;height:36px;border-radius:12px;background:#1d5a3f;color:#f1f6ef;display:grid;place-items:center;overflow:hidden;font-family:var(--f-display);font-weight:900;font-size:13px;flex:none}
+.av{width:36px;height:36px;border-radius:50%;background:var(--sunk);color:var(--ink-2);display:grid;place-items:center;overflow:hidden;font-family:var(--f-display);font-weight:500;font-size:14px;flex:none}
 .av img{width:100%;height:100%;object-fit:cover;object-position:top}
 .feed .nm{min-width:0;display:flex;flex-direction:column}
-.feed .nm b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.feed .nm span{color:var(--chalk-2);font-size:12px;display:flex;gap:5px;align-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-height:15px}
-.feed .by{color:var(--chalk-2);font-size:12.5px;text-align:right;white-space:nowrap}
-.feed li{position:relative}
-.feed li.new::after{content:"";position:absolute;inset:0;border-radius:8px;background:rgba(95,211,141,.22);pointer-events:none;animation:flash 1.2s forwards}
+.feed .nm b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.feed .nm span{color:var(--ink-2);font-size:12.5px;display:flex;gap:5px;align-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-height:15px}
+.feed .by{color:var(--ink-2);font-size:12.5px;text-align:right;white-space:nowrap}
+.feed li.new::after{content:"";position:absolute;inset:0;border-radius:8px;background:rgba(46,122,77,.12);pointer-events:none;animation:flash 1.2s forwards}
 @keyframes flash{0%{opacity:1}100%{opacity:0}}
-.empty{color:var(--chalk-3);font-size:14px;padding:6px 0}
-.feed li.empty,.lb li.empty{display:block;background:none;box-shadow:none}
+.empty{color:var(--ink-3);font-size:14px;padding:6px 0}
+.feed li.empty,.lb li.empty{display:block;background:none;box-shadow:none;border:0}
 
-/* manches / fin */
-.tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:14px}
-.tbl th{font-family:var(--f-display);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px;color:var(--chalk-2);text-align:right;padding:0 8px}
+/* ===== manches / fin ===== */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl th{font-weight:500;font-size:12.5px;color:var(--ink-2);text-align:right;padding:0 8px 8px}
 .tbl th:nth-child(2),.tbl td:nth-child(2){text-align:left}
-.tbl td{background:var(--sunk);padding:10px 8px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.tbl td:first-child{border-radius:12px 0 0 12px;font-family:var(--f-display);font-weight:900;font-size:18px;text-align:center;width:40px}
-.tbl td:last-child{border-radius:0 12px 12px 0}
+.tbl td{padding:11px 8px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;border-top:1px solid var(--rule)}
+.tbl td:first-child{font-family:var(--f-display);font-style:italic;font-size:19px;text-align:center;width:40px}
 .tbl td.nm{max-width:150px;overflow:hidden;text-overflow:ellipsis}
-.tbl td.pts{font-family:var(--f-display);font-weight:900;font-size:19px}
-.tbl td.plus{color:var(--go);font-weight:700}
-.tblwrap{overflow-x:auto;margin:-6px 0}
-.winner{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(36px,6.5vw,62px);margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.tbl td.pts{font-family:var(--f-display);font-weight:500;font-size:20px}
+.tbl td.plus{color:var(--ok);font-weight:500}
+.tblwrap{overflow-x:auto}
+.winner{font-family:var(--f-display);font-weight:500;line-height:1;font-size:clamp(38px,6.5vw,62px);margin:0;text-wrap:balance;overflow-wrap:anywhere;letter-spacing:-.01em}
 .podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}
-.pod{box-shadow:inset 0 0 0 2px rgba(0,0,0,.12);border-radius:var(--r);padding:12px 10px;text-align:center;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
-.pod .pos{font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1}
-.pod .n{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pod .p{font-family:var(--f-display);font-weight:800;font-size:16px}
-.pod.g1{background:var(--yellow);min-height:150px} .pod.g2{background:#d9e1dc;min-height:120px} .pod.g3{background:#e2a46c;min-height:100px}
+.pod{border-radius:var(--r);padding:14px 10px;text-align:center;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
+.pod .pos{font-family:var(--f-display);font-style:italic;font-size:30px;line-height:1}
+.pod .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod .p{font-size:14px;color:var(--ink-2)}
+.pod.g1{background:var(--brass-soft);min-height:150px} .pod.g2{background:#e3e9e1;min-height:120px} .pod.g3{background:#efe2d4;min-height:100px}
 .awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.award{background:var(--sunk);border-radius:var(--r);padding:12px 14px;min-width:0}
-.award b{display:block;font-family:var(--f-display);font-size:20px;text-transform:uppercase;letter-spacing:.02em;overflow-wrap:anywhere}
-.award span{font-size:12px;color:var(--chalk-2)}
+.award{background:var(--sunk);border-radius:var(--r);padding:14px 16px;min-width:0}
+.award b{display:block;font-family:var(--f-display);font-weight:500;font-size:19px;overflow-wrap:anywhere}
+.award span{font-size:12.5px;color:var(--ink-2)}
 .found{display:flex;flex-wrap:wrap;gap:6px}
-.found span{background:var(--sunk);border-radius:999px;padding:4px 11px 4px 7px;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.found span{background:var(--sunk);border-radius:999px;padding:4px 12px 4px 8px;font-size:13.5px;display:inline-flex;gap:6px;align-items:center}
 
-/* solo */
+/* ===== solo ===== */
 .solo-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.bigletter{font-family:var(--f-display);font-weight:900;font-size:clamp(110px,26vw,190px);line-height:.85;text-align:center}
-.stepper{display:flex;align-items:center;gap:12px;justify-content:center}
-.stepper button{width:52px;height:52px;border-radius:50%;border:0;background:var(--sunk);font-size:26px;font-weight:700;cursor:pointer}
-.stepper output{font-family:var(--f-display);font-weight:900;font-size:64px;min-width:2ch;text-align:center;line-height:1;font-variant-numeric:tabular-nums}
+.bigletter{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(110px,24vw,180px);line-height:.9;text-align:center}
+.stepper{display:flex;align-items:center;gap:14px;justify-content:center}
+.stepper button{width:50px;height:50px;border-radius:50%;border:0;background:var(--sunk);font-size:24px;cursor:pointer}
+.stepper output{font-family:var(--f-display);font-weight:500;font-size:60px;min-width:2ch;text-align:center;line-height:1;font-variant-numeric:tabular-nums}
 .strip{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
-.strip span{width:26px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:15px;background:var(--sunk);color:var(--chalk-3)}
-.strip span.done{background:var(--go);color:#fff} .strip span.skip{background:var(--red);color:#fff} .strip span.cur{background:var(--chalk);color:var(--on-chalk)}
-.progress{font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:.04em}
-.pending{font-size:13px;color:var(--chalk-2);min-height:18px;text-align:center}
-.result-big{font-family:var(--f-display);font-weight:900;overflow-wrap:anywhere;font-size:clamp(44px,7vw,76px);line-height:.88;margin:0;text-transform:uppercase;text-wrap:balance}
-
-.wbox{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:var(--r);padding:14px}
+.strip span{width:26px;height:30px;border-radius:7px;display:grid;place-items:center;font-family:var(--f-display);font-weight:500;font-size:15px;background:var(--sunk);color:var(--ink-3)}
+.strip span.done{background:var(--ok);color:#fff} .strip span.skip{background:var(--bad);color:#fff} .strip span.cur{background:var(--ink);color:var(--paper)}
+.progress{font-family:var(--f-display);font-weight:500;font-size:26px}
+.pending{font-size:13.5px;color:var(--ink-2);min-height:18px;text-align:center}
+.result-big{font-family:var(--f-display);font-weight:500;overflow-wrap:anywhere;font-size:clamp(44px,7vw,72px);line-height:1;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.wbox{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:var(--r);padding:16px}
 .wgrid{display:flex;gap:8px}
-.wgrid span{flex:1;max-width:56px;aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:22px;color:var(--ink);background:#2a3e34;animation:flip .5s both}
-.wgrid span.g{background:#5fd38d} .wgrid span.y{background:#f7c948} .wgrid span.n{color:var(--chalk-3)}
+.wgrid span{flex:1;max-width:56px;aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font-weight:600;font-size:20px;color:var(--ink);background:#dfe6dc;animation:flip .5s both}
+.wgrid span.g{background:#8fc79f} .wgrid span.y{background:#e8cf8a} .wgrid span.n{color:var(--ink-3)}
 @keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
-.wnext{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:.04em;margin:0}
-.seo-links{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
-#seoLetters{display:flex;flex-wrap:wrap;gap:6px;min-width:0;max-width:100%}
-.seo-links a{color:var(--chalk-2);text-decoration:none;padding:2px 7px;border-radius:8px;background:rgba(0,0,0,.18)}
-.seo-links a:hover{color:var(--chalk)}
-.seo-text{margin-top:22px;padding:16px;border-radius:var(--r);background:rgba(0,0,0,.16);font-size:14px;line-height:1.55;color:var(--chalk-2)}
-.seo-text h2{font-family:var(--f-display);font-size:22px;letter-spacing:.03em;text-transform:uppercase;color:var(--chalk);margin:0 0 8px}
-.seo-text p{margin:0 0 10px} .seo-text a{color:#f3d27a}
-.seo-text details{border-top:1px solid rgba(255,255,255,.08);padding:8px 0} .seo-text summary{cursor:pointer;font-weight:700;color:var(--chalk)}
-.seo-text details p{margin:6px 0 0}
-/* expérience */
-.xp{display:flex;align-items:center;gap:10px;width:100%}
-.xp .lv{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;font-family:var(--f-display);font-weight:900;font-size:20px;color:#0a1f16;background:linear-gradient(135deg,#fbe8a6,#d4a537 45%,#f7dc8b 60%,#b07d1f)}
+.wnext{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0}
+
+/* ===== expérience, compte, profil ===== */
+.xp{display:flex;align-items:center;gap:12px;width:100%}
+.xp .lv{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink);background:var(--brass-soft);box-shadow:inset 0 0 0 1px rgba(167,122,50,.4)}
 .xp .bd{flex:1;min-width:0}
-.xp .tt{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--chalk-2)} .xp .tt b{color:var(--chalk);font-weight:800}
-.xp .bar{height:10px;border-radius:6px;background:rgba(0,0,0,.3);overflow:hidden;margin-top:5px}
-.xp .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#6be39a,#f7c948);transition:width .8s cubic-bezier(.2,.8,.2,1)}
-.xp.small .lv{width:34px;height:34px;font-size:15px} .xp.small .bar{height:7px}
-.xpgain{font-family:var(--f-display);font-weight:900;font-size:22px;color:#f7c948;letter-spacing:.03em}
-.tiktok{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#000;color:#fff;text-decoration:none;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.18)}
-.tiktok svg{width:18px;height:18px}
-.shareSite{cursor:pointer;font:inherit;font-weight:700;font-size:14px;background:linear-gradient(135deg,#fff2bf,#f7c948 45%,#c8901f);color:#0a1f16;border:0;margin-left:6px}
-/* fluidité : calques séparés et zones de rendu isolées */
+.xp .tt{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;color:var(--ink-2)} .xp .tt b{color:var(--ink);font-weight:500}
+.xp .bar{height:6px;border-radius:6px;background:var(--sunk);overflow:hidden;margin-top:6px}
+.xp .bar i{display:block;height:100%;border-radius:6px;background:var(--brass);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.xp.small .lv{width:34px;height:34px;font-size:15px} .xp.small .bar{height:5px}
+.xp.small{max-width:300px}
+.xpgain{font-family:var(--f-display);font-weight:500;font-size:22px;color:var(--brass)}
+.perks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.perks li{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
+.perks li:first-child{border-top:0}
+.perks li span{font-size:20px}
+.pr-head{display:flex;align-items:center;gap:16px;min-width:0}
+.pr-av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-family:var(--f-display);font-style:italic;font-size:28px;flex:none}
+.pr-name{font-family:var(--f-display);font-weight:500;font-size:34px;line-height:1.05;overflow-wrap:anywhere}
+.streakbox{display:flex;align-items:center;gap:12px;background:var(--brass-soft);border-radius:var(--r);padding:12px 16px;color:#5d4210}
+.streakbox .f{font-size:32px;line-height:1}
+.streakbox b{display:block;font-family:var(--f-display);font-weight:500;font-size:24px;line-height:1.1}
+.streakbox span{font-size:13px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.tile{background:var(--sunk);border-radius:var(--r-sm);padding:14px}
+.tile b{display:block;font-family:var(--f-display);font-weight:500;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.tile span{font-size:12.5px;color:var(--ink-2)}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.badge{background:var(--paper);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:inset 0 0 0 1px var(--bc,var(--brass));display:flex;flex-direction:column;gap:3px;align-items:center}
+.badge .e{font-size:28px;line-height:1.15}
+.badge b{font-family:var(--f-display);font-weight:500;font-size:16px;line-height:1.15}
+.badge span{font-size:12px;color:var(--ink-2);line-height:1.3}
+.badge.locked{opacity:.5;filter:grayscale(1);box-shadow:inset 0 0 0 1px var(--rule)}
+
+/* ===== classements ===== */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.lb{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.lb li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 6px;border-top:1px solid var(--rule)}
+.lb li:first-child{border-top:0}
+.lb li.me{background:var(--brass-soft);border-radius:var(--r-sm);border-top-color:transparent}
+.lb li.click{cursor:pointer} .lb li.click:hover{background:var(--sunk);border-radius:var(--r-sm)}
+.lb .rk{font-family:var(--f-display);font-style:italic;font-size:20px;text-align:center;color:var(--ink-2)}
+.lb li:nth-child(-n+3) .rk{color:var(--brass)}
+.lb .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.lb .n small{display:block;font-weight:400;color:var(--ink-2);font-size:12.5px}
+.lb .v{font-family:var(--f-display);font-weight:500;font-size:21px;text-align:right;font-variant-numeric:tabular-nums}
+.lb .v small{display:block;font-family:var(--f-body);font-weight:400;font-size:12px;color:var(--ink-2)}
+
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:999px;font-weight:500;z-index:20;max-width:calc(100% - 32px);text-align:center;box-shadow:0 16px 40px -12px rgba(23,58,41,.5)}
+.toast.red{background:var(--bad);color:#fff} .toast.yellow{background:var(--brass-soft);color:var(--ink)}
+
+/* ===== chat ===== */
 button,a,input,select,label{touch-action:manipulation}
 .lb,.feed,.found,.chat-list,.tiles,.badges{contain:content}
 .sticker,.chat-box,.chat-btn,.toast{will-change:transform}
-.ring svg{will-change:contents}
-/* chat en partie */
 body.has-chat main{padding-bottom:150px}
-.chat-btn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;width:56px;height:56px;border-radius:50%;border:2px solid transparent;font-size:24px;cursor:pointer;color:var(--chalk);
-  background:linear-gradient(#1b4535,#1b4535) padding-box,var(--gold) border-box;box-shadow:0 10px 26px rgba(0,0,0,.4)}
-.chat-n{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#ef5b4c;color:#fff;font:700 12px/22px var(--f-body,sans-serif)}
-.chat-peek{position:fixed;right:84px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:60;max-width:min(60vw,320px);padding:9px 13px;border-radius:14px 14px 4px 14px;background:#0f2f22;border:1px solid rgba(255,255,255,.12);font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.35);animation:peek .25s both}
-.chat-peek b{color:#f7c948;margin-right:6px}
+.chat-btn{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;width:54px;height:54px;border-radius:50%;border:0;font-size:22px;cursor:pointer;background:var(--ink);color:var(--paper);box-shadow:0 14px 34px -10px rgba(23,58,41,.6)}
+.chat-n{position:absolute;top:-3px;right:-3px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--bad);color:#fff;font:500 12px/21px var(--f-body)}
+.chat-peek{position:fixed;right:82px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:60;max-width:min(60vw,320px);padding:9px 13px;border-radius:14px 14px 4px 14px;background:var(--paper);box-shadow:0 12px 30px -10px rgba(23,58,41,.4),inset 0 0 0 1px var(--rule);font-size:14px;animation:peek .25s both}
+.chat-peek b{color:var(--brass);margin-right:6px}
 @keyframes peek{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.chat-box{position:fixed;right:16px;bottom:calc(152px + env(safe-area-inset-bottom));z-index:61;width:min(360px,calc(100vw - 32px));height:min(420px,calc(100vh - 220px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;
-  background:linear-gradient(#123528,#123528) padding-box,var(--gold) border-box;border:2px solid transparent;box-shadow:0 18px 50px rgba(0,0,0,.5)}
-.chat-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 8px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
-.chat-head b{font-family:var(--f-display);font-size:20px;letter-spacing:.05em;text-transform:uppercase}
-.chat-list{list-style:none;margin:0;padding:10px 12px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px}
-.chat-list li{max-width:85%;align-self:flex-start;background:rgba(0,0,0,.25);padding:7px 11px;border-radius:14px 14px 14px 4px;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
-.chat-list li.me{align-self:flex-end;background:#2c6b4c;border-radius:14px 14px 4px 14px}
-.chat-list li b{display:block;font-size:12px;letter-spacing:.02em}
-.chat-list li.empty{align-self:center;background:none;color:var(--chalk-3);text-align:center}
-.chat-list li .rep{float:right;margin:-2px -4px 0 8px;border:0;background:none;color:var(--chalk-3);font-size:12px;cursor:pointer;padding:2px 4px;border-radius:6px}
-.chat-list li .rep:hover{color:#ff9f68;background:rgba(0,0,0,.2)} .chat-list li .rep.done{color:#ff9f68;cursor:default}
-.chat-list li.sys{align-self:center;background:rgba(239,91,76,.18);color:#ffc2b8;font-size:13px;text-align:center}
-.chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,.08)}
+.chat-box{position:fixed;right:16px;bottom:calc(152px + env(safe-area-inset-bottom));z-index:61;width:min(360px,calc(100vw - 32px));height:min(420px,calc(100vh - 220px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:var(--paper);box-shadow:0 24px 60px -16px rgba(23,58,41,.45),inset 0 0 0 1px var(--rule)}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 8px 18px;border-bottom:1px solid var(--rule)}
+.chat-head b{font-family:var(--f-display);font-weight:500;font-size:21px}
+.chat-list{list-style:none;margin:0;padding:12px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px}
+.chat-list li{max-width:85%;align-self:flex-start;background:var(--sunk);padding:7px 11px;border-radius:14px 14px 14px 4px;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.chat-list li.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-radius:14px 14px 4px 14px}
+.chat-list li b{display:block;font-size:12px;font-weight:500}
+.chat-list li.empty{align-self:center;background:none;color:var(--ink-3);text-align:center}
+.chat-list li .rep{float:right;margin:-2px -4px 0 8px;border:0;background:none;color:var(--ink-3);font-size:12px;cursor:pointer;padding:2px 4px;border-radius:6px}
+.chat-list li .rep:hover,.chat-list li .rep.done{color:var(--orange)}
+.chat-list li.sys{align-self:center;background:#f6e3df;color:#7c2d24;font-size:13px;text-align:center}
+.chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule)}
 .chat-form .input{flex:1;min-width:0;padding:10px 12px}
-/* compte & profil */
-.perks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-.perks li{display:flex;gap:10px;align-items:center;background:var(--sunk);border-radius:var(--r-sm);padding:10px 12px;font-weight:500}
-.perks li span{font-size:22px}
-.pr-head{display:flex;align-items:center;gap:14px;min-width:0}
-.pr-av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--yellow);color:var(--ink);font-family:var(--f-display);font-weight:900;font-size:26px;flex:none}
-.pr-name{font-family:var(--f-display);font-weight:900;font-size:34px;text-transform:uppercase;line-height:1;overflow-wrap:anywhere}
-.streakbox{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#ffe0bf,#fff4d9);border-radius:var(--r);padding:12px 16px;color:#5a3300}
-.streakbox .f{font-size:36px;line-height:1}
-.streakbox b{display:block;font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1}
-.streakbox span{font-size:12.5px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-.tile{background:var(--sunk);border-radius:var(--r-sm);padding:12px}
-.tile b{display:block;font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
-.tile span{font-size:12px;color:var(--chalk-2)}
-.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
-.badge{background:var(--card-2);border-radius:16px;padding:12px 10px;text-align:center;box-shadow:inset 0 0 0 2px var(--bc,#e8b21f);display:flex;flex-direction:column;gap:3px;align-items:center}
-.badge .e{font-size:30px;line-height:1.1}
-.badge b{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:16px;line-height:1.05}
-.badge span{font-size:11.5px;color:var(--chalk-2);line-height:1.3}
-.badge.locked{opacity:.5;filter:grayscale(1);box-shadow:inset 0 0 0 2px var(--line)}
-.acct{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.lb li.click{cursor:pointer} .lb li.click:hover{box-shadow:inset 0 0 0 2px var(--chalk-3)}
-/* classements */
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.lb{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.lb li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r-sm);background:var(--sunk)}
-.lb li.me{box-shadow:inset 0 0 0 2px var(--yellow)}
-.lb .rk{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:15px;background:var(--card-2)}
-.lb li:nth-child(1) .rk{background:var(--yellow);color:var(--ink)} .lb li:nth-child(2) .rk{background:#d9e1dc;color:var(--ink)} .lb li:nth-child(3) .rk{background:#e2a46c;color:var(--ink)}
-.lb .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
-.lb .n small{display:block;font-weight:400;color:var(--chalk-2);font-size:12px}
-.lb .v{font-family:var(--f-display);font-weight:900;font-size:20px;text-align:right;font-variant-numeric:tabular-nums}
-.lb .v small{display:block;font-family:var(--f-body);font-weight:400;font-size:11.5px;color:var(--chalk-2)}
 
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--chalk);color:var(--ink);padding:11px 18px;border-radius:999px;font-weight:600;z-index:20;max-width:calc(100% - 32px);text-align:center;box-shadow:var(--shadow)}
-.toast.red{background:var(--red);color:#fff} .toast.yellow{background:var(--yellow)}
-
-@media (max-width:860px){
-  .hero{grid-template-columns:1fr;gap:12px}
-  .pitchmark{display:none}
-  .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .two,.game{grid-template-columns:1fr}
-}
-@media (max-width:520px){ .modes{grid-template-columns:1fr} .mode .ic{width:40px;height:40px} }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.install-sheet{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:#1b4535;color:#eef4ec;border-radius:20px;padding:16px 18px;z-index:25;box-shadow:0 0 0 3px #0b0f0d,0 20px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:10px}
-.install-sheet b{font-family:var(--f-display);font-size:22px;text-transform:uppercase}
+.install-sheet{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(420px,calc(100% - 32px));background:var(--paper);color:var(--ink);border-radius:20px;padding:18px 20px;z-index:25;box-shadow:0 24px 60px -16px rgba(23,58,41,.45),inset 0 0 0 1px var(--rule);display:flex;flex-direction:column;gap:10px}
+.install-sheet b{font-family:var(--f-display);font-weight:500;font-size:22px}
 .install-sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
 .install-sheet .row{justify-content:flex-end}
-.iconbtn.hot{background:var(--yellow);color:var(--ink);font-weight:700}
-/* contours dorés */
-:root{--gold:linear-gradient(135deg,#fbe8a6 0%,#d4a537 28%,#f7dc8b 50%,#b07d1f 74%,#f3d27a 100%)}
-.panel,.stage{border:3px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--gold) border-box;box-shadow:var(--shadow),0 0 18px rgba(240,200,90,.12)}
-.mode{border:2px solid transparent;background:linear-gradient(#205040,#205040) padding-box,var(--gold) border-box;box-shadow:none}
-.mode:hover:not(:disabled){box-shadow:0 8px 18px rgba(0,0,0,.18),0 0 16px rgba(240,200,90,.35)}
-.rules li{border:2px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--gold) border-box;box-shadow:none}
-.badge:not(.locked){border:2px solid transparent;background:linear-gradient(var(--card-2),var(--card-2)) padding-box,var(--gold) border-box;box-shadow:none}
-.install-sheet{border:3px solid transparent;background:linear-gradient(#1b4535,#1b4535) padding-box,var(--gold) border-box;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+
+@media (max-width:900px){
+  .today{grid-template-columns:1fr;min-height:0;padding-top:8px;gap:8px}
+  .today-pitch{order:-1;width:min(300px,78vw);margin:18px 0 22px}
+  .today-pitch svg{inset:-9%;width:118%;height:118%}
+  .today-copy{align-items:center;text-align:center}
+  .today-lede{margin-inline:auto}
+  .today-cta{justify-content:center}
+  .whois{grid-template-columns:1fr}
+  .acct{justify-content:flex-start}
+  .carte,.two,.game,.top-today,.foot{grid-template-columns:1fr}
+  .regles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .regles li:nth-child(3){border-left:0}
+  .regles li:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (max-width:520px){
+  .wrap{padding-inline:16px}
+  .course{padding:6px 18px 10px}
+  .mode{grid-template-columns:1fr}
+  .mode .m-go{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}
+  .regles{grid-template-columns:1fr}
+  .regles li{border-left:0;border-top:1px solid var(--rule)}
+  .regles li:first-child{border-top:0}
+  .panel{padding:20px}
+  .top-today{padding:24px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <noscript><p style="padding:16px">FOOT LETTERS est un jeu de culture foot : une lettre tombe, cite un maximum de footballeurs dont le nom commence par cette lettre. <a href="/joueurs/">Voir les footballeurs par lettre</a>.</p></noscript>
 <div class="wrap">
   <header class="topbar">
-    <button class="brand" id="brand" type="button" data-i18n-aria="home"><i>F</i>Foot Letters</button>
+    <button class="brand" id="brand" type="button" data-i18n-aria="home"><span class="w1">Foot</span><span class="w2">Letters</span></button>
     <div class="tools">
       <span class="chip" id="netChip" hidden></span>
       <div class="seg" id="langSeg" role="group" aria-label="Langue / Language / Sprache">
@@ -408,60 +471,97 @@ body.has-chat main{padding-bottom:150px}
 
   <!-- ACCUEIL -->
   <main id="home">
-    <section class="hero">
-      <div>
-        <h1>Foot<span>Letters</span></h1>
-        <p class="lede" data-i18n-html="hero_lede"></p>
+    <section class="today" aria-labelledby="todayTitle">
+      <div class="today-copy">
+        <p class="today-kicker" data-i18n="td_kicker"></p>
+        <h1 class="today-h" id="todayTitle" data-i18n="td_h"></h1>
+        <p class="today-lede" data-i18n-html="hero_lede"></p>
+        <div class="today-cta">
+          <button class="btn primary big" id="todayPlay" type="button" data-i18n="td_play"></button>
+          <span class="today-state" id="todayState"></span>
+        </div>
       </div>
-      <div class="pitchmark" aria-hidden="true"><div class="half"></div><div class="circle"></div><div class="demo" id="demoLetter">M</div></div>
+      <div class="today-pitch">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><line x1="-8" y1="50" x2="160" y2="50"/><circle cx="50" cy="50" r="46"/><circle class="spot" cx="50" cy="50" r=".9"/></svg>
+        <div class="today-disc">
+          <span class="today-num" id="todayNum"></span>
+          <span class="today-letter q" id="todayLetter" aria-live="polite">?</span>
+          <span class="today-sub" id="todaySub"></span>
+          <span class="today-sub today-next" id="todayNext"></span>
+        </div>
+      </div>
     </section>
 
-    <section class="panel" style="margin-top:20px">
-      <div class="row">
-        <div class="field">
-          <label class="label" for="nick" data-i18n="nick_label"></label>
-          <input class="input" id="nick" maxlength="18" data-i18n-ph="nick_ph" autocomplete="nickname">
-        </div>
+    <section class="whois">
+      <div class="field">
+        <label class="label" for="nick" data-i18n="nick_label"></label>
+        <input class="input" id="nick" maxlength="18" data-i18n-ph="nick_ph" autocomplete="nickname">
       </div>
       <div class="acct" id="acctLine"></div>
-      <div class="modes">
-        <button class="mode" id="mFriends" type="button" style="--mc:#e8b21f"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.3 2.8-5 5.5-5s4.9 1.7 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.4-.2 4.1 1.3 4.6 4"/></svg></span><strong data-i18n="m_friends"></strong><span class="d" data-i18n="m_friends_d"></span></button>
-        <button class="mode" id="mJoin" type="button" style="--mc:#4ea3e8"><span class="k" data-i18n="k_online"></span><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg></span><strong data-i18n="m_join"></strong><span class="d" data-i18n="m_join_d"></span></button>
-        <button class="mode" id="mLocal" type="button" style="--mc:#2fb36b"><span class="k" data-i18n="k_local"></span><span class="ic" style="background:var(--go)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></svg></span><strong data-i18n="m_local"></strong><span class="d" data-i18n="m_local_d"></span></button>
-        <button class="mode" id="mDaily" type="button" style="--mc:#f08a4b"><span class="k" data-i18n="k_daily"></span><span class="ic" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><strong data-i18n="m_daily"></strong><span class="d" data-i18n="m_daily_d"></span><span class="badge" id="dailyBadge" hidden></span></button>
-        <button class="mode" id="mBot" type="button" style="--mc:#f06aa8"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><strong data-i18n="m_bot"></strong><span class="d" data-i18n="m_bot_d"></span></button>
-        <button class="mode" id="mAbc" type="button" style="--mc:#9a7bf0"><span class="k" data-i18n="k_solo"></span><span class="ic" style="background:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l3.5-11L10 18M4.2 14.5h4.6"/><path d="M14 7h6l-6 11h6"/></svg></span><strong data-i18n="m_abc"></strong><span class="d" data-i18n="m_abc_d"></span></button>
-      </div>
-      <form class="row" id="joinForm" hidden>
-        <div class="field">
-          <label class="label" for="joinCode" data-i18n="join_code"></label>
-          <input class="input" id="joinCode" maxlength="4" placeholder="ABCD" autocomplete="off" style="text-transform:uppercase;letter-spacing:.2em">
+    </section>
+
+    <div class="sec-head"><h2 class="h2" data-i18n="games_h"></h2><p data-i18n="games_p"></p></div>
+    <section class="carte">
+      <div class="course">
+        <h3 data-i18n="c_solo"></h3>
+        <p data-i18n="c_solo_p"></p>
+        <div class="modes">
+          <button class="mode" id="mDaily" type="button"><span class="m-name" data-i18n="m_daily"></span><span class="m-desc" data-i18n="m_daily_d"></span><span class="badge" id="dailyBadge" hidden></span><span class="m-go" data-i18n="go"></span></button>
+          <button class="mode" id="mBot" type="button"><span class="m-name" data-i18n="m_bot"></span><span class="m-desc" data-i18n="m_bot_d"></span><span class="m-go" data-i18n="go"></span></button>
+          <button class="mode" id="mAbc" type="button"><span class="m-name" data-i18n="m_abc"></span><span class="m-desc" data-i18n="m_abc_d"></span><span class="m-go" data-i18n="go"></span></button>
         </div>
-        <button class="btn primary" type="submit" id="joinBtn" data-i18n="join_btn"></button>
-      </form>
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <button class="btn small" id="boardsBtn" type="button" data-i18n="boards_btn"></button>
-        <div class="netbar"><span class="label" data-i18n="net_label"></span><span class="leds" id="leds"></span><span class="note" id="netNote"></span></div>
+      </div>
+      <div class="course">
+        <h3 data-i18n="c_multi"></h3>
+        <p data-i18n="c_multi_p"></p>
+        <div class="modes">
+          <button class="mode" id="mFriends" type="button"><span class="m-name" data-i18n="m_friends"></span><span class="m-desc" data-i18n="m_friends_d"></span><span class="m-go" data-i18n="go_create"></span></button>
+          <button class="mode" id="mJoin" type="button"><span class="m-name" data-i18n="m_join"></span><span class="m-desc" data-i18n="m_join_d"></span><span class="m-go" data-i18n="go_join"></span></button>
+          <form class="row" id="joinForm" hidden>
+            <div class="field">
+              <label class="label" for="joinCode" data-i18n="join_code"></label>
+              <input class="input" id="joinCode" maxlength="4" placeholder="ABCD" autocomplete="off" style="text-transform:uppercase;letter-spacing:.2em">
+            </div>
+            <button class="btn primary" type="submit" id="joinBtn" data-i18n="join_btn"></button>
+          </form>
+          <button class="mode" id="mLocal" type="button"><span class="m-name" data-i18n="m_local"></span><span class="m-desc" data-i18n="m_local_d"></span><span class="m-go" data-i18n="go"></span></button>
+        </div>
       </div>
     </section>
 
-    <ul class="rules" style="margin-top:20px">
+    <div class="sec-head"><h2 class="h2" data-i18n="rules_h"></h2></div>
+    <ul class="regles">
       <li><b data-i18n="r1b"></b><span data-i18n="r1"></span></li>
       <li><b data-i18n="r2b"></b><span data-i18n="r2"></span></li>
       <li><b data-i18n="r3b"></b><span data-i18n="r3"></span></li>
       <li><b data-i18n="r4b"></b><span data-i18n="r4"></span></li>
     </ul>
-    <p class="note" style="margin-top:12px" id="dbNote"></p>
-    <section class="seo-text" id="seoText" lang="fr">
+    <p class="note" id="dbNote" style="margin-top:12px"></p>
+
+    <section class="top-today" style="margin-top:34px">
+      <div>
+        <h2 class="h2" data-i18n="top_h"></h2>
+        <p data-i18n="top_p"></p>
+        <button class="btn" id="boardsBtn" type="button" data-i18n="top_all"></button>
+      </div>
+      <ol class="podlist" id="topToday"></ol>
+    </section>
+
+    <footer class="foot">
+      <section class="seo-text" id="seoText" lang="fr">
       <h2>Le quiz foot gratuit pour tester ta culture foot</h2>
       <p>FOOT LETTERS est un <strong>quiz foot</strong> en ligne : une lettre tombe et tu as quelques secondes pour citer des footballeurs dont le nom commence par cette lettre. Joue en solo, relève la <strong>lettre du jour</strong> face à tout le monde, affronte le bot, fais le tour de l'alphabet ou organise un <strong>quiz foot entre amis</strong> en ligne. Gratuit, sans inscription obligatoire.</p>
       <p><a href="/quiz-foot/">Tout savoir sur le quiz foot</a> · <a href="/joueurs/">Réviser : les footballeurs de A à Z</a></p>
       <details><summary>C'est quoi FOOT LETTERS ?</summary><p>Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono.</p></details><details><summary>Le quiz foot est-il gratuit ?</summary><p>Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli.</p></details><details><summary>Peut-on jouer au quiz foot entre amis ?</summary><p>Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial.</p></details><details><summary>Quels joueurs sont acceptés ?</summary><p>Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct.</p></details><details><summary>Comment marche la lettre du jour ?</summary><p>Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager.</p></details>
     </section>
-    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
-    <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span> <span id="seoLetters"></span></nav>
-    <p style="margin-top:14px"><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a> <button class="tiktok shareSite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="share_site"></span></button></p>
-    <p class="note" style="margin-top:6px;color:var(--chalk-3)">FOOT LETTERS · v11.5</p>
+      <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "C'est quoi FOOT LETTERS ?", "acceptedAnswer": {"@type": "Answer", "text": "Un quiz foot gratuit : une lettre est tirée au hasard et tu dois citer un maximum de footballeurs dont le nom de famille commence par cette lettre, avant la fin du chrono."}}, {"@type": "Question", "name": "Le quiz foot est-il gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement gratuit, sans téléchargement : il se joue directement dans le navigateur, sur téléphone comme sur ordinateur, et peut s'installer comme une appli."}}, {"@type": "Question", "name": "Peut-on jouer au quiz foot entre amis ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : crée un salon, envoie le lien à tes amis et affrontez-vous en ligne, ou passez-vous le téléphone avec le mode « Jouer ici ». Les victoires en ligne comptent dans un classement mondial."}}, {"@type": "Question", "name": "Quels joueurs sont acceptés ?", "acceptedAnswer": {"@type": "Answer", "text": "Les footballeurs professionnels, actuels et retraités, du monde entier : plus de 2 600 joueurs intégrés, et des milliers d'autres vérifiés en direct."}}, {"@type": "Question", "name": "Comment marche la lettre du jour ?", "acceptedAnswer": {"@type": "Answer", "text": "Chaque jour, la même lettre pour tout le monde : 3 minutes pour citer un maximum de joueurs, un seul essai, un classement du jour et une grille à partager."}}]}</script>
+      <div class="foot-side">
+        <div class="social"><a class="tiktok" href="https://www.tiktok.com/@footletters.off" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.77.12V9.77a5.7 5.7 0 0 0-.77-.05A5.68 5.68 0 1 0 15.54 15.4V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.29 4.29 0 0 1-3.24-1.48z"/></svg><span data-i18n="tiktok"></span></a> <button class="tiktok shareSite" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="share_site"></span></button></div>
+        <nav class="seo-links" aria-label="Footballeurs par lettre"><span class="label" data-i18n="seo_by_letter"></span><span id="seoLetters"></span></nav>
+        <div class="netbar"><span class="label" data-i18n="net_label"></span><span class="leds" id="leds"></span><span class="note" id="netNote"></span></div>
+        <p class="vers">FOOT LETTERS · v12.0</p>
+      </div>
+    </footer>
   </main>
 
   <!-- RÉGLAGES MÊME ÉCRAN -->
@@ -814,7 +914,10 @@ const I18N={
 fr:{
  m_bot:'Contre le bot', m_bot_d:'Choisis ta lettre et le niveau du robot, puis citez des joueurs chacun votre tour. Le premier qui sèche perd.', bot_intro:'Toi et le bot citez des joueurs chacun votre tour, sur la même lettre, sans doublon. Tu as 30 secondes par tour. Le premier qui sèche a perdu.', bot_go:'Affronter le bot', bot_level:'Niveau du bot', bot_pick:'Choisis ta lettre', bot_e:'Facile', bot_m:'Moyen', bot_h:'Difficile', bot_e_d:'Ne connaît que les stars : trouve 5 à 10 joueurs avant de sécher. Points ×1.', bot_m_d:'Trouve 30 à 40 joueurs sur les lettres riches, moins sur les lettres rares. Points ×2.', bot_h_d:'Connaît toute la base : 60 à 90 joueurs sur les lettres riches. Points ×3.', bot_board:'Contre le bot · lettre {L}', b_bot:'Contre le bot · lettre {L}', bot_your_turn:'à toi', bot_thinking:'le bot réfléchit…', bot_fail:'Le bot sèche !', bot_name:'Bot', prog_bot:'Toi {a} · Bot {b}', res_bot_ok:'Victoire contre le bot !', res_bot_ko:'Le bot gagne', res_bot_sub:'Toi {a} – Bot {b} · lettre {L} · {p} pts', bot_win_s:'victoire', bot_loss_s:'défaite', rule_bot:'Points = tes noms × le multiplicateur du niveau (Facile ×1, Moyen ×2, Difficile ×3), +10 × le multiplicateur en cas de victoire. Le niveau joué est indiqué sous chaque score.', st_bot:'Victoires bot (F / M / D)', b_defi10:'Pas mal !', bd_defi10:'Battre le bot Moyen', b_defi20:'Plus fort que la machine', bd_defi20:'Battre le bot Difficile',
  upd_later:'Nouvelle version disponible : elle s\'installera à la fin de la partie.', upd_done:'FOOT LETTERS est à jour ✓', live_note:'● Mise à jour automatique toutes les 15 secondes.', b_daily_past:'Lettre du jour {L}', b_xp_tab:'Niveaux', b_xp:'Classement général · niveaux', today:'Aujourd\'hui', rule_daily:'Une ligne par joueur et par jour : ton score du jour. Utilise ◀ ▶ pour voir les jours précédents.', rule_defi:'Seuls les défis réussis entrent au classement de la lettre : la plus grosse annonce tenue.', rule_abc:'Seuls les tours de l\'alphabet terminés (A à Z) entrent au classement, au meilleur temps.', rule_xp:'Tous les comptes, classés par expérience totale. Mis à jour toutes les minutes.',
- lv_n:'Niveau {n}', xp_of:'{a} / {b} XP', lv_up:'Niveau {n} !', lv_remp:'Remplaçant', lv_titu:'Titulaire', lv_capt:'Capitaine', lv_inter:'International', lv_ballon:'Ballon d\'or', lv_legend:'Légende', xp_rules:'XP : 10 par joueur cité, 20 par partie, 50 par victoire entre amis, 15 par podium en ligne, 10 par jour de ta meilleure série, 100 par badge.', tiktok:'Suis-nous sur TikTok', share_site:'Partager le site', share_site_txt:'⚽ Quiz foot : une lettre au hasard, cite un max de joueurs ! Viens me défier sur FOOT LETTERS',
+ lv_n:'Niveau {n}', xp_of:'{a} / {b} XP', lv_up:'Niveau {n} !', lv_remp:'Remplaçant', lv_titu:'Titulaire', lv_capt:'Capitaine', lv_inter:'International', lv_ballon:'Ballon d\'or', lv_legend:'Légende', xp_rules:'XP : 10 par joueur cité, 20 par partie, 50 par victoire entre amis, 15 par podium en ligne, 10 par jour de ta meilleure série, 100 par badge.', tiktok:'Suis-nous sur TikTok', td_kicker:'Aujourd\'hui', td_h:'Une lettre. Tous les footballeurs que tu connais.', td_play:'Jouer la lettre du jour', td_num:'Lettre du jour n°{n}', td_hidden:'Elle se dévoile au coup d\'envoi', td_done:'Ton score : {n} joueurs', td_next:'Nouvelle lettre dans {x}', td_state_new:'Un seul essai, 3 minutes.', td_state_done:'Déjà jouée aujourd\'hui. Reviens demain !', td_state_mid:'Partie commencée : reprends-la.', td_see:'Voir le classement',
+ games_h:'Les jeux', games_p:'Seul contre le chrono ou à plusieurs : choisis ta façon de jouer.', c_solo:'En solo', c_solo_p:'Toi, une lettre et le chrono.', c_multi:'À plusieurs', c_multi_p:'En ligne avec tes amis, ou sur un seul téléphone.',
+ mm_daily:'3 minutes, un essai par jour', mm_bot:'30 secondes par tour, 3 niveaux', mm_abc:'26 lettres, 3 jokers', mm_friends:'Jusqu\'à 20 joueurs en ligne', mm_join:'Code à 4 lettres', mm_local:'Un seul appareil',
+ go:'Jouer', go_create:'Créer un salon', go_join:'Entrer le code', rules_h:'Les règles', top_h:'En tête aujourd\'hui', top_p:'Le classement de la lettre du jour, mis à jour en direct.', top_all:'Tous les classements', top_empty:'Personne n\'a encore joué aujourd\'hui. À toi d\'ouvrir le score.', top_v:'{n} joueurs', share_site:'Partager le site', share_site_txt:'⚽ Quiz foot : une lettre au hasard, cite un max de joueurs ! Viens me défier sur FOOT LETTERS',
  chat_report:'Signaler ce joueur', chat_reported:'Signalement envoyé. À 3 signalements, le joueur ne peut plus écrire.', chat_muted:'{x} a été signalé par 3 joueurs : il ne peut plus écrire.', chat_muted_me:'Tu as été signalé par 3 joueurs : tu ne peux plus écrire dans ce salon.',
  guest_note:'Tu joues sans compte : ton score entre quand même au classement avec ton pseudo. Crée un compte pour garder tes stats sur tous tes appareils.', ad_guests:'Joueurs sans compte', chat:'Chat', chat_ph:'Écris un message…', chat_send:'Envoyer', chat_empty:'Personne n\'a encore écrit. Lance la discussion !', chat_slow:'Doucement : un message par seconde.',
  new_host:'{x} est le nouvel hôte : la partie continue.', new_host_me:'L\'hôte est parti : tu es le nouvel hôte, la partie continue.',
@@ -873,7 +976,10 @@ fr:{
 en:{
  m_bot:'Vs the bot', m_bot_d:'Pick your letter and the bot level, then take turns naming players. First one stuck loses.', bot_intro:'You and the bot take turns naming players on the same letter, no repeats. You have 30 seconds per turn. First one stuck loses.', bot_go:'Face the bot', bot_level:'Bot level', bot_pick:'Pick your letter', bot_e:'Easy', bot_m:'Medium', bot_h:'Hard', bot_e_d:'Only knows the stars: finds 5 to 10 players before getting stuck. Points ×1.', bot_m_d:'Finds 30 to 40 players on common letters, fewer on rare ones. Points ×2.', bot_h_d:'Knows the whole database: 60 to 90 players on common letters. Points ×3.', bot_board:'Vs the bot · letter {L}', b_bot:'Vs the bot · letter {L}', bot_your_turn:'your turn', bot_thinking:'the bot is thinking…', bot_fail:'The bot is stuck!', bot_name:'Bot', prog_bot:'You {a} · Bot {b}', res_bot_ok:'You beat the bot!', res_bot_ko:'The bot wins', res_bot_sub:'You {a} – Bot {b} · letter {L} · {p} pts', bot_win_s:'win', bot_loss_s:'loss', rule_bot:'Points = your names × the level multiplier (Easy ×1, Medium ×2, Hard ×3), +10 × the multiplier for a win. The level played is shown under each score.', st_bot:'Bot wins (E / M / H)', b_defi10:'Not bad!', bd_defi10:'Beat the Medium bot', b_defi20:'Beat the machine', bd_defi20:'Beat the Hard bot',
  upd_later:'New version available: it will install after this game.', upd_done:'FOOT LETTERS is up to date ✓', live_note:'● Updates automatically every 15 seconds.', b_daily_past:'Daily letter {L}', b_xp_tab:'Levels', b_xp:'Overall ranking · levels', today:'Today', rule_daily:'One row per player per day: your score of the day. Use ◀ ▶ to see previous days.', rule_defi:'Only successful challenges are ranked for the letter: the biggest call you hit.', rule_abc:'Only completed alphabet runs (A to Z) are ranked, by best time.', rule_xp:'All accounts, ranked by total experience. Updated every minute.',
- lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Substitute', lv_titu:'Starter', lv_capt:'Captain', lv_inter:'International', lv_ballon:'Ballon d\'Or', lv_legend:'Legend', xp_rules:'XP: 10 per player named, 20 per game, 50 per win with friends, 15 per online podium, 10 per day of your best streak, 100 per badge.', tiktok:'Follow us on TikTok', share_site:'Share the site', share_site_txt:'⚽ Football quiz: a random letter, name as many players as you can! Come and challenge me on FOOT LETTERS',
+ lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Substitute', lv_titu:'Starter', lv_capt:'Captain', lv_inter:'International', lv_ballon:'Ballon d\'Or', lv_legend:'Legend', xp_rules:'XP: 10 per player named, 20 per game, 50 per win with friends, 15 per online podium, 10 per day of your best streak, 100 per badge.', tiktok:'Follow us on TikTok', td_kicker:'Today', td_h:'One letter. Every footballer you know.', td_play:'Play today\'s letter', td_num:'Daily letter #{n}', td_hidden:'Revealed at kick-off', td_done:'Your score: {n} players', td_next:'New letter in {x}', td_state_new:'One try, 3 minutes.', td_state_done:'Already played today. Come back tomorrow!', td_state_mid:'Game started: pick it up again.', td_see:'See the leaderboard',
+ games_h:'The games', games_p:'Alone against the clock or together: pick how you play.', c_solo:'Solo', c_solo_p:'You, a letter and the clock.', c_multi:'Together', c_multi_p:'Online with your friends, or on a single phone.',
+ mm_daily:'3 minutes, one try a day', mm_bot:'30 seconds a turn, 3 levels', mm_abc:'26 letters, 3 jokers', mm_friends:'Up to 20 players online', mm_join:'4-letter code', mm_local:'One device',
+ go:'Play', go_create:'Create a room', go_join:'Enter the code', rules_h:'The rules', top_h:'Leading today', top_p:'Today\'s letter leaderboard, updated live.', top_all:'All leaderboards', top_empty:'Nobody has played yet today. Open the scoring.', top_v:'{n} players', share_site:'Share the site', share_site_txt:'⚽ Football quiz: a random letter, name as many players as you can! Come and challenge me on FOOT LETTERS',
  chat_report:'Report this player', chat_reported:'Report sent. After 3 reports, the player can no longer write.', chat_muted:'{x} was reported by 3 players and can no longer write.', chat_muted_me:'You were reported by 3 players: you can no longer write in this room.',
  guest_note:'You are playing without an account: your score still goes on the leaderboard under your nickname. Create an account to keep your stats on all your devices.', ad_guests:'Players without account', chat:'Chat', chat_ph:'Write a message…', chat_send:'Send', chat_empty:'No messages yet. Start the chat!', chat_slow:'Easy: one message per second.',
  new_host:'{x} is the new host: the game goes on.', new_host_me:'The host left: you are the new host, the game goes on.',
@@ -932,7 +1038,10 @@ en:{
 de:{
  m_bot:'Gegen den Bot', m_bot_d:'Wähle deinen Buchstaben und das Bot-Level, dann nennt ihr abwechselnd Spieler. Wer zuerst nichts mehr weiß, verliert.', bot_intro:'Du und der Bot nennt abwechselnd Spieler zum selben Buchstaben, ohne Wiederholung. Du hast 30 Sekunden pro Zug. Wer zuerst nichts mehr weiß, verliert.', bot_go:'Gegen den Bot spielen', bot_level:'Bot-Level', bot_pick:'Wähle deinen Buchstaben', bot_e:'Leicht', bot_m:'Mittel', bot_h:'Schwer', bot_e_d:'Kennt nur die Stars: findet 5 bis 10 Spieler, bevor er aufgibt. Punkte ×1.', bot_m_d:'Findet 30 bis 40 Spieler bei häufigen Buchstaben, weniger bei seltenen. Punkte ×2.', bot_h_d:'Kennt die ganze Datenbank: 60 bis 90 Spieler bei häufigen Buchstaben. Punkte ×3.', bot_board:'Gegen den Bot · Buchstabe {L}', b_bot:'Gegen den Bot · Buchstabe {L}', bot_your_turn:'du bist dran', bot_thinking:'der Bot überlegt…', bot_fail:'Der Bot weiß nichts mehr!', bot_name:'Bot', prog_bot:'Du {a} · Bot {b}', res_bot_ok:'Sieg gegen den Bot!', res_bot_ko:'Der Bot gewinnt', res_bot_sub:'Du {a} – Bot {b} · Buchstabe {L} · {p} Pkt.', bot_win_s:'Sieg', bot_loss_s:'Niederlage', rule_bot:'Punkte = deine Namen × Level-Faktor (Leicht ×1, Mittel ×2, Schwer ×3), +10 × Faktor bei einem Sieg. Das gespielte Level steht unter jedem Ergebnis.', st_bot:'Bot-Siege (L / M / S)', b_defi10:'Nicht schlecht!', bd_defi10:'Den mittleren Bot schlagen', b_defi20:'Stärker als die Maschine', bd_defi20:'Den schweren Bot schlagen',
  upd_later:'Neue Version verfügbar: Sie wird nach dem Spiel installiert.', upd_done:'FOOT LETTERS ist aktuell ✓', live_note:'● Aktualisiert sich automatisch alle 15 Sekunden.', b_daily_past:'Buchstabe des Tages {L}', b_xp_tab:'Level', b_xp:'Gesamtrangliste · Level', today:'Heute', rule_daily:'Eine Zeile pro Spieler und Tag: dein Tagesergebnis. Mit ◀ ▶ siehst du frühere Tage.', rule_defi:'Nur geschaffte Challenges kommen in die Rangliste des Buchstabens: die größte gehaltene Ansage.', rule_abc:'Nur beendete Alphabet-Runden (A bis Z) kommen in die Rangliste, nach Bestzeit.', rule_xp:'Alle Konten, nach Gesamterfahrung sortiert. Jede Minute aktualisiert.',
- lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Ersatzspieler', lv_titu:'Stammspieler', lv_capt:'Kapitän', lv_inter:'Nationalspieler', lv_ballon:'Ballon d\'Or', lv_legend:'Legende', xp_rules:'XP: 10 pro genanntem Spieler, 20 pro Spiel, 50 pro Sieg mit Freunden, 15 pro Online-Podium, 10 pro Tag deiner besten Serie, 100 pro Abzeichen.', tiktok:'Folge uns auf TikTok', share_site:'Seite teilen', share_site_txt:'⚽ Fußball-Quiz: ein zufälliger Buchstabe, nenne so viele Spieler wie möglich! Fordere mich bei FOOT LETTERS heraus',
+ lv_n:'Level {n}', xp_of:'{a} / {b} XP', lv_up:'Level {n}!', lv_remp:'Ersatzspieler', lv_titu:'Stammspieler', lv_capt:'Kapitän', lv_inter:'Nationalspieler', lv_ballon:'Ballon d\'Or', lv_legend:'Legende', xp_rules:'XP: 10 pro genanntem Spieler, 20 pro Spiel, 50 pro Sieg mit Freunden, 15 pro Online-Podium, 10 pro Tag deiner besten Serie, 100 pro Abzeichen.', tiktok:'Folge uns auf TikTok', td_kicker:'Heute', td_h:'Ein Buchstabe. Alle Fußballer, die du kennst.', td_play:'Buchstaben des Tages spielen', td_num:'Buchstabe des Tages Nr. {n}', td_hidden:'Wird beim Anpfiff enthüllt', td_done:'Dein Ergebnis: {n} Spieler', td_next:'Neuer Buchstabe in {x}', td_state_new:'Ein Versuch, 3 Minuten.', td_state_done:'Heute schon gespielt. Komm morgen wieder!', td_state_mid:'Spiel begonnen: mach weiter.', td_see:'Rangliste ansehen',
+ games_h:'Die Spiele', games_p:'Allein gegen die Uhr oder zusammen: wähle, wie du spielst.', c_solo:'Allein', c_solo_p:'Du, ein Buchstabe und die Uhr.', c_multi:'Zusammen', c_multi_p:'Online mit Freunden oder auf einem einzigen Handy.',
+ mm_daily:'3 Minuten, ein Versuch pro Tag', mm_bot:'30 Sekunden pro Zug, 3 Stufen', mm_abc:'26 Buchstaben, 3 Joker', mm_friends:'Bis zu 20 Spieler online', mm_join:'Code mit 4 Buchstaben', mm_local:'Ein Gerät',
+ go:'Spielen', go_create:'Raum erstellen', go_join:'Code eingeben', rules_h:'Die Regeln', top_h:'Heute vorne', top_p:'Die Rangliste des Tagesbuchstabens, live aktualisiert.', top_all:'Alle Ranglisten', top_empty:'Heute hat noch niemand gespielt. Eröffne du den Spielstand.', top_v:'{n} Spieler', share_site:'Seite teilen', share_site_txt:'⚽ Fußball-Quiz: ein zufälliger Buchstabe, nenne so viele Spieler wie möglich! Fordere mich bei FOOT LETTERS heraus',
  chat_report:'Spieler melden', chat_reported:'Meldung gesendet. Nach 3 Meldungen kann der Spieler nicht mehr schreiben.', chat_muted:'{x} wurde von 3 Spielern gemeldet und kann nicht mehr schreiben.', chat_muted_me:'Du wurdest von 3 Spielern gemeldet: Du kannst in diesem Raum nicht mehr schreiben.',
  guest_note:'Du spielst ohne Konto: Dein Ergebnis kommt trotzdem mit deinem Spielernamen in die Rangliste. Erstelle ein Konto, um deine Statistiken auf allen Geräten zu behalten.', ad_guests:'Spieler ohne Konto', chat:'Chat', chat_ph:'Nachricht schreiben…', chat_send:'Senden', chat_empty:'Noch keine Nachrichten. Starte den Chat!', chat_slow:'Langsam: eine Nachricht pro Sekunde.',
  new_host:'{x} ist der neue Host: Das Spiel geht weiter.', new_host_me:'Der Host ist gegangen: Du bist der neue Host, das Spiel geht weiter.',
@@ -1590,7 +1699,7 @@ let SCREEN='home';
 function show(s){ const was=$(s).hidden; screens.forEach(x=>{ const h=x!==s; if($(x).hidden!==h) $(x).hidden=h; }); SCREEN=s; if(was) window.scrollTo({top:0}); }
 function toast(msg,kind){ const tt=$('toast'); tt.textContent=msg; tt.className='toast'+(kind?' '+kind:''); tt.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>tt.hidden=true,2800); }
 function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(_){ return null; } }
-const COLORS=['#f7c948','#6be39a','#7cc4ff','#ff9f68','#c3a6ff','#ff86bd','#4dd8c8','#ffb347','#b5e86a','#e9e9e9','#ffd6a5','#9bf6ff','#ffadad','#caffbf','#a0c4ff','#fdffb6','#bdb2ff','#ffc6ff','#80ed99','#f4a261'];
+const COLORS=['#a77a32','#2e7a4d','#3b6f9e','#b65a35','#6f58a0','#a8456c','#1d8077','#8a6a14','#4f7f22','#5b6670','#9c4a2a','#2a7f95','#a33b46','#3f8a5a','#4d5fae','#80701c','#7b4fa1','#a0508f','#2f8f6b','#b0662c'];
 function cleanNick(s){ return String(s||'').replace(/[\u0000-\u001f​-‏‪-‮]/g,'').trim().slice(0,18)||'Joueur'; }
 function fmt(ms){ const s=Math.max(0,Math.ceil(ms/1000)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 function fmtT(sec){ return sec>=60?(sec%60?Math.floor(sec/60)+' min '+(sec%60):(sec/60)+' min'):sec+' s'; }
@@ -1608,7 +1717,7 @@ function applyI18n(){ const sx=document.getElementById("seoText"); if(sx) sx.hid
   document.querySelectorAll('#langSeg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===LANG)));
   $('soundBtn').textContent=soundOn?t('sound_on'):t('sound_off');
   $('dbNote').textContent=t('db_note',{n:P.length.toLocaleString(LANG)});
-  renderNet(); renderDailyBadge();
+  renderNet(); renderDailyBadge(); renderToday();
 }
 function refreshScreen(){
   applyI18n();
@@ -1645,7 +1754,29 @@ function requireNick(){ if(API.me) return true; const v=$('nick').value.trim(); 
 
 $('nick').value=store('fl_nick')||'';
 $('nick').addEventListener('input',()=>store('fl_nick',$('nick').value));
-(function demo(){ let i=0; const L=DRAW_LETTERS.map(x=>x.toUpperCase()); setInterval(()=>{ if(SCREEN==='home'&&!document.hidden) $('demoLetter').textContent=L[(i++)%L.length]; },1500); })();
+/* accueil : la lettre du jour en grand (cachée tant qu'on n'a pas joué) */
+function parisSecs(){ try{ const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date()); const g=k=>+(p.find(x=>x.type===k)||{}).value||0; return (g('hour')%24)*3600+g('minute')*60+g('second'); }catch(_){ const d=new Date(); return d.getHours()*3600+d.getMinutes()*60+d.getSeconds(); } }
+function renderToday(){
+  if(!$('todayLetter')) return;
+  const st=dailyState(), done=st&&st.done, L=$('todayLetter');
+  $('todayNum').textContent=t('td_num',{n:dailyNum()});
+  L.textContent=done?dailyLetter(parisDate()).toUpperCase():'?'; L.classList.toggle('q',!done);
+  $('todaySub').textContent=done?t('td_done',{n:st.n}):t('td_hidden');
+  $('todayState').textContent=t(done?'td_state_done':st&&st.s==='start'?'td_state_mid':'td_state_new');
+  $('todayPlay').textContent=t(done?'td_see':'td_play');
+  tickToday();
+}
+function tickToday(){ const r=Math.max(0,86400-parisSecs()), h=Math.floor(r/3600), m=Math.floor(r%3600/60), x=r%60; $('todayNext').textContent=t('td_next',{x:String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0')}); }
+let todayDay=parisDate();
+setInterval(()=>{ if(SCREEN!=='home'||document.hidden) return; if(parisDate()!==todayDay){ todayDay=parisDate(); renderToday(); loadTopToday(); } else tickToday(); },1000);
+$('todayPlay').addEventListener('click',()=>{ const st=dailyState(); if(st&&st.done){ Boards.open('daily'); } else $('mDaily').click(); });
+async function loadTopToday(){
+  const ol=$('topToday'); if(!ol) return;
+  const r=await LB.read('daily',parisDate()); ol.replaceChildren();
+  if(!r.list.length){ ol.append(el('li','empty',t('top_empty'))); return; }
+  r.list.slice(0,5).forEach((e,i)=>{ const li=el('li'); li.append(el('span','rk',String(i+1)),el('span','n',e.n||'?'),el('span','v',t('top_v',{n:e.s}))); ol.append(li); });
+}
+loadTopToday(); setInterval(()=>{ if(SCREEN==='home'&&!document.hidden) loadTopToday(); },60000);
 
 /* ---- réglages ---- */
 const TIME_OPTS=[30,60,90,120,180], TRY_OPTS=[1,2,3,5,0], ROUND_OPTS=[1,3,5,10];
@@ -1902,9 +2033,9 @@ async function reportMatch(g){
 
 /* image de score à partager (format story 1080x1350) */
 async function shareCard(run){
-  try{ await Promise.all([document.fonts.load('900 120px "Big Shoulders Display"'),document.fonts.load('600 40px "Archivo"')]); }catch(_){ }
+  try{ await Promise.all([document.fonts.load('500 120px "Bodoni Moda"'),document.fonts.load('500 40px "Jost"')]); }catch(_){ }
   const W=1080,H=1350,c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
-  const D='"Big Shoulders Display","Arial Narrow",Impact,sans-serif', B='"Archivo",Arial,sans-serif';
+  const D='"Bodoni Moda",Didot,Georgia,serif', B='"Jost","Futura",Arial,sans-serif';
   let g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#13603b'); g.addColorStop(1,'#08301c'); x.fillStyle=g; x.fillRect(0,0,W,H);
   for(let i=0;i<W;i+=160){ x.fillStyle='rgba(255,255,255,.05)'; x.fillRect(i,0,80,H); }
   const rg=x.createRadialGradient(180,160,0,180,160,620); rg.addColorStop(0,'rgba(61,255,127,.35)'); rg.addColorStop(1,'rgba(61,255,127,0)'); x.fillStyle=rg; x.fillRect(0,0,W,H);
@@ -2730,7 +2861,7 @@ function onAccount(){
     const b=el('button','btn small primary',t('ac_register')); b.type='button'; b.addEventListener('click',()=>Account.open('register')); line.append(b);
     const c=el('button','btn small ghost',t('ac_login')); c.type='button'; c.addEventListener('click',()=>Account.open('login')); line.append(c);
   }
-  renderDailyBadge();
+  renderDailyBadge(); renderToday();
   if(SCREEN==='profile') Profile.render();
 }
 $('acctBtn').addEventListener('click',()=>{ if(API.me) Profile.open(API.me.name); else Account.open('login'); });
