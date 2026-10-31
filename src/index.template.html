@@ -56,7 +56,7 @@
   --bg:var(--lawn-b); --chalk:var(--ink); --chalk-2:var(--ink-2); --chalk-3:var(--ink-3); --line:var(--rule);
   --card:var(--paper); --card-2:var(--paper-2); --surface:var(--paper); --on-chalk:#123a29;
   --yellow:var(--brass); --red:var(--bad); --go:var(--ok); --blue:#8fb7d8; --orange:#e09a6a; --purple:#b7a2e0; --pink:#e5a0bb;
-  --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 22px 50px -24px rgba(0,0,0,.6);
+  --shadow:0 12px 26px -16px rgba(0,0,0,.55);
   --r-lg:22px; --r:16px; --r-sm:12px;
   --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
   --f-body:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
@@ -69,7 +69,7 @@
 html{-webkit-text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:80px}
 body{overflow-x:clip;margin:0;min-height:100vh;background:var(--lawn-b);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;font-weight:400;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;transform:translateZ(0);contain:strict;
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:-1;pointer-events:none;transform:translateZ(0);contain:strict;will-change:transform;
   background:radial-gradient(70% 55% at 50% 25%,rgba(255,255,255,.06),transparent 70%),radial-gradient(120% 90% at 50% 115%,rgba(0,0,0,.35),transparent 60%),
   repeating-linear-gradient(90deg,var(--lawn-a) 0 120px,var(--lawn-b) 120px 240px)}
 img{max-width:100%}
@@ -84,7 +84,7 @@ a{color:inherit}
 
 /* ===== en-tête et navigation ===== */
 .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-inline:calc(50% - 50vw);padding:12px max(24px,calc(50vw - 556px));
-  background:rgba(14,58,41,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+  background:#0f3c2b;border-bottom:1px solid var(--rule);transform:translateZ(0)}
 .brand{display:flex;align-items:baseline;gap:4px;background:none;border:0;padding:4px 2px;cursor:pointer;color:var(--ink);line-height:1;flex:none}
 .brand .w1{font-family:var(--f-display);font-weight:500;font-size:21px;letter-spacing:.16em;text-transform:uppercase}
 .brand .w2{font-family:var(--f-script);font-size:28px;color:var(--brass);margin-left:2px;transform:translateY(3px)}
@@ -164,6 +164,9 @@ a{color:inherit}
 .acct{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
 .acct .note{flex:1 1 240px}
 
+/* sections hors écran : rendu différé pour un défilement fluide */
+.sec,.foot{content-visibility:auto;contain-intrinsic-size:auto 640px}
+.cv-off .sec,.cv-off .foot{content-visibility:visible}
 /* sections */
 .sec{display:flex;flex-direction:column;gap:22px;margin-top:46px}
 .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px}
@@ -708,7 +711,7 @@ body.has-chat main{padding-bottom:150px}
       <div class="seo-links"><h4 data-i18n="foot_learn"></h4><nav aria-label="Footballeurs par lettre" id="seoLetters"></nav><ul><li><a href="/joueurs/" data-i18n="foot_az"></a></li><li><a href="/quiz-foot/" data-i18n="foot_about"></a></li></ul></div>
       <div class="foot-bottom">
         <div class="netbar"><span class="label" data-i18n="net_label"></span><span class="leds" id="leds"></span><span class="note" id="netNote"></span></div>
-        <p class="vers">FOOT LETTERS · v12.2</p>
+        <p class="vers">FOOT LETTERS · v12.3</p>
       </div>
     </footer>
   </main>
@@ -1936,7 +1939,7 @@ function closeMenu(){ $('nav').classList.remove('open'); $('menuBtn').setAttribu
 $('menuBtn').addEventListener('click',()=>{ const o=!$('nav').classList.contains('open'); $('nav').classList.toggle('open',o); $('menuBtn').setAttribute('aria-expanded',String(o)); });
 document.addEventListener('click',ev=>{
   const g=ev.target.closest('[data-go]'), m=ev.target.closest('[data-mode]'), bd=ev.target.closest('[data-board]');
-  if(g){ closeMenu(); const id=g.dataset.go; if(id==='boards'){ Boards.open('daily'); return; } if(SCREEN!=='home') show('home'); requestAnimationFrame(()=>{ if(id==='top') window.scrollTo({top:0,behavior:'smooth'}); else { const x=$(id); if(x) x.scrollIntoView({behavior:'smooth',block:'start'}); } }); }
+  if(g){ closeMenu(); const id=g.dataset.go; if(id==='boards'){ Boards.open('daily'); return; } if(SCREEN!=='home') show('home'); document.body.classList.add('cv-off'); requestAnimationFrame(()=>{ if(id==='top') window.scrollTo({top:0,behavior:'smooth'}); else { const x=$(id); if(x) x.scrollIntoView({behavior:'smooth',block:'start'}); } setTimeout(()=>document.body.classList.remove('cv-off'),1500); }); }
   else if(m){ const b=$(m.dataset.mode); if(b) b.click(); }
   else if(bd){ Boards.open(bd.dataset.board); }
   else if(!ev.target.closest('#nav')&&!ev.target.closest('#menuBtn')) closeMenu();
@@ -1946,8 +1949,9 @@ document.addEventListener('click',ev=>{
   const SETS=[['M',['Mbappé','Modrić','Maldini','Messi']],['S',['Salah','Suárez','Saka','Sneijder']],['K',['Kanté','Kaká','Kane','Klose']],['R',['Ronaldo','Rooney','Ribéry','Rashford']]];
   let si=0, step=0, typed=0, secs=0;
   const list=$('demoList'), arc=$('demoArc'), L=$('demoL');
+  let seen=false; try{ new IntersectionObserver(es=>{ seen=es.some(e=>e.isIntersecting); }).observe(list.closest('.demo')); }catch(_){ seen=true; }
   function tick(){
-    if(SCREEN!=='home'||document.hidden||!list) return;
+    if(SCREEN!=='home'||document.hidden||!list||!seen) return;
     const [letter,names]=SETS[si%SETS.length];
     if(step===0){ L.textContent=letter; list.replaceChildren(); secs=0; arc.style.transition='none'; arc.setAttribute('stroke-dashoffset','0'); void arc.getBoundingClientRect(); arc.style.transition=''; }
     secs+=1; arc.setAttribute('stroke-dashoffset',String(Math.min(100,secs*100/14)));
