@@ -9,7 +9,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "private, no-cache"
 
 [[headers]]
   for = "/sw.js"
